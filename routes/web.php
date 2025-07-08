@@ -15,5 +15,8 @@ route::get('/beasiswa', [BeasiswaController::class, 'beasiswa'])->name('beasiswa
 route::get('/beasiswa_create', [BeasiswaController::class, 'beasiswa_create'])->name('beasiswa.create');
 route::post('/beasiswa_store', [BeasiswaController::class, 'beasiswa_store'])->name('beasiswa.store');
 
+route::get('/applicant', [BeasiswaController::class, 'applicant'])->name('applicant');
+route::get('/applicant_detail/{id}', [BeasiswaController::class, 'applicant_detail'])->name('applicant.detail');
+
 route::get('/apply_create/{id}', [BeasiswaController::class, 'apply_create'])->name('apply.create');
-route::get('/apply_store', [BeasiswaController::class, 'apply_store'])->name('apply.store');
+route::post('/apply_store', [BeasiswaController::class, 'apply_store'])->name('apply.store');

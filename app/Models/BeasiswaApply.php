@@ -26,4 +26,5 @@ class BeasiswaApply extends Model
     {
         return $this->belongsTo(Beasiswa::class);
     }
+
 }

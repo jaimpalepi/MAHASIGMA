@@ -11,12 +11,30 @@
 <body>
     <form action="{{ route('apply.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-
-        <label for="ktp">KTP Upload:</label>
-        <input type="file" name="ktp" id="ktp" required>
-
-        <label for="transcript">Transcript Upload:</label>
-        <input type="file" name="transcript" id="transcript" required>
+        <input type="hidden" name="beasiswa_id" id="beasiswa_id" value="{{ $beasiswa }}">
+        <table>
+            <tr>
+                <div>
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" id="name" required>
+                </div>
+            </tr>
+            <tr>
+                <div>
+                    <label for="essay">Essay:</label>
+                    <textarea name="essay" id="essay" cols="30" rows="10"></textarea>
+                </div>
+            </tr>
+            @foreach ($requirements as $r)
+                <tr>
+                    <td>{{ $r->requirement?->name }}</td>
+                    <td>
+                        <input type="file" name="requirements[{{ $r->id }}]" required>
+                    </td>
+                </tr>
+            @endforeach
+            <tr>
+        </table>
 
         <button type="submit">Apply</button>
     </form>
