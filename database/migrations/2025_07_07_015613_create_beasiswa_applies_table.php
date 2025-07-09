@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('beasiswa_applies', function (Blueprint $table) {
             $table->id();
             $table->string("applicant_name");
+            $table->string("email");
 
             $table->unsignedBigInteger('beasiswa_id');
             $table->foreign('beasiswa_id')->references('id')->on('beasiswas')->onDelete('cascade');

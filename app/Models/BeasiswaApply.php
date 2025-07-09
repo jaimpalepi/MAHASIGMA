@@ -11,6 +11,7 @@ class BeasiswaApply extends Model
 
     protected $fillable = [
         'applicant_name',
+        'email',
         'beasiswa_id',
         'essay',
         'documents',

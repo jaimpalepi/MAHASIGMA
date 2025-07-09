@@ -34,7 +34,7 @@ class BeasiswaController extends Controller
 
     public function apply_create($beasiswa){
         $requirements = RequirementsBeasiswa::query()->where('beasiswa_id', $beasiswa)->with('requirement')->get();
-        return view('tes_upload', ['beasiswa' => $beasiswa, 'requirements' => $requirements]);
+        return view('apply.apply', ['beasiswa' => $beasiswa, 'requirements' => $requirements]);
     }
 
     public function apply_store(Request $request)
@@ -54,6 +54,7 @@ class BeasiswaController extends Controller
 
         BeasiswaApply::create([
             'applicant_name' => $request->name,
+            'email' => $request->email,
             'beasiswa_id' => $request->beasiswa_id,
             'essay' => $request->essay,
             'documents' => [
@@ -65,16 +66,8 @@ class BeasiswaController extends Controller
         return redirect()->route('beasiswa')->with('success');
     }
 
-
-
-
-    
-
     public function tes_store(Request $request)
     {
-
-        $ktpPath = $request->file('ktp')->store('documents/ktp', 'public');
-        $transcriptPath = $request->file('transcript')->store('public');
 
         beasiswa_apply::create([
             'applicant_name' => $request->name,
@@ -88,5 +81,10 @@ class BeasiswaController extends Controller
         ]);
 
         return redirect('/');;
+    }
+
+    public function beasiswa_create(){
+        $requirements = Requirements::all();
+        return view('beasiswa.beasiswa_create', ['requirements' => $requirements]);
     }
 }

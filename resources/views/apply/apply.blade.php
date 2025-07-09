@@ -1,37 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    {{-- @vite('resources/css/app.css') --}}
+    <title>Apply</title>
 </head>
+
 <body>
-    <table>
-        <tr>
-            <th>TITLE</th>
-            <th>DESCRIPTION</th>
-            <th>PROVIDER</th>
-            <th>AMOUNT</th>
-            <th>QUOTA</th>
-            <th>DEADLINE</th>
-            <th>STATUS</th>
-            <th>ACTION</th>
-        </tr>
-        @foreach ($beasiswas as $b)
+    <form action="{{ route('apply.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <input type="hidden" name="beasiswa_id" id="beasiswa_id" value="{{ $beasiswa }}">
+        <table>
             <tr>
-                <td>{{ $b->title }}</td>
-                <td>{{ $b->description }}</td>
-                <td>{{ $b->provider }}</td>
-                <td>{{ $b->amount }}</td>
-                <td>{{ $b->quota }}</td>
-                <td>{{ $b->deadline }}</td>
-                <td>{{ $b->status }}</td>
-                <td>
-                    <a href="{{ route('apply_scholarship', ['id' => $b->id]) }}"></a>
-                </td>
+                <div>
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" id="name" required>
+                </div>
             </tr>
-        @endforeach
-    </table>
+            <tr>
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="text" name="email" id="email" required>
+                </div>
+            </tr>
+            <tr>
+                <div>
+                    <label for="essay">Essay:</label>
+                    <textarea name="essay" id="essay" cols="30" rows="10"></textarea>
+                </div>
+            </tr>
+            @foreach ($requirements as $r)
+                <tr>
+                    <td>{{ $r->requirement?->name }}</td>
+                    <td>
+                        <input type="file" name="requirements[{{ $r->id }}]" required>
+                    </td>
+                </tr>
+            @endforeach
+            <tr>
+        </table>
+
+        <button type="submit">Apply</button>
+    </form>
+
 </body>
+
 </html>

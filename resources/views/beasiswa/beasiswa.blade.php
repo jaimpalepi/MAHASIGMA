@@ -10,8 +10,7 @@
 </head>
 
 <body>
-    <div class="flex flex-col justify-center items-center ">
-        <h1>test</h1>
+    <div class="flex flex-col justify-center items-center m-[20px]">
         <div class="w-[1220px] flex flex-col justify-center items-center">
             <table class="w-full border border-gray-300 table-auto">
                 <thead class="bg-gray-100">
