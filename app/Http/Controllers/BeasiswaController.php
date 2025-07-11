@@ -66,6 +66,11 @@ class BeasiswaController extends Controller
         return redirect()->route('beasiswa')->with('success');
     }
 
+    public function apply_delete($id){
+        BeasiswaApply::destroy($id);
+        return redirect()->route('applicant');
+    }
+
     public function tes_store(Request $request)
     {
 
@@ -86,5 +91,34 @@ class BeasiswaController extends Controller
     public function beasiswa_create(){
         $requirements = Requirements::all();
         return view('beasiswa.beasiswa_create', ['requirements' => $requirements]);
+    }
+
+    public function beasiswa_store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'desc' => 'required|string',
+            'desc' => 'required|string',
+            'amount' => 'required|numeric|min:0',
+            'quota' => 'required|integer|min:1',
+            'deadline' => 'required|date|after:today',
+            'requirements' => 'required|array',
+            'requirements.*' => 'exists:requirements,id',
+        ]);
+
+        $beasiswa = Beasiswa::create([
+            'title' => $request->name,
+            'description' => $request->desc,
+            'provider' => $request->provider,
+            'amount' => $request->amount,
+            'quota' => $request->quota,
+            'deadline' => $request->deadline,
+            'status' => 'Available'
+        ]);
+
+        // Sync requirements (many-to-many)
+        $beasiswa->requirements()->sync($request->requirements);
+
+        return redirect()->route('beasiswa');
     }
 }

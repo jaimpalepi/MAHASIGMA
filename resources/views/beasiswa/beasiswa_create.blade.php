@@ -18,6 +18,9 @@
             <label for="desc" class="font-semibold">Description:</label>
             <textarea name="desc" id="desc" rows="4" required class="border px-3 py-2 w-full"></textarea>
 
+            <label for="provider" class="font-semibold">Scholarship Provider:</label>
+            <input type="text" name="provider" id="provider" required class="border px-3 py-2 w-full">
+
             <label for="amount" class="font-semibold">Amount:</label>
             <input type="number" name="amount" id="amount" required class="border px-3 py-2 w-full">
 

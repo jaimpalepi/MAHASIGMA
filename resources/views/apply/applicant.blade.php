@@ -31,6 +31,9 @@
                         <td class="border border-gray-300 px-4 py-2">
                             <a href="{{ route('applicant.detail', ['id' => $a->id]) }}"
                                 class="text-blue-600 hover:underline">Detail</a>
+                                <br>
+                            <a href="{{ route('apply.delete', ['id' => $a->id]) }}"
+                                class="text-blue-600 hover:underline">Delete</a>
                         </td>
                     </tr>
                 @endforeach

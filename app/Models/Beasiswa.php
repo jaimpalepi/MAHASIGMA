@@ -21,7 +21,7 @@ class Beasiswa extends Model
         'status',
     ];
 
-    // 📎 Relationship
+    // Relationship
     public function applications()
     {
         return $this->hasMany(BeasiswaApply::class);
@@ -29,6 +29,7 @@ class Beasiswa extends Model
 
     public function requirements()
     {
-        return $this->belongsToMany(Requirement::class, 'requirements_beasiswa');
+        return $this->belongsToMany(Requirements::class, 'requirements_beasiswas', 'beasiswa_id', 'requirement_id');
     }
+
 }
