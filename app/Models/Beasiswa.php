@@ -13,6 +13,7 @@ class Beasiswa extends Model
 
     protected $fillable = [
         'title',
+        'cover',
         'description',
         'provider',
         'amount',

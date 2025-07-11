@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('beasiswas', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('cover');
             $table->longText('description');
             $table->string('provider');
             $table->bigInteger('votes');
