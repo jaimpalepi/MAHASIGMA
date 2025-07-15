@@ -95,9 +95,13 @@ class BeasiswaController extends Controller
 
     public function beasiswa_store(Request $request)
     {
+        $file = $request->file('cover');
+        $originalName = $file->getClientOriginalName(); 
+        $path = $file->storeAs('documents/requirements', $originalName, 'public');
+
         $request->validate([
             'name' => 'required|string|max:255',
-            'desc' => 'required|string',
+            'cover' => 'required',
             'desc' => 'required|string',
             'amount' => 'required|numeric|min:0',
             'quota' => 'required|integer|min:1',
@@ -108,6 +112,7 @@ class BeasiswaController extends Controller
 
         $beasiswa = Beasiswa::create([
             'title' => $request->name,
+            'cover' => $path,
             'description' => $request->desc,
             'provider' => $request->provider,
             'amount' => $request->amount,

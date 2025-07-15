@@ -41,9 +41,11 @@
         <div class="w-[1220px] flex flex-col justify-center items-center mt-[20px] mb-[50px]">
             <h1 class="text-[40px] font-semibold mr-auto mb-[20px]">Open Scholarship</h1>
             <div class="cardHolder grid grid-cols-3 gap-[30px]">
+            
+                {{-- cards goes here --}}
                 @foreach ($beasiswas as $b)
                     <div class="cards w-[300px] rounded-[10px] shadow-2xl hover:cursor-pointer hover:scale-[1.03] transition-transform duration-200">
-                        <img class="w-full h-[200px] rounded-t-[10px]" src="/image/fourfour.jpg" alt="">
+                        <img class="w-full h-[200px] rounded-t-[10px]" src="{{ asset('storage/' . $b->cover) }}" alt="">
                         <div class="texts p-[15px] flex flex-col gap-[3px] h-[170px]">
                             <h3 class="text-[20px] font-semibold truncate leading-none">{{ $b->title }}</h3>
                             <p class="text-[17px] leading-none">{{ $b->provider }}</p>

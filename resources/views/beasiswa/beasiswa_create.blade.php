@@ -9,11 +9,14 @@
 </head>
 
 <body class="bg-gray-100 p-8">
-    <form action="{{ route('beasiswa.store') }}" method="POST">
+    <form action="{{ route('beasiswa.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="flex flex-col items-start gap-4 max-w-xl mx-auto bg-white p-6 rounded-lg shadow">
             <label for="name" class="font-semibold">Scholarship Name:</label>
             <input type="text" name="name" id="name" required class="border px-3 py-2 w-full">
+
+            <label for="cover" class="font-semibold">Scholarship Cover Image:</label>
+            <input type="file" name="cover" id="cover" required class="border px-3 py-2 w-full">
 
             <label for="desc" class="font-semibold">Description:</label>
             <textarea name="desc" id="desc" rows="4" required class="border px-3 py-2 w-full"></textarea>
