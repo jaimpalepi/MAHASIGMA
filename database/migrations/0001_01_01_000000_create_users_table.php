@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('nim')->unique();
             
             $table->unsignedBigInteger('jurusan_id');
-            $table->foreign('jurusan_id')->references('id')->on('jurusan')->onDelete('cascade');
+            $table->foreign('jurusan_id')->references('id')->on('jurusans')->onDelete('cascade');
 
             $table->string('password');
             $table->timestamps();
