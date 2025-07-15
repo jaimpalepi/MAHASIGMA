@@ -16,7 +16,7 @@
                 @csrf
                 <div>
                     <label for="email" class="block text-gray-700 mb-1">Email</label>
-                    <input type="text" id="email" name="email" value="{{ old('email') }}" class="w-full border-b border-green-300 focus:border-green-500 outline-none py-2 px-1 bg-transparent"
+                    <input type="text" id="email" name="email" value="{{ old('email') }}" class="w-full border-b border-blue-300 focus:border-blue-500 outline-none py-2 px-1 bg-transparent"
                         placeholder="Email">
                     @error('email')
                         <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
@@ -24,21 +24,21 @@
                 </div>
                 <div>
                     <label for="password" class="block text-gray-700 mb-1">Password</label>
-                    <input type="password" id="password" name="password" class="w-full border-b border-green-300 focus:border-green-500 outline-none py-2 px-1 bg-transparent"
+                    <input type="password" id="password" name="password" class="w-full border-b border-blue-300 focus:border-blue-500 outline-none py-2 px-1 bg-transparent"
                         placeholder="Password">
                     @error('password')
                         <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
                     @enderror
                 </div>
                 <button type="submit"
-                    class="w-full py-2 rounded-full bg-gradient-to-r from-green-400 to-green-500 text-white font-semibold shadow hover:from-green-500 hover:to-green-400 transition">LOGIN</button>
+                    class="w-full py-2 rounded-full bg-gradient-to-r from-blue-400 to-blue-500 text-white font-semibold shadow hover:from-blue-500 hover:to-blue-400 transition">LOGIN</button>
             </form>
             <div class="mt-6 text-center">
-                <a href="{{ route('register') }}" class="text-green-500 hover:underline text-sm">Belum punya akun?</a>
+                <a href="{{ route('register') }}" class="text-blue-500 hover:underline text-sm">Belum punya akun?</a>
             </div>
             <div class="mt-4 text-center">
                 <a href="{{ route('beasiswa') }}"
-                    class="inline-block px-4 py-2 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-500 text-white font-semibold shadow hover:from-yellow-500 hover:to-yellow-400 transition">
+                    class="inline-block px-4 py-2 rounded-full bg-gradient-to-r from-blue-400 to-blue-500 text-white font-semibold shadow hover:from-blue-500 hover:to-blue-400 transition">
                     &larr; Kembali
                 </a>
             </div>
