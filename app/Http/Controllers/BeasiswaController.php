@@ -16,6 +16,11 @@ class BeasiswaController extends Controller
         return view('beasiswa.beasiswa', ['beasiswas' => $beasiswas]);
     }
 
+    public function beasiswa_detail($id){
+        $beasiswa = Beasiswa::with('requirements')->find($id);
+        return view('beasiswa.beasiswa_detail', ['beasiswa' => $beasiswa]);
+    }
+
     public function applicant(){
         $applicants = BeasiswaApply::with('beasiswa')->get();
         return view('apply.applicant', ['applicants' => $applicants]);
@@ -97,7 +102,7 @@ class BeasiswaController extends Controller
     {
         $file = $request->file('cover');
         $originalName = $file->getClientOriginalName(); 
-        $path = $file->storeAs('documents/requirements', $originalName, 'public');
+        $path = $file->storeAs('documents/requirements', $originalName, 'public');          
 
         $request->validate([
             'name' => 'required|string|max:255',

@@ -18,6 +18,7 @@ route::get('/tes_up', [BeasiswaController::class, 'tes'])->name('tes');
 route::post('/tes_up', [BeasiswaController::class, 'tes_store'])->name('apply.store');
 
 route::get('/beasiswa', [BeasiswaController::class, 'beasiswa'])->name('beasiswa');
+route::get('/beasiswa/{id}', [BeasiswaController::class, 'beasiswa_detail'])->name('beasiswa.detail');
 
 route::get('/beasiswa_create', [BeasiswaController::class, 'beasiswa_create'])->name('beasiswa.create');
 route::post('/beasiswa_store', [BeasiswaController::class, 'beasiswa_store'])->name('beasiswa.store');
@@ -29,3 +30,5 @@ route::get('/apply_create/{id}', [BeasiswaController::class, 'apply_create'])->n
 route::post('/apply_store', [BeasiswaController::class, 'apply_store'])->name('apply.store');
 
 route::get('/apply_delete/{id}', [BeasiswaController::class, 'apply_delete'])->name('apply.delete');
+
+route::get('/logout', [AuthController::class, 'logout'])->name('logout');

@@ -20,6 +20,7 @@ class AuthController extends Controller
             'email' => 'required',
             'password' => 'required',
         ]);
+
         if (!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             return back()->withErrors([
                 'login' => 'Wrong email or password',
@@ -27,7 +28,9 @@ class AuthController extends Controller
         }
 
         $request->session()->regenerate();
-        return redirect()->route('beasiswa');
+
+        // fallback to home if 'redirect' not present
+        return redirect($request->input('redirect'));
     }
 
     public function showRegister(){
@@ -57,5 +60,13 @@ class AuthController extends Controller
         ]);
 
         return redirect()->route('login');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('beasiswa')->with('success', 'Logout Success');
     }
 }

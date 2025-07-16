@@ -14,6 +14,7 @@
         <h1>Login</h1>
         <form action="{{ route('login') }}" method="post">
             @csrf
+            <input type="hidden" name="redirect" value="{{ request('redirect') }}">
             <div class="txt_field">
                 <input type="text" name="email" value="{{ old('email') }}" placeholder="email">
                 @error('email')
