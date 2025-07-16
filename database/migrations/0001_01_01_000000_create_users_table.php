@@ -17,9 +17,6 @@ return new class extends Migration
             $table->string('role');
             $table->string('email')->unique();
             $table->string('nim')->unique();
-            
-            $table->unsignedBigInteger('jurusan_id');
-            $table->foreign('jurusan_id')->references('id')->on('jurusans')->onDelete('cascade');
 
             $table->string('password');
             $table->timestamps();
