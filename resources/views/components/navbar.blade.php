@@ -13,7 +13,8 @@
             <a href="{{ route('login', ['redirect' => url()->current()]) }}"
                 class="text-white bg-gradient-to-r from-cyan-400 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-[5px] text-[15px] px-6 py-2 text-center transition-all shadow-none">Login</a>
             <a href="{{ route('show.register') }}"
-                class="relative inline-flex items-center justify-center px-6 py-2 font-medium text-gray-900 rounded-[5px] group bg-gradient-to-r from-green-400 to-blue-500 focus:ring-4 focus:outline-none focus:ring-green-200 text-[15px] transition-all shadow-none">Register</a>
+    class="text-white bg-gradient-to-r from-green-400 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-[5px] text-[15px] px-6 py-2 text-center transition-all shadow-none">Register</a>
+
         </div>
     @endif
 </div>
