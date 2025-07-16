@@ -14,6 +14,7 @@
             <h2 class="text-center text-2xl font-semibold tracking-wide mb-8 text-gray-700">LOGIN</h2>
             <form action="{{ route('login') }}" method="post" class="space-y-6">
                 @csrf
+                <input type="hidden" name="redirect" value="{{request('redirect')}}">
                 <div>
                     <label for="email" class="block text-gray-700 mb-1">Email</label>
                     <input type="text" id="email" name="email" value="{{ old('email') }}" class="w-full border-b border-blue-300 focus:border-blue-500 outline-none py-2 px-1 bg-transparent"
