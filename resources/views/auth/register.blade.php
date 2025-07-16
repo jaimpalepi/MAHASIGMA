@@ -8,7 +8,7 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="min-h-screen flex items-center justify-center bg-gradient-to-b bg-gradient-to-b from-yellow-200 to-yellow-500">
+<body class="min-h-screen flex items-center justify-center bg-gradient-to-b from-yellow-200 to-yellow-500">
     <div class="w-full max-w-md my-16">
         <div class="bg-white rounded-lg shadow-lg px-8 py-10">
             <h2 class="text-center text-2xl font-semibold tracking-wide mb-8 text-gray-700">REGISTER</h2>
