@@ -4,7 +4,13 @@
     <div class="spacer w-[100%] h-[1px]"></div>
     @if (Auth::user())
         <div class="flex justify-end items-center gap-[20px]">
-            <a href="{{ route('logout') }}"
+                 @if (Auth::user()->role == 'admin')
+                    {{-- Menu khusus untuk Admin --}}
+                    <a href="{{ route('applicant') }}" class="font-medium text-gray-600 hover:text-blue-500">Daftar Pelamar</a>
+                    <a href="{{ route('beasiswa.create') }}" class="font-medium text-gray-600 hover:text-blue-500">Buat Beasiswa</a>
+                @endif
+        
+                <a href="{{ route('logout') }}"
                 class="text-white bg-gradient-to-r from-cyan-400 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-[5px] text-[15px] px-6 py-2 text-center transition-all shadow-none">Logout</a>
         </div>
     @else
