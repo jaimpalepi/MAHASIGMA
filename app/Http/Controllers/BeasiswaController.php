@@ -7,6 +7,7 @@ use App\Models\BeasiswaApply;
 use App\Models\Beasiswa;
 use App\Models\RequirementsBeasiswa;
 use App\Models\Requirements;
+use Illuminate\Support\Facades\Auth;
 
 class BeasiswaController extends Controller
 {
@@ -38,6 +39,13 @@ class BeasiswaController extends Controller
     }
 
     public function apply_create($beasiswa){
+        // Periksa apakah pengguna sudah login
+        if (!Auth::check()) {
+            // Jika belum, alihkan ke halaman login dengan membawa URL tujuan
+            return redirect()->route('login', ['redirect' => route('apply.create', $beasiswa)]);
+        }
+
+        // Jika sudah login, lanjutkan ke formulir pendaftaran
         $beasiswa1 = Beasiswa::find($beasiswa);
         $requirements = RequirementsBeasiswa::query()->where('beasiswa_id', $beasiswa)->with('requirement')->get();
         return view('apply.apply', ['beasiswa' => $beasiswa, 'requirements' => $requirements, 'beasiswa1' => $beasiswa1]);
