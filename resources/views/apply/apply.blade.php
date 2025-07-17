@@ -12,9 +12,11 @@
 <body>
     <x-navbar />
 
-    <div class="container flex flex-col justify-center items-center py-[30px] w-full">
+    <x-back-btn />
+
+    <div class=" flex flex-col justify-center items-center py-[30px] ">
         <form action="{{ route('apply.store') }}" method="POST" enctype="multipart/form-data"
-            class="flex flex-col justify-center items-center w-[90%]">
+            class="flex flex-col justify-center items-center">
             @csrf
             <div
                 class="flex flex-col gap-[25px] justify-center items-center bg-white shadow-2xl rounded-[10px] w-full p-[25px] box-border">
@@ -48,7 +50,7 @@
                     <input class="w-full hover:cursor-pointer border-[#9d9d9d] border-[2px] p-[10px] box-border" type="file" name="requirements[{{ $r->id }}]" required>
                 </div>
                 @endforeach
-                <button type="submit" class="hover:cursor-pointer bg-blue-500 w-full p-[10px] box-border text-white font-semibold hover:bg-blue-700 transition-all ease-in-out mt-[30px]">APPLY</button>
+                <button type="submit" class="hover:cursor-pointer bg-blue-500 w-full p-[10px] box-border text-white font-semibold hover:bg-blue-700 transition-all ease-in-out mt-[30px] rounded-[5px]">APPLY</button>
             </div>
         </form>
     </div>

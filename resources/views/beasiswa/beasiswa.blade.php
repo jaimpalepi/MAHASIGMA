@@ -17,37 +17,109 @@
     <x-navbar />
 
     <div class="flex flex-col justify-center items-center">
-        <div class="hero relative w-full h-[300px] lg:h-[500px] overflow-hidden ">
+        <div class="hero relative w-full h-[300px] lg:h-[calc(100vh-58px)] overflow-hidden">
             <img src="/image/bakushin.webp" alt="pingas" class="w-full h-full object-cover">
 
             <!-- Gradient Overlay -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#323945] to-transparent"></div>
 
             <!-- Text Overlay -->
-            <h1 class="absolute bottom-7 lg:bottom-11 left-3.5 text-white text-[40px] lg:text-[80px] font-bold z-10">BEASISWA</h1>
-            <p class="absolute bottom-4 lg:bottom-6 left-4 lg:left-6 text-white text-[15px] lg:text-[30px] font-medium z-10">Chase your dreams, apply NOW!
+            <h1 class="absolute bottom-7 lg:bottom-11 left-3.5 text-white text-[40px] lg:text-[80px] font-bold z-10">
+                BEASISWA</h1>
+            <p
+                class="absolute bottom-4 lg:bottom-6 left-4 lg:left-6 text-white text-[15px] lg:text-[30px] font-medium z-10">
+                Chase your dreams, apply NOW!
             </p>
         </div>
 
-        <div class="w-[95%] box-border lg:w-[1220px] flex flex-col justify-center items-center mt-[20px] mb-[20px]">
-            @if ($beasiswas)
-                <h1 class="text-[40px] font-semibold mr-auto mb-[20px]">Open Scholarship</h1>
-                <div class="w-full cardHolder grid grid-cols-1 lg:grid-cols-3 gap-[30px] mb-[20px] place-items-center">
+        <div class="w-[95%] box-border lg:w-[1220px] flex flex-col justify-center items-center mb-[20px]">
 
-                    {{-- cards goes here --}}
-                    @foreach ($beasiswas as $b)
-                        <div onclick="window.location.href = 'beasiswa/{{ $b->id }}'"
-                            class="cards w-[80%] rounded-[10px] shadow-2xl hover:cursor-pointer hover:scale-[1.03] transition-transform duration-200">
-                            <img class="w-full h-[200px] rounded-t-[10px]" src="{{ asset('storage/' . $b->cover) }}"
-                                alt="">
-                            <div class="texts p-[15px] flex flex-col gap-[3px] h-[170px]">
-                                <h3 class="text-[20px] font-semibold truncate leading-none">{{ $b->title }}</h3>
-                                <p class="text-[17px] leading-none line-clamp-1">{{ $b->provider }}</p>
-                                <p class="text-[15px] leading-none line-clamp-4 mt-[7px]">{{ $b->description }}</p>
-                                <p class="mt-auto ml-auto text-[13px]">{{ $b->created_at?->format('d M Y') }}</p>
+            <div class="spacer h-[100px] w-[1px]"></div>
+
+            <h1 class="text-[100px] font-black p-0 m-0 text-center leading-[100px] text-[#fcd008]">
+                EPSTEIN DID NOT KILL HIMSELF
+            </h1>
+
+            <h3 class="text-[20px] font-semibold mt-[20px]">Our Achievement</h3>
+            <p class="text-[15px] font-medium mb-[10px]">No, not the guy who make the website, the thing dude, the
+                website itself...just see below man</p>
+
+            <div class="w-[1000px] bg-white border-[2px] border-[#fcd008] rounded-[10px] px-[10px] py-[20px]">
+                <div class="grid grid-cols-3 divide-x divide-[#fcd008]">
+                    <div class="counter px-[20px] text-center">
+                        <h2 class="text-[40px] font-semibold leading-none mb-[5px] text-[#fcd008]">1 MORBILLION</h2>
+                        <p class="text-[#fcd008]">Explanation bla bla bla (boring stuff)</p>
+                    </div>
+                    <div class="counter px-[20px] text-center">
+                        <h2 class="text-[40px] font-semibold leading-none mb-[5px] text-[#fcd008]">1 MORBILLION</h2>
+                        <p class="text-[#fcd008]">Explanation bla bla bla (boring stuff)</p>
+                    </div>
+                    <div class="counter px-[20px] text-center">
+                        <h2 class="text-[40px] font-semibold leading-none mb-[5px] text-[#fcd008]">1 MORBILLION</h2>
+                        <p class="text-[#fcd008]">Explanation bla bla bla (boring stuff)</p>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="spacer h-[50px] w-[1px]"></div>
+
+            @if ($beasiswas)
+
+                <div>
+                    <h1 class="text-[40px] font-semibold mr-auto mb-[20px]">Beasiswa-Beasiswa Ini Akan Segera Tutup Pendaftaran!</h1>
+                    <div
+                        class="w-full cardHolder grid grid-cols-1 lg:grid-cols-3 gap-[30px] mb-[20px] place-items-center">
+
+                        {{-- cards goes here --}}
+                        @foreach ($beasiswas as $b)
+                            <div onclick="window.location.href = 'beasiswa/{{ $b->id }}'"
+                                class="cards relative w-[80%] rounded-[10px] shadow-2xl hover:cursor-pointer hover:scale-[1.03] transition-transform duration-200">
+                                <img class="w-full h-[200px] rounded-t-[10px]" src="{{ asset('storage/' . $b->cover) }}"
+                                    alt="">
+                                <div class="bannerThingieShadow bg-red-700 absolute top-[83px] left-[13px] rotate-[45deg] z-[-10] w-[50px] h-[100px]"></div>
+                                <div class="bannerThingie absolute bg-red-500 flex flex-col justify-center items-start p-[10px] left-[-15px] top-[150px] rounded-br-[20px]">
+                                    <h2 class="text-[13px] font-medium text-white">
+                                        DEADLINE PENDAFTARAN:
+                                    </h2>
+                                    <h2 class="text-[13px] font-medium text-white">
+                                        {{$b->deadline}}
+                                    </h2>
+                                </div>
+                                <div class="texts p-[15px] flex flex-col gap-[3px] h-[170px]">
+                                    <h3 class="text-[20px] font-semibold truncate leading-none">{{ $b->title }}</h3>
+                                    <p class="text-[17px] leading-none line-clamp-1">{{ $b->provider }}</p>
+                                    <p class="text-[15px] leading-none line-clamp-4 mt-[7px]">{{ $b->description }}</p>
+                                    <p class="mt-auto ml-auto text-[13px]">{{ $b->created_at?->format('d M Y') }}</p>
+                                </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="spacer h-[50px] w-[1px]"></div>
+
+                <div>
+                    <h1 class="text-[40px] font-semibold mr-auto mb-[20px]">Open Scholarship</h1>
+                    <div
+                        class="w-full cardHolder grid grid-cols-1 lg:grid-cols-3 gap-[30px] mb-[20px] place-items-center">
+
+                        {{-- cards goes here --}}
+                        @foreach ($beasiswas as $b)
+                            <div onclick="window.location.href = 'beasiswa/{{ $b->id }}'"
+                                class="cards w-[80%] rounded-[10px] shadow-2xl hover:cursor-pointer hover:scale-[1.03] transition-transform duration-200">
+                                <img class="w-full h-[200px] rounded-t-[10px]" src="{{ asset('storage/' . $b->cover) }}"
+                                    alt="">
+                                <div class="texts p-[15px] flex flex-col gap-[3px] h-[170px]">
+                                    <h3 class="text-[20px] font-semibold truncate leading-none">{{ $b->title }}</h3>
+                                    <p class="text-[17px] leading-none line-clamp-1">{{ $b->provider }}</p>
+                                    <p class="text-[15px] leading-none line-clamp-4 mt-[7px]">{{ $b->description }}</p>
+                                    <p class="mt-auto ml-auto text-[13px]">{{ $b->created_at?->format('d M Y') }}</p>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             @else
                 <h1 class="text-[40px] font-semibold">No Open Scholarship</h1>
