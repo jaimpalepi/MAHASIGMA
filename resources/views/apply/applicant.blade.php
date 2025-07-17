@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    <x-navbar />
     <div class="flex flex-col items-center justify-center m-[20px]">
         <div class="flex flex-col items-center justify-center w-[1220px]">
             <table class="w-full border border-gray-300 table-auto">

@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap"
         rel="stylesheet">
-    <title>Document</title>
+    <title>BEASISWA UNSOED</title>
 </head>
 
 <body>
@@ -44,7 +44,7 @@
                                 <h3 class="text-[20px] font-semibold truncate leading-none">{{ $b->title }}</h3>
                                 <p class="text-[17px] leading-none line-clamp-1">{{ $b->provider }}</p>
                                 <p class="text-[15px] leading-none line-clamp-4 mt-[7px]">{{ $b->description }}</p>
-                                <p class="mt-auto ml-auto text-[13px]">{{ $b->created_at->format('d M Y') }}</p>
+                                <p class="mt-auto ml-auto text-[13px]">{{ $b->created_at?->format('d M Y') }}</p>
                             </div>
                         </div>
                     @endforeach

@@ -4,8 +4,20 @@
     <div class="spacer w-[100%] h-[1px]"></div>
     @if (Auth::user())
         <div class="flex justify-end items-center gap-[20px]">
+            @if (Auth::user()->role == 'admin')
+                    {{-- Menu khusus untuk Admin --}}
+                    <div class="inline-flex rounded-md shadow-sm" role="group">
+                        <a href="{{ route('applicant') }}" class="px-6 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 whitespace-nowrap">
+                            Daftar Pelamar
+                        </a>
+                        <a href="{{ route('beasiswa.create') }}" class="px-6 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-r border-gray-200 rounded-r-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 whitespace-nowrap">
+                            Buat Beasiswa
+                        </a>
+                    </div>
+            @endif
+
             <a href="{{ route('logout') }}"
-                class="bg-[#28c062] hidden lg:block p-[10px] text-[15px] leading-none text-white font-medium rounded-[5px] hover:bg-[#1ba669] transition-all">
+                class="hidden lg:block p-[10px] text-[15px] leading-none text-white font-medium rounded-[5px] transition-all bg-gradient-to-r from-cyan-400 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 text-center shadow-none">
                 Logout
             </a>
 
@@ -44,7 +56,7 @@
                 <a href="{{ route('show.login', ['redirect' => url()->current()]) }}"
                     class="leading-none p-[15px] w-full box-border text-right hover:bg-gray-200 transition-all ease-in-out">Login</a>
                 <a href="{{ route('show.register') }}"
-                    class="leading-none p-[15px] w-full box-border text-right hover:bg-gray-200 transition-all ease-in-out">Register</a>
+                    class="leading-none p-[15px] w-full box-border text-right hover:bg-gray-200 transition-all ease-in-out ">Register</a>
             </div>
 
         </div>
