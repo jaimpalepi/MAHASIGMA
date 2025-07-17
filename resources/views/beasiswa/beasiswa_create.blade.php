@@ -25,7 +25,7 @@
             <input type="text" name="provider" id="provider" required class="border px-3 py-2 w-full">
 
             <label for="amount" class="font-semibold">Amount:</label>
-            <input type="number" name="votes" id="votes" required class="border px-3 py-2 w-full">
+            <input type="number" name="amount" id="amount" required class="border px-3 py-2 w-full">
 
             <label for="quota" class="font-semibold">Quota:</label>
             <input type="number" name="quota" id="quota" required class="border px-3 py-2 w-full">
