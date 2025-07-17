@@ -8,6 +8,7 @@ use App\Models\Beasiswa;
 use App\Models\RequirementsBeasiswa;
 use App\Models\Requirements;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class BeasiswaController extends Controller
 {
@@ -39,13 +40,10 @@ class BeasiswaController extends Controller
     }
 
     public function apply_create($beasiswa){
-        // Periksa apakah pengguna sudah login
         if (!Auth::check()) {
-            // Jika belum, alihkan ke halaman login dengan membawa URL tujuan
             return redirect()->route('login', ['redirect' => route('apply.create', $beasiswa)]);
         }
 
-        // Jika sudah login, lanjutkan ke formulir pendaftaran
         $beasiswa1 = Beasiswa::find($beasiswa);
         $requirements = RequirementsBeasiswa::query()->where('beasiswa_id', $beasiswa)->with('requirement')->get();
         return view('apply.apply', ['beasiswa' => $beasiswa, 'requirements' => $requirements, 'beasiswa1' => $beasiswa1]);
@@ -53,7 +51,6 @@ class BeasiswaController extends Controller
 
     public function apply_store(Request $request)
     {
-        // Handle dynamic requirement uploads
         $requirementFiles = $request->file('requirements');
         $requirementPaths = [];
 
@@ -92,20 +89,24 @@ class BeasiswaController extends Controller
 
     public function beasiswa_store(Request $request)
     {
-        $file = $request->file('cover');
-        $originalName = $file->getClientOriginalName(); 
-        $path = $file->storeAs('documents/cover', $originalName, 'public');          
-
         $request->validate([
             'name' => 'required|string|max:255',
-            'cover' => 'required',
+            'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'desc' => 'required|string',
+            'provider' => 'required|string|max:255',
             'amount' => 'required|string',
             'quota' => 'required|integer|min:1',
             'deadline' => 'required|date|after:today',
             'requirements' => 'required|array',
             'requirements.*' => 'exists:requirements,id',
         ]);
+
+        $path = null;
+        if ($request->hasFile('cover')) {
+            $file = $request->file('cover');
+            $fileName = uniqid('cover_') . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('documents/cover', $fileName, 'public');
+        }
 
         $beasiswa = Beasiswa::create([
             'title' => $request->name,
@@ -118,9 +119,65 @@ class BeasiswaController extends Controller
             'status' => 'Available'
         ]);
 
-        // Sync requirements (many-to-many)
         $beasiswa->requirements()->sync($request->requirements);
 
         return redirect()->route('beasiswa');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($id)
+    {
+        $beasiswa = Beasiswa::with('requirements')->findOrFail($id);
+        $all_requirements = Requirements::all();
+        return view('beasiswa.beasiswa_edit', compact('beasiswa', 'all_requirements'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, $id)
+    {
+        $beasiswa = Beasiswa::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'cover' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Cover is now optional
+            'desc' => 'required|string',
+            'provider' => 'required|string|max:255',
+            'amount' => 'required|string',
+            'quota' => 'required|integer|min:1',
+            'deadline' => 'required|date',
+            'requirements' => 'required|array',
+            'requirements.*' => 'exists:requirements,id',
+        ]);
+
+        $path = $beasiswa->cover;
+        if ($request->hasFile('cover')) {
+            // Delete old cover if it exists
+            if ($beasiswa->cover) {
+                Storage::disk('public')->delete($beasiswa->cover);
+            }
+            // Store new cover
+            $file = $request->file('cover');
+            $fileName = uniqid('cover_') . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('documents/cover', $fileName, 'public');
+        }
+
+        $beasiswa->update([
+            'title' => $request->name,
+            'cover' => $path,
+            'description' => $request->desc,
+            'provider' => $request->provider,
+            'amount' => $request->amount,
+            'quota' => $request->quota,
+            'deadline' => $request->deadline,
+        ]);
+
+        $beasiswa->requirements()->sync($request->requirements);
+        
+        
+        return redirect()->route('beasiswa.detail', $beasiswa->id)->with('success', 'Beasiswa updated successfully!');
     }
 }

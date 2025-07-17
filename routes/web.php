@@ -22,6 +22,8 @@ route::get('/beasiswa/{id}', [BeasiswaController::class, 'beasiswa_detail'])->na
 
 route::get('/beasiswa_create', [BeasiswaController::class, 'beasiswa_create'])->name('beasiswa.create');
 route::post('/beasiswa_store', [BeasiswaController::class, 'beasiswa_store'])->name('beasiswa.store');
+Route::get('/beasiswa/{id}/edit', [BeasiswaController::class, 'edit'])->name('beasiswa.edit');
+Route::put('/beasiswa/{id}', [BeasiswaController::class, 'update'])->name('beasiswa.update');
 
 route::get('/applicant', [BeasiswaController::class, 'applicant'])->name('applicant');
 route::get('/applicant_detail/{id}', [BeasiswaController::class, 'applicant_detail'])->name('applicant.detail');
