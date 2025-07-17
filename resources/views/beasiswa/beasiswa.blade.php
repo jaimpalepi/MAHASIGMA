@@ -44,7 +44,7 @@
                                 <h3 class="text-[20px] font-semibold truncate leading-none">{{ $b->title }}</h3>
                                 <p class="text-[17px] leading-none">{{ $b->provider }}</p>
                                 <p class="text-[15px] leading-none line-clamp-4 mt-[7px]">{{ $b->description }}</p>
-                                <p class="mt-auto ml-auto text-[13px]">{{ $b->created_at->format('d M Y') }}</p>
+                                <p class="mt-auto ml-auto text-[13px]">{{ $b->created_at?->format('d M Y') }}</p>
                             </div>
                         </div>
                     @endforeach
