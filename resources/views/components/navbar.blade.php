@@ -1,6 +1,6 @@
 <div
     class="flex justify-start items-center w-full sticky top-0 bg-white p-[10px] pl-[50px] pr-[50px] border-b-[1px] border-[#a9a9a9] box-border z-[100]">
-    <h3 class="text-[25px] font-semibold font-title">BEASISWA</h3>
+    <a href="{{ route('beasiswa') }}" class="text-[25px] font-semibold font-title">BEASISWA</a>
     <div class="spacer w-[100%] h-[1px]"></div>
     @if (Auth::user())
         <div class="flex justify-end items-center gap-[20px]">
