@@ -12,23 +12,23 @@
 <body>
     <x-navbar />
     <div class="flex flex-col justify-center items-center">
-        <img class="h-[450px] w-full object-cover" src="{{ asset('storage/' . $beasiswa->cover) }}" alt="">
-        <div class="w-[1220px] flex flex-col justify-center items-start pb-[20px]">
+        <img class="h-[250px] lg:h-[450px] w-full object-cover" src="{{ asset('storage/' . $beasiswa->cover) }}" alt="">
+        <div class="w-[85%] lg:w-[1220px] flex flex-col justify-center items-start pb-[20px]">
             <div class="titleText flex flex-col justify-baseline items-start mt-[15px]">
-                <h1 class="text-[50px] font-bold leading-none">{{ $beasiswa->title }}</h1>
+                <h1 class="text-[35px] lg:text-[50px] font-bold leading-none">{{ $beasiswa->title }}</h1>
                 <h3 class="text-[17px] font-medium leading-none mb-[5px] mt-[10px]">Sponsored by:
                     {{ $beasiswa->provider }}
                 </h3>
                 <h2>Posted at {{ $beasiswa->created_at }}</h2>
             </div>
-            <p class="text-justify mt-[20px] text-[20px]">{!! nl2br(e($beasiswa->description)) !!}</p>
+            <p class="text-justify mt-[15px] lg:mt-[20px] text-[20px]">{!! nl2br(e($beasiswa->description)) !!}</p>
 
             <h2 class="text-[35px] font-medium mt-[20px]">DETAILS</h2>
 
             <ul class="list-disc ml-[40px]">
                 <li>
                     <p class="text-[15px]">
-                        Scholarship Amount: <strong>Rp{{ number_format($beasiswa->amount, 0, ',', '.') }}</strong>
+                        Scholarship Amount: <strong>{{$beasiswa->amount}}</strong>
                     </p>
                 </li>
                 <li>
@@ -47,9 +47,10 @@
                         {{ $requirement->name }}
                     </li>
                 @endforeach
-            </ul>
-
-            <a class="bg-blue-500 px-6 py-2 rounded-[5px] text-white text-[20px] text-bold mt-[20px]" href="{{route('apply.create', ['id' => $beasiswa->id])}}">APPLY NOW</a>
+            </ul>   
+            <div class="mt-[20px] w-full flex items-center justify-center lg:justify-start">
+                <a class="bg-blue-500 px-6 py-2 rounded-[5px] text-white text-[20px] text-bold hover:bg-blue-700 transition-all ease-in-out" href="{{route('apply.create', ['id' => $beasiswa->id])}}">APPLY NOW</a>
+            </div>
         </div>
     </div>
     <x-footer />

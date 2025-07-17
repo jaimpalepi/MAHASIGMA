@@ -38,8 +38,9 @@ class BeasiswaController extends Controller
     }
 
     public function apply_create($beasiswa){
+        $beasiswa1 = Beasiswa::find($beasiswa);
         $requirements = RequirementsBeasiswa::query()->where('beasiswa_id', $beasiswa)->with('requirement')->get();
-        return view('apply.apply', ['beasiswa' => $beasiswa, 'requirements' => $requirements]);
+        return view('apply.apply', ['beasiswa' => $beasiswa, 'requirements' => $requirements, 'beasiswa1' => $beasiswa1]);
     }
 
     public function apply_store(Request $request)
@@ -76,23 +77,6 @@ class BeasiswaController extends Controller
         return redirect()->route('applicant');
     }
 
-    public function tes_store(Request $request)
-    {
-
-        beasiswa_apply::create([
-            'applicant_name' => $request->name,
-            'beasiswa_id' => $request->$b_id,
-            'essay' => "aaa",
-            'documents' => json_encode([
-                'ktp' => $ktpPath,
-                'transcript' => $transcriptPath,
-            ]),
-            'status' => 'pending',
-        ]);
-
-        return redirect('/');;
-    }
-
     public function beasiswa_create(){
         $requirements = Requirements::all();
         return view('beasiswa.beasiswa_create', ['requirements' => $requirements]);
@@ -102,13 +86,13 @@ class BeasiswaController extends Controller
     {
         $file = $request->file('cover');
         $originalName = $file->getClientOriginalName(); 
-        $path = $file->storeAs('documents/requirements', $originalName, 'public');          
+        $path = $file->storeAs('documents/cover', $originalName, 'public');          
 
         $request->validate([
             'name' => 'required|string|max:255',
             'cover' => 'required',
             'desc' => 'required|string',
-            'amount' => 'required|numeric|min:0',
+            'amount' => 'required|string',
             'quota' => 'required|integer|min:1',
             'deadline' => 'required|date|after:today',
             'requirements' => 'required|array',
