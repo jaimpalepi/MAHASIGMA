@@ -19,6 +19,11 @@
     <div x-data="{
         active: 0,
         total: {{ $unggulan->count() }},
+        init() {
+            setInterval(() => {
+                this.active = (this.active + 1) % this.total;
+            }, 3000);
+        },
         next() {
             this.active = (this.active + 1) % this.total
         },
