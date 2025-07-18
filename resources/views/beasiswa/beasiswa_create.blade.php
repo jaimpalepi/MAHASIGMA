@@ -45,6 +45,9 @@
                 + Add Requirement
             </button>
 
+            <label for="open" class="font-semibold">Open Registration:</label>
+            <input type="date" name="open" id="open" required class="border px-3 py-2 w-full">
+
             <label for="deadline" class="font-semibold">Deadline:</label>
             <input type="date" name="deadline" id="deadline" required class="border px-3 py-2 w-full">
 

@@ -17,8 +17,10 @@ return new class extends Migration
             $table->string('cover');
             $table->longText('description');
             $table->string('provider');
+            $table->string('jenjang');
             $table->longText('amount');
             $table->integer('quota');
+            $table->date('open');
             $table->date('deadline');
             $table->string('status');
             $table->timestamps();

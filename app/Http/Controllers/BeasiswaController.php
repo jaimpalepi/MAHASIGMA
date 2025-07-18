@@ -8,13 +8,18 @@ use App\Models\Beasiswa;
 use App\Models\RequirementsBeasiswa;
 use App\Models\Requirements;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class BeasiswaController extends Controller
 {
     public function beasiswa(){
         $beasiswas = Beasiswa::all();
-        
-        return view('beasiswa.beasiswa', ['beasiswas' => $beasiswas]);
+
+        $today = Carbon::today();
+        $nextWeek = Carbon::today()->addWeek();
+
+        $beasiswaSoonEnd = Beasiswa::whereBetween('deadline', [$today, $nextWeek])->get();
+        return view('beasiswa.beasiswa', ['beasiswas' => $beasiswas, 'beasiswaSoonEnd' => $beasiswaSoonEnd]);
     }
 
     public function beasiswa_detail($id){
@@ -100,9 +105,12 @@ class BeasiswaController extends Controller
             'name' => 'required|string|max:255',
             'cover' => 'required',
             'desc' => 'required|string',
+            'provider' => 'required|string',
+            'jenjang' => 'required|string',
             'amount' => 'required|string',
             'quota' => 'required|integer|min:1',
-            'deadline' => 'required|date|after:today',
+            'open' => 'required|date|after_or_equal:today',
+            'deadline' => 'required|date|after:open',
             'requirements' => 'required|array',
             'requirements.*' => 'exists:requirements,id',
         ]);
@@ -112,8 +120,10 @@ class BeasiswaController extends Controller
             'cover' => $path,
             'description' => $request->desc,
             'provider' => $request->provider,
+            'jenjang' => $request->provider,
             'amount' => $request->amount,
             'quota' => $request->quota,
+            'open' => $request->open,
             'deadline' => $request->deadline,
             'status' => 'Available'
         ]);

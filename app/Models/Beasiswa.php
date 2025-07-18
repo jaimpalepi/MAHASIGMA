@@ -16,8 +16,10 @@ class Beasiswa extends Model
         'cover',
         'description',
         'provider',
+        'jenjang',
         'amount',
         'quota',
+        'open',
         'deadline',
         'status',
     ];
