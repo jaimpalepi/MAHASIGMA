@@ -27,7 +27,7 @@
               Tentang Kami 
               <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/></svg>
             </button>
-            <div id="dropdownTentangKami" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600">
+            <div id="dropdownTentangKami" class="z-[100] hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600">
                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
                   <li><a href="{{ route('tentang.visimisi') }}" class="block px-4 py-2 hover:bg-red-100 hover:text-red-700 dark:hover:bg-gray-600 dark:hover:text-white">Visi Misi</a></li>
                   <li><a href="{{ route('tentang.struktur') }}" class="block px-4 py-2 hover:bg-red-100 hover:text-red-700 dark:hover:bg-gray-600 dark:hover:text-white">Struktur</a></li>
@@ -35,18 +35,10 @@
             </div>
         </li>
         <li>
-            <button id="dropdownLayananLink" data-dropdown-toggle="dropdownLayanan" class="flex items-center justify-between w-full py-2 px-3 text-white rounded-md md:border-0 md:p-0 md:w-auto hover:bg-white/10 transition-colors duration-200">
-              <svg class="w-4 h-4 me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z"></path></svg>
-              Layanan 
-              <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/></svg>
-            </button>
-            <!-- Dropdown menu -->
-            <div id="dropdownLayanan" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600">
-               <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
-                  <li><a href="{{ route('tentang.visimisi') }}" class="block px-4 py-2 hover:bg-red-100 hover:text-red-700 dark:hover:bg-gray-600 dark:hover:text-white">Visi Misi</a></li>
-                  <li><a href="{{ route('tentang.struktur') }}" class="block px-4 py-2 hover:bg-red-100 hover:text-red-700 dark:hover:bg-gray-600 dark:hover:text-white">Struktur</a></li>
-                </ul>
-            </div>
+            <a href="{{route('layanan')}}" class="flex items-center py-2 px-3 text-white rounded-md md:border-0 md:p-0 hover:bg-white/10 transition-colors duration-200">
+            <svg class="w-4 h-4 me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z"></path></svg>
+            Layanan
+          </a>
         </li>
         <li>
           <a href="#" class="flex items-center py-2 px-3 text-white rounded-md md:border-0 md:p-0 hover:bg-white/10 transition-colors duration-200">
@@ -76,3 +68,5 @@
     </div>
   </div>
 </nav>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+
