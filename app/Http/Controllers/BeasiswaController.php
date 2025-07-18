@@ -8,11 +8,7 @@ use App\Models\Beasiswa;
 use App\Models\RequirementsBeasiswa;
 use App\Models\Requirements;
 use Illuminate\Support\Facades\Auth;
-<<<<<<< HEAD
 use Carbon\Carbon;
-=======
-use Illuminate\Support\Facades\Storage;
->>>>>>> 235943c6f342c0e44b61f93d152bc518eb2de696
 
 class BeasiswaController extends Controller
 {
