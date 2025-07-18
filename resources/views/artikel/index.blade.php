@@ -16,61 +16,56 @@
 
 <body>
     <x-navbar />
-    <div id="default-carousel" class="relative w-full" data-carousel="slide">
-    <!-- Carousel wrapper -->
-    <div class="relative h-64 overflow-hidden rounded-lg md:h-96">
-        @foreach ($unggulan as $index => $artikel)
-            <div class="{{ $index === 0 ? '' : 'hidden' }} duration-700 ease-in-out" data-carousel-item>
-                <a href="{{ route('artikel.show', $artikel->id) }}">
-                    <img src="{{ asset('storage/' . $artikel->cover) }}"
-                         class="absolute block w-full h-full object-cover object-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                         alt="{{ $artikel->judul }}">
-                    <div class="absolute inset-0 bg-black/50 flex items-center justify-center text-white text-center">
-                        <div>
-                            <h2 class="text-2xl md:text-3xl font-bold">{{ $artikel->judul }}</h2>
-                        </div>
+    <div x-data="{
+        active: 0,
+        total: {{ $unggulan->count() }},
+        next() {
+            this.active = (this.active + 1) % this.total
+        },
+        prev() {
+            this.active = (this.active - 1 + this.total) % this.total
+        }
+    }"
+    class="relative w-full overflow-hidden h-64 md:h-96"
+>
+
+    <!-- Inner wrapper with slide transition -->
+    <div class="flex transition-transform duration-700 ease-in-out"
+         :style="'transform: translateX(-' + (active * 100) + '%)'">
+        @foreach ($unggulan as $artikel)
+            <div class="w-full flex-shrink-0 h-64 md:h-96 relative">
+                <img src="{{ asset('storage/' . $artikel->cover) }}"
+                     alt="{{ $artikel->judul }}"
+                     class="w-full h-full object-cover object-center rounded-lg">
+                <div class="absolute inset-0 bg-black/40 flex items-center justify-center text-white text-center">
+                    <div>
+                        <h2 class="text-xl md:text-3xl font-bold">{{ $artikel->judul }}</h2>
+                        <p class="text-sm">Klik untuk membaca selengkapnya</p>
                     </div>
-                </a>
+                </div>
             </div>
         @endforeach
     </div>
 
-    <!-- Slider indicators -->
-    <div class="absolute z-30 flex -translate-x-1/2 bottom-4 left-1/2 space-x-3">
-        @foreach ($unggulan as $index => $artikel)
-            <button type="button"
-                    class="w-3 h-3 rounded-full"
-                    aria-current="{{ $index === 0 ? 'true' : 'false' }}"
-                    aria-label="Slide {{ $index + 1 }}"
-                    data-carousel-slide-to="{{ $index }}">
-            </button>
-        @endforeach
+    <!-- Controls -->
+    <button @click="prev"
+            class="absolute top-1/2 left-3 transform -translate-y-1/2 bg-white/50 hover:bg-white p-2 rounded-full">
+        &#10094;
+    </button>
+    <button @click="next"
+            class="absolute top-1/2 right-3 transform -translate-y-1/2 bg-white/50 hover:bg-white p-2 rounded-full">
+        &#10095;
+    </button>
+
+    <!-- Indicators -->
+    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+        <template x-for="i in total" :key="i">
+            <div @click="active = i - 1"
+                 :class="active === (i - 1) ? 'bg-white' : 'bg-gray-400'"
+                 class="w-3 h-3 rounded-full cursor-pointer"></div>
+        </template>
     </div>
-
-    <!-- Slider controls -->
-    <button type="button"
-            class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-            data-carousel-prev>
-        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 hover:bg-white/50">
-            <svg class="w-4 h-4 text-white rtl:rotate-180" fill="none" viewBox="0 0 6 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M5 1 1 5l4 4"/>
-            </svg>
-        </span>
-    </button>
-    <button type="button"
-            class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-            data-carousel-next>
-        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 hover:bg-white/50">
-            <svg class="w-4 h-4 text-white rtl:rotate-180" fill="none" viewBox="0 0 6 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="m1 9 4-4-4-4"/>
-            </svg>
-        </span>
-    </button>
 </div>
-
-
 
     <div class="max-w-6xl mx-auto px-4 py-8">
     <div class="flex items-center justify-between mb-6">
@@ -119,6 +114,7 @@
 </div>
 <x-footer />
 <script src="https://unpkg.com/flowbite@2.3.0/dist/flowbite.min.js"></script>
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 
 
