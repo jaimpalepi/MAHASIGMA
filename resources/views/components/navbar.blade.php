@@ -11,7 +11,7 @@
 
         <!-- Menu -->
         <div class="hidden md:flex space-x-6 text-sm font-semibold items-center">
-            <a href="#" class="flex items-center space-x-1 hover:underline">
+            <a href="{{route('artikel.index')}}" class="flex items-center space-x-1 hover:underline">
                 <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 2L2 7v11h16V7l-8-5z"/></svg>
                 <span>Beranda</span>
             </a>
@@ -26,16 +26,7 @@
                     <a href="#" class="block px-4 py-2 hover:bg-gray-100">Struktur</a>
                 </div>
             </div>
-            <div class="relative group">
-                <button class="hover:underline flex items-center">
-                    Layanan
-                    <svg class="ml-1 w-3 h-3 fill-white" viewBox="0 0 20 20"><path d="M5.23 7.21l4.77 4.77 4.77-4.77L15.77 8.7l-5.77 5.77L4.23 8.7z"/></svg>
-                </button>
-                <div class="absolute left-0 mt-1 hidden group-hover:block bg-white text-black rounded shadow w-40 z-10">
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Beasiswa</a>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Dispensasi</a>
-                </div>
-            </div>
+            <a href="{{route('layanan')}}" class="hover:underline">Layanan</a>
             <a href="#" class="hover:underline">Kegiatan</a>
             <a href="#" class="hover:underline">Prestasi</a>
             <a href="#" class="hover:underline">Tracer Study</a>
