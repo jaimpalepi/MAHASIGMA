@@ -10,6 +10,8 @@ Route::post('/artikel', [artikelController::class, 'store'])->name('artikel.stor
 Route::get('/artikel', [artikelController::class, 'index'])->name('artikel.index');
 Route::get('/artikel/{id}', [artikelController::class, 'show'])->name('artikel.show');
 Route::view('/layanan', 'layanan')->name('layanan');
+Route::get('/artikel/{id}/edit', [ArtikelController::class, 'edit'])->name('artikel.edit');
+Route::put('/artikel/{id}', [ArtikelController::class, 'update'])->name('artikel.update');
 
 
 // Route untuk Tentang Kami

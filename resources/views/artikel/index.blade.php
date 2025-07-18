@@ -90,32 +90,40 @@
     @else
         <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             @foreach ($artikels as $artikel)
-                <div onclick="window.location.href = 'artikel/{{$artikel->id}}'"
-                        class="cards w-[300px] rounded-[10px] shadow-2xl hover:cursor-pointer hover:scale-[1.03] transition-transform duration-200">
-                    @if ($artikel->cover)
-                        <img src="{{ asset('storage/' . $artikel->cover) }}" alt="Cover"
-                             class="w-full h-48 object-cover rounded-t-lg">
-                    @endif
+    <div onclick="window.location.href = 'artikel/{{$artikel->id}}'"
+        class="cards w-[300px] rounded-[10px] shadow-2xl hover:cursor-pointer hover:scale-[1.03] transition-transform duration-200">
+        
+        @if ($artikel->cover)
+            <img src="{{ asset('storage/' . $artikel->cover) }}" alt="Cover"
+                 class="w-full h-48 object-cover rounded-t-lg">
+        @endif
 
-                    <div class="p-4">
-                        <h2 class="text-xl font-semibold text-gray-800 mb-2">
-                            <a href="{{ route('artikel.show', $artikel->id) }}" class="hover:underline">
-                                {{ Str::limit($artikel->judul, 60) }}
-                            </a>
-                        </h2>
-                        <p class="text-sm text-gray-500 mb-4">
-                            {{ $artikel->created_at->format('d M Y') }}
-                        </p>
-                        <p class="text-gray-700 text-sm">
-                            {{ Str::limit(strip_tags($artikel->isi), 100) }}
-                        </p>
-                        <a href="{{ route('artikel.show', $artikel->id) }}"
-                           class="inline-block mt-3 text-blue-600 hover:underline text-sm font-medium">
-                            Baca Selengkapnya →
-                        </a>
-                    </div>
-                </div>
-            @endforeach
+        <div class="p-4">
+            <h2 class="text-xl font-semibold text-gray-800 mb-2">
+                <a href="{{ route('artikel.show', $artikel->id) }}" class="hover:underline">
+                    {{ Str::limit($artikel->judul, 60) }}
+                </a>
+            </h2>
+            <p class="text-sm text-gray-500 mb-4">
+                {{ $artikel->created_at->format('d M Y') }}
+            </p>
+            <p class="text-gray-700 text-sm">
+                {{ Str::limit(strip_tags($artikel->isi), 100) }}
+            </p>
+            <div class="mt-3 flex items-center justify-between">
+                <a href="{{ route('artikel.show', $artikel->id) }}"
+                   class="text-blue-600 hover:underline text-sm font-medium">
+                    Baca Selengkapnya →
+                </a>
+                <a href="{{ route('artikel.edit', $artikel->id) }}"
+                   class="text-yellow-600 hover:underline text-sm font-medium">
+                    ✎ Edit
+                </a>
+            </div>
+        </div>
+    </div>
+@endforeach
+
         </div>
     @endif
 </div>

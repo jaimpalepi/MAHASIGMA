@@ -41,8 +41,43 @@ class ArtikelController extends Controller
 
 public function show($id)
 {
-    $artikel = artikel::findOrFail($id);
-    return view('artikel.show', compact('artikel'));
+    $artikel = Artikel::findOrFail($id);
+    $randomArtikel = Artikel::inRandomOrder()
+                           ->where('id', '!=', $id)
+                           ->limit(3)
+                           ->get();
+
+    return view('artikel.show', compact('artikel', 'randomArtikel'));
 }
+
+public function edit($id)
+{
+    $artikel = Artikel::findOrFail($id);
+    return view('artikel.edit', compact('artikel'));
+}
+
+public function update(Request $request, $id)
+{
+    $artikel = Artikel::findOrFail($id);
+
+    $request->validate([
+        'judul' => 'required|string|max:255',
+        'isi' => 'required|string',
+        'cover' => 'nullable|image|max:2048',
+    ]);
+
+    $artikel->judul = $request->judul;
+    $artikel->isi = $request->isi;
+
+    if ($request->hasFile('cover')) {
+        $path = $request->file('cover')->store('artikel', 'public');
+        $artikel->cover = $path;
+    }
+
+    $artikel->save();
+
+    return redirect()->route('artikel.show', $artikel->id)->with('success', 'Artikel berhasil diperbarui.');
+}
+
 }
 
