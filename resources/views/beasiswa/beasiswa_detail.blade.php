@@ -48,8 +48,14 @@
                     </li>
                 @endforeach
             </ul>   
-            <div class="mt-[20px] w-full flex items-center justify-center lg:justify-start">
+            <div class="mt-[20px] w-full flex items-center justify-center lg:justify-start gap-4">
                 <a class="bg-blue-500 px-6 py-2 rounded-[5px] text-white text-[20px] text-bold hover:bg-blue-700 transition-all ease-in-out" href="{{route('apply.create', ['id' => $beasiswa->id])}}">APPLY NOW</a>
+                
+                @if (Auth::check() && Auth::user()->role == 'admin')
+                    <a href="{{ route('beasiswa.edit', $beasiswa->id) }}" class="bg-yellow-500 px-6 py-2 rounded-[5px] text-white text-[20px] text-bold hover:bg-yellow-700 transition-all ease-in-out">
+                        EDIT
+                    </a>
+                @endif
             </div>
         </div>
     </div>
