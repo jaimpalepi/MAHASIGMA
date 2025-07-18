@@ -1,6 +1,9 @@
 <div
-    class="flex justify-start items-center w-full sticky top-0 bg-white p-[3px] lg:p-[10px] pl-[15px] lg:pl-[20px] pr-[15px] lg:pr-[20px] border-b-[1px] border-[#a9a9a9] box-border z-[100]">
-    <a href="{{ route('beasiswa') }}" class="text-[25px] font-semibold font-title">BEASISWA</a>
+    class="flex justify-between items-center w-full sticky top-0 z-[100] px-4 lg:px-10 py-2 lg:py-4 backdrop-blur-md bg-white/70 border-b border-[#ccc] shadow-md">
+    <a href="{{ route('beasiswa') }}" class="text-[25px] font-bold font-title text-[#2c3e50] tracking-wide">
+        BEASISWA<span class="text-[#fcd008]">.</span>
+    </a>
+    
     <div class="spacer w-[100%] h-[1px]"></div>
     @if (Auth::user())
         <div class="flex justify-end items-center gap-[20px]">
@@ -32,7 +35,7 @@
             </button>
 
             <div
-                class="dropdownMenu hidden absolute top-11 right-0 bg-gray-100 w-full divide-y z-[100] flex flex-col justify-center items-end">
+                 class="dropdownMenu hidden absolute top-full right-0 w-full max-w-[300px] bg-white rounded-b-lg shadow-lg z-[100]">
                 <a href="{{ route('logout') }}"
                     class="leading-none p-[15px] w-full box-border text-right hover:bg-gray-200 transition-all ease-in-out">Logout</a>
             </div>

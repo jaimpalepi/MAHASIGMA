@@ -41,15 +41,16 @@
 
 
             <h1 class="text-[35px] lg:text-[100px] font-black p-0 m-0 text-center leading-none lg:leading-[100px] text-[#fcd008]">
-                EPSTEIN DID NOT KILL HIMSELF
+                dolorem ipsum quia dolor sit amet
             </h1>
 
             <h3 class="text-[20px] font-semibold mt-[10px] lg:mt-[20px]">Our Achievement</h3>
-            <p class="text-[15px] font-medium mb-[10px] text-center text-[#9d9d9d]">No, not the guy who make the website, the thing dude, the
-                website itself...just see below man</p>
+            <p class="text-[15px] font-medium mb-[10px] text-center text-[#9d9d9d]">
+                Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...
+            </p>
 
             <div class="w-[90%] lg:w-[1000px] bg-white border-[2px] border-[#fcd008] rounded-[10px] px-[20px] lg:px-[10px] py-[10px] lg:py-[20px]">
-                <div class="grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-x divide-[#fcd008]">
+                <div class="grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x divide-[#fcd008]">
                     <div class="counter py-[10px] lg:px-[20px] text-center">
                         <h2 class="text-[40px] font-semibold leading-none mb-[5px] text-[#fcd008]">1 MORBILLION</h2>
                         <p class="text-[#fcd008]">Explanation bla bla bla (boring stuff)</p>
