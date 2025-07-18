@@ -28,22 +28,23 @@
     }"
     class="relative w-full overflow-hidden h-64 md:h-96"
 >
-
-    <!-- Inner wrapper with slide transition -->
+    <!-- Inner wrapper -->
     <div class="flex transition-transform duration-700 ease-in-out"
          :style="'transform: translateX(-' + (active * 100) + '%)'">
         @foreach ($unggulan as $artikel)
-            <div class="w-full flex-shrink-0 h-64 md:h-96 relative">
+            <a href="{{ route('artikel.show', $artikel->id) }}"
+               class="w-full flex-shrink-0 h-64 md:h-96 relative block">
                 <img src="{{ asset('storage/' . $artikel->cover) }}"
                      alt="{{ $artikel->judul }}"
                      class="w-full h-full object-cover object-center rounded-lg">
+
                 <div class="absolute inset-0 bg-black/40 flex items-center justify-center text-white text-center">
                     <div>
                         <h2 class="text-xl md:text-3xl font-bold">{{ $artikel->judul }}</h2>
                         <p class="text-sm">Klik untuk membaca selengkapnya</p>
                     </div>
                 </div>
-            </div>
+            </a>
         @endforeach
     </div>
 
@@ -66,6 +67,7 @@
         </template>
     </div>
 </div>
+
 
     <div class="max-w-6xl mx-auto px-4 py-8">
     <div class="flex items-center justify-between mb-6">
