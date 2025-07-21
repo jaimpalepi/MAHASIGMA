@@ -31,12 +31,12 @@
             background-color: #4b5563;
         }
 
-            .card-item {
-        margin-top: 50px;
+        .card-item {
+            padding: 20px;
+            margin-top: 50px;
         }
 
         .tree ul {
-            /* Anda mungkin bisa menghapus padding-top dari sini jika tidak dibutuhkan lagi */
             padding-top: 50px;
             position: relative;
             display: flex;
@@ -66,7 +66,7 @@
         }
         
         .tree li::after {
-            right: auto;
+            right: 50%;
             left: 50%;
             border-left: 2px solid #d1d5db;
         }
@@ -114,6 +114,11 @@
         .dark .tree ul ul::before {
             border-left-color: #4b5563;
         }
+
+        .tree > ul > li > ul > li {
+        flex: 1;
+        }
+        
     </style>
 </head>
 
@@ -140,7 +145,7 @@
                         class="card-item bg-white dark:bg-gray-900 rounded-lg shadow-xl p-4 text-center min-w-[200px] transition-all duration-500 ease-out transform hover:scale-105 hover:shadow-2xl scale-90 opacity-0">
                         <img src="/image/avatar.jpg" alt="Foto Profil"
                             class="w-20 h-20 mx-auto rounded-full mb-3 border-2 border-red-200 dark:border-red-800">
-                        <h3 class="font-bold text-lg text-gray-800 dark:text-white">Dr. Norman A.C., M.Si.</h3>
+                        <h3 class="font-bold text-lg text-gray-800 dark:text-white">nama</h3>
                         <p class="text-sm text-red-600 dark:text-red-400">Wakil Rektor Bidang Kemahasiswaan & Alumni</p>
                     </div>
 
