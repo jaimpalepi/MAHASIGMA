@@ -26,7 +26,7 @@
 
     <main class="container mx-auto px-4 py-12">
         <!-- Judul dan Deskripsi -->
-        <div class="text-center mb-12" x-data="{ visible: false }" x-intersect="visible = true">
+        <div class="text-center mb-25" x-data="{ visible: false }" x-intersect="visible = true">
             <h1
                 :class="visible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'"
                 class="text-4xl font-bold text-red-700 dark:text-red-500 transition-all duration-700 ease-out translate-y-10 opacity-0">
