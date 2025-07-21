@@ -31,9 +31,14 @@
             background-color: #4b5563;
         }
 
+            .card-item {
+        margin-top: 50px;
+        }
+
         .tree ul {
-            position: relative;
+            /* Anda mungkin bisa menghapus padding-top dari sini jika tidak dibutuhkan lagi */
             padding-top: 50px;
+            position: relative;
             display: flex;
             justify-content: center;
         }
@@ -53,13 +58,13 @@
             right: 50%;
             border-top: 2px solid #d1d5db;
             width: 50%;
-            height: 50px;
+            height: 40px;
         }
 
         .dark .tree li::before, .dark .tree li::after {
             border-top-color: #4b5563;
         }
-
+        
         .tree li::after {
             right: auto;
             left: 50%;
@@ -133,7 +138,7 @@
                     <!-- Level 1 -->
                     <div :class="visible ? 'scale-100 opacity-100' : 'scale-90 opacity-0'"
                         class="card-item bg-white dark:bg-gray-900 rounded-lg shadow-xl p-4 text-center min-w-[200px] transition-all duration-500 ease-out transform hover:scale-105 hover:shadow-2xl scale-90 opacity-0">
-                        <img src="https://via.placeholder.com/80" alt="Foto Profil"
+                        <img src="/image/avatar.jpg" alt="Foto Profil"
                             class="w-20 h-20 mx-auto rounded-full mb-3 border-2 border-red-200 dark:border-red-800">
                         <h3 class="font-bold text-lg text-gray-800 dark:text-white">Dr. Norman A.C., M.Si.</h3>
                         <p class="text-sm text-red-600 dark:text-red-400">Wakil Rektor Bidang Kemahasiswaan & Alumni</p>
@@ -144,7 +149,7 @@
                         <li>
                             <div :class="visible ? 'scale-100 opacity-100' : 'scale-90 opacity-0'"
                                 class="card-item bg-white dark:bg-gray-900 rounded-lg shadow-xl p-4 text-center min-w-[200px] transition-all duration-500 ease-out transform hover:scale-105 hover:shadow-2xl scale-90 opacity-0">
-                                <img src="https://via.placeholder.com/80" alt="Foto Profil"
+                                <img src="/image/avatar.jpg" alt="Foto Profil"
                                     class="w-20 h-20 mx-auto rounded-full mb-3 border-2 border-red-200 dark:border-red-800">
                                 <h3 class="font-bold text-lg text-gray-800 dark:text-white">Koordinator</h3>
                                 <p class="text-sm text-red-600 dark:text-red-400">Nama Pejabat</p>
@@ -153,7 +158,7 @@
                         <li>
                             <div :class="visible ? 'scale-100 opacity-100' : 'scale-90 opacity-0'"
                                 class="card-item bg-white dark:bg-gray-900 rounded-lg shadow-xl p-4 text-center min-w-[200px] transition-all duration-500 ease-out transform hover:scale-105 hover:shadow-2xl scale-90 opacity-0">
-                                <img src="https://via.placeholder.com/80" alt="Foto Profil"
+                                <img src="/image/avatar.jpg" alt="Foto Profil"
                                     class="w-20 h-20 mx-auto rounded-full mb-3 border-2 border-red-200 dark:border-red-800">
                                 <h3 class="font-bold text-lg text-gray-800 dark:text-white">Sub Koordinator</h3>
                                 <p class="text-sm text-red-600 dark:text-red-400">Nama Pejabat</p>
@@ -164,6 +169,8 @@
                                 <li>
                                     <div :class="visible ? 'scale-100 opacity-100' : 'scale-90 opacity-0'"
                                         class="card-item bg-white dark:bg-gray-900 rounded-lg shadow-xl p-4 text-center min-w-[180px] transition-all duration-500 ease-out transform hover:scale-105 hover:shadow-2xl scale-90 opacity-0">
+                                        <img src="/image/avatar.jpg" alt="Foto Profil"
+                                            class="w-20 h-20 mx-auto rounded-full mb-3 border-2 border-red-200 dark:border-red-800">
                                         <h3 class="font-bold text-md text-gray-800 dark:text-white">Staff 1</h3>
                                         <p class="text-xs text-red-600 dark:text-red-400">Minat, Penalaran, dan Informasi Kemahasiswaan</p>
                                     </div>
@@ -171,6 +178,8 @@
                                 <li>
                                     <div :class="visible ? 'scale-100 opacity-100' : 'scale-90 opacity-0'"
                                         class="card-item bg-white dark:bg-gray-900 rounded-lg shadow-xl p-4 text-center min-w-[180px] transition-all duration-500 ease-out transform hover:scale-105 hover:shadow-2xl scale-90 opacity-0">
+                                        <img src="/image/avatar.jpg" alt="Foto Profil"
+                                            class="w-20 h-20 mx-auto rounded-full mb-3 border-2 border-red-200 dark:border-red-800">
                                         <h3 class="font-bold text-md text-gray-800 dark:text-white">Staff 2</h3>
                                         <p class="text-xs text-red-600 dark:text-red-400">Kesejahteraan Mahasiswa dan Alumni</p>
                                     </div>
