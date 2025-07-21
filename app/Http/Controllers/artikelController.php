@@ -29,9 +29,10 @@ class ArtikelController extends Controller
             'isi' => $request->isi,
         ]);
 
-        return redirect()->route('artikel.create')->with('success', 'Artikel berhasil disimpan!');
+        return redirect()->route('artikel.index')->with('success', 'Artikel berhasil ditambahkan!');
+}
 
-    }
+
     public function index()
 {
     $artikels = artikel::latest()->get();
