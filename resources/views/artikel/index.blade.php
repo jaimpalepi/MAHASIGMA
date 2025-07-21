@@ -71,7 +71,7 @@
         
         @if($heroArtikel)
         <div class="mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 border-b-4 border-red-600 pb-2 mb-6 inline-block">Berita Terbaru</h2>
+            <h2 class="text-3xl font-bold text-gray-800 border-b-4 border-red-600 pb-2 mb-6 inline-block">Informasi Terbaru</h2>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 
                 <div class="lg:col-span-2">
@@ -111,7 +111,7 @@
 
         <div>
             <div class="flex items-center justify-between mb-6 border-b-4 border-red-600 pb-2">
-                <h2 class="text-3xl font-bold text-gray-800">Semua Berita</h2>
+                <h2 class="text-3xl font-bold text-gray-800">Semua Informasi</h2>
                 <a href="{{ route('artikel.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition text-sm font-medium">
                     + Tambah Artikel
                 </a>

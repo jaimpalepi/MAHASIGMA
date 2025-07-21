@@ -25,6 +25,16 @@
         Dipublikasikan: {{ $artikel->created_at->format('d M Y') }}
       </p>
 
+      <div class="mb-6">
+        <a href="{{ route('artikel.index') }}"
+          class="inline-flex items-center px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors duration-200 text-sm font-medium">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Kembali ke Semua Artikel
+        </a>
+      </div>
+
       @if ($artikel->cover)
         <img src="{{ asset('storage/' . $artikel->cover) }}"
              alt="Cover {{ $artikel->judul }}"
@@ -35,11 +45,6 @@
     {!! $artikel->isi !!}
 </div>
 
-
-      <a href="{{ route('artikel.index') }}"
-         class="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
-        ← Kembali ke daftar artikel
-      </a>
     </article>
 
     <!-- Sidebar Artikel Lainnya -->
