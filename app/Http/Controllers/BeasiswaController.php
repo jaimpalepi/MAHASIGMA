@@ -22,6 +22,18 @@ class BeasiswaController extends Controller
         return view('beasiswa.beasiswa', ['beasiswas' => $beasiswas, 'beasiswaSoonEnd' => $beasiswaSoonEnd]);
     }
 
+    public function beasiswaAll(){
+        $beasiswas = Beasiswa::all();
+
+        $today = Carbon::today();
+        $nextWeek = Carbon::today()->addWeek();
+
+        $jenjangList = Beasiswa::select('jenjang')->distinct()->pluck('jenjang');
+
+        $beasiswaSoonEnd = Beasiswa::whereBetween('deadline', [$today, $nextWeek])->get();
+        return view('beasiswa.beasiswaAll', ['beasiswas' => $beasiswas, 'beasiswaSoonEnd' => $beasiswaSoonEnd, 'jenjangList' => $jenjangList]);
+    }
+
     public function beasiswa_detail($id){
         $beasiswa = Beasiswa::with('requirements')->find($id);
         return view('beasiswa.beasiswa_detail', ['beasiswa' => $beasiswa]);
@@ -119,7 +131,7 @@ class BeasiswaController extends Controller
             'cover' => $path,
             'description' => $request->desc,
             'provider' => $request->provider,
-            'jenjang' => $request->provider,
+            'jenjang' => $request->jenjang,
             'amount' => $request->amount,
             'quota' => $request->quota,
             'open' => $request->open,

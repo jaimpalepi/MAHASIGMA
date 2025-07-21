@@ -213,7 +213,7 @@
                     </div>
                 </div>
 
-                <button class="bg-[#544db0] text-white text-[25px] font-semibold block p-[30px] mt-[40px] rounded-[50px] hover:bg-[#533991] transition-all ease-in-out hover:cursor-pointer">
+                <button onclick="window.location.href='{{route('beasiswa.all')}}'" class="bg-[#544db0] text-white text-[25px] font-semibold block p-[30px] mt-[40px] rounded-[50px] hover:bg-[#533991] transition-all ease-in-out hover:cursor-pointer">
                     <p class="leading-0 p-0 m-0 mb-[5px]">
                         Lihat Selengkapnya
                     </p>                  

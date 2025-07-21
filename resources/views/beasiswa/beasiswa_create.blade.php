@@ -12,25 +12,28 @@
     <form action="{{ route('beasiswa.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="flex flex-col items-start gap-4 max-w-xl mx-auto bg-white p-6 rounded-lg shadow">
-            <label for="name" class="font-semibold">Scholarship Name:</label>
+            <label for="name" class="font-semibold">Judul Beasiswa:</label>
             <input type="text" name="name" id="name" required class="border px-3 py-2 w-full">
 
-            <label for="cover" class="font-semibold">Scholarship Cover Image:</label>
+            <label for="cover" class="font-semibold">Cover Gambar:</label>
             <input type="file" name="cover" id="cover" required class="border px-3 py-2 w-full">
 
-            <label for="desc" class="font-semibold">Description:</label>
+            <label for="desc" class="font-semibold">Deskripsi:</label>
             <textarea name="desc" id="desc" rows="4" required class="border px-3 py-2 w-full"></textarea>
 
-            <label for="provider" class="font-semibold">Scholarship Provider:</label>
+            <label for="provider" class="font-semibold">Penyedia Beasiswa:</label>
             <input type="text" name="provider" id="provider" required class="border px-3 py-2 w-full">
 
-            <label for="amount" class="font-semibold">Amount:</label>
+            <label for="jenjang" class="font-semibold">Jenjang:</label>
+            <input type="text" name="jenjang" id="jenjang" required class="border px-3 py-2 w-full">
+
+            <label for="amount" class="font-semibold">Jumlah Dana Beasiswa:</label>
             <input type="text" name="amount" id="amount" required class="border px-3 py-2 w-full">
 
             <label for="quota" class="font-semibold">Quota:</label>
             <input type="number" name="quota" id="quota" required class="border px-3 py-2 w-full">
 
-            <label class="font-semibold">Requirements:</label>
+            <label class="font-semibold">Persyaratan:</label>
             <div id="requirement-container" class="flex flex-col gap-2 w-full">
                 <select name="requirements[]" class="border px-3 py-2">
                     @foreach ($requirements as $r)
