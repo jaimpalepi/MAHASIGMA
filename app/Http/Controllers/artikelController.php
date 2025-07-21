@@ -83,7 +83,7 @@ public function update(Request $request, $id)
     $artikel->isi = $request->isi;
 
     if ($request->hasFile('cover')) {
-        $path = $request->file('cover')->store('artikel', 'public');
+        $path = $request->file('cover')->store('covers', 'public');
         $artikel->cover = $path;
     }
 

@@ -26,24 +26,25 @@
 <!-- Main -->
 <div x-data="{ layanan: 'kemahasiswaan' }" class="px-4 md:px-20 py-10 grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
     <!-- Kartu Tombol -->
-    <div class="flex flex-col space-y-4">
-        <a @mouseenter="layanan = 'kemahasiswaan'"
-           class="bg-gray-200 hover:bg-gray-300 text-black px-4 py-3 rounded font-semibold text-left cursor-pointer">
-           Informasi Kemahasiswaan
-        </a>
-        <a @mouseenter="layanan = 'beasiswa'"
-           class="bg-gray-200 hover:bg-gray-300 text-black px-4 py-3 rounded font-semibold text-left cursor-pointer">
-           Beasiswa
-        </a>
-        <a @mouseenter="layanan = 'proposal'"
-           class="bg-gray-200 hover:bg-gray-300 text-black px-4 py-3 rounded font-semibold text-left cursor-pointer">
-           Proposal Kegiatan
-        </a>
-        <a @mouseenter="layanan = 'dispensasi'"
-           class="bg-gray-200 hover:bg-gray-300 text-black px-4 py-3 rounded font-semibold text-left cursor-pointer">
-           Surat Dispensasi
-        </a>
-    </div>
+<div class="flex flex-col space-y-4">
+    <a @click="layanan = 'kemahasiswaan'"
+       class="bg-gray-200 hover:bg-gray-300 text-black px-4 py-3 rounded font-semibold text-left cursor-pointer">
+       Informasi Kemahasiswaan
+    </a>
+    <a @click="layanan = 'beasiswa'"
+       class="bg-gray-200 hover:bg-gray-300 text-black px-4 py-3 rounded font-semibold text-left cursor-pointer">
+       Beasiswa
+    </a>
+    <a @click="layanan = 'proposal'"
+       class="bg-gray-200 hover:bg-gray-300 text-black px-4 py-3 rounded font-semibold text-left cursor-pointer">
+       Proposal Kegiatan
+    </a>
+    <a @click="layanan = 'dispensasi'"
+       class="bg-gray-200 hover:bg-gray-300 text-black px-4 py-3 rounded font-semibold text-left cursor-pointer">
+       Surat Dispensasi
+    </a>
+</div>
+
 
     <!-- Info Kemahasiswaan -->
     <div class="md:col-span-2 bg-gray-200 p-6 rounded transition duration-300">
@@ -69,6 +70,10 @@
         <div x-show="layanan === 'dispensasi'" x-transition>
             <h2 class="text-xl font-bold mb-3">Surat Dispensasi</h2>
             <p class="text-sm mb-4">Layanan ini memfasilitasi pengajuan surat dispensasi bagi mahasiswa yang mengikuti kegiatan di luar kampus yang berbenturan dengan jadwal kuliah.</p>
+            <a href="{{ route('dispen.create') }}"
+                   class="text-blue-600 hover:underline text-sm font-medium">
+                    Ajukan Dispensasi →
+                </a>
         </div>
     </div>
 </div>

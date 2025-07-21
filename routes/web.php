@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArtikelController;
-use App\Http\Controllers\TentangKamiController; // <-- Tambahkan ini
+use App\Http\Controllers\TentangKamiController;
+use App\Http\Controllers\DispenController;
+
 
 Route::get('/', [ArtikelController::class, 'index']);
 Route::get('/artikel/create', [artikelController::class, 'create'])->name('artikel.create');
@@ -17,3 +19,6 @@ Route::put('/artikel/{id}', [ArtikelController::class, 'update'])->name('artikel
 // Route untuk Tentang Kami
 Route::get('/visi-misi', [TentangKamiController::class, 'visimisi'])->name('tentang.visimisi');
 Route::get('/struktur-organisasi', [TentangKamiController::class, 'struktur'])->name('tentang.struktur');
+
+Route::get('/dispen', [DispenController::class, 'create'])->name('dispen.create');
+Route::post('/dispen', [DispenController::class, 'store'])->name('dispen.store');
