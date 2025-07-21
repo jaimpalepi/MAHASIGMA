@@ -20,21 +20,51 @@
     <div x-data="{
         active: 0,
         total: {{ $unggulan->count() }},
-        init() { setInterval(() => { this.active = (this.active + 1) % this.total; }, 5000); },
-        next() { this.active = (this.active + 1) % this.total },
-        prev() { this.active = (this.active - 1 + this.total) % this.total }
-    }" class="relative w-full overflow-hidden h-64 md:h-96 mb-12">
-        <div class="flex transition-transform duration-700 ease-in-out" :style="'transform: translateX(-' + (active * 100) + '%)'">
+        next() {
+            this.active = (this.active + 1) % this.total
+        },
+        prev() {
+            this.active = (this.active - 1 + this.total) % this.total
+        }
+    }"
+    class="relative w-full overflow-hidden h-64 md:h-96"
+    >
+        <div class="flex transition-transform duration-700 ease-in-out"
+            :style="'transform: translateX(-' + (active * 100) + '%)'">
             @foreach ($unggulan as $artikel)
-                <a href="{{ route('artikel.show', $artikel->id) }}" class="w-full flex-shrink-0 h-full relative block">
-                    <img src="{{ asset('storage/' . $artikel->cover) }}" alt="{{ $artikel->judul }}" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black/50 flex items-end p-8 text-white">
-                        <h2 class="text-xl md:text-3xl font-bold">{{ $artikel->judul }}</h2>
+                <a href="{{ route('artikel.show', $artikel->id) }}"
+                class="w-full flex-shrink-0 h-64 md:h-96 relative block">
+                    <img src="{{ asset('storage/' . $artikel->cover) }}"
+                        alt="{{ $artikel->judul }}"
+                        class="w-full h-full object-cover object-center rounded-lg">
+
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center text-white text-center">
+                        <div>
+                            <h2 class="text-xl md:text-3xl font-bold">{{ $artikel->judul }}</h2>
+                            <p class="text-sm">Klik untuk membaca selengkapnya</p>
+                        </div>
                     </div>
                 </a>
             @endforeach
         </div>
+
+        <button @click="prev"
+                class="absolute top-1/2 left-3 transform -translate-y-1/2 bg-white/50 hover:bg-white p-2 rounded-full">
+            &#10094;
+        </button>
+        <button @click="next"
+                class="absolute top-1/2 right-3 transform -translate-y-1/2 bg-white/50 hover:bg-white p-2 rounded-full">
+            &#10095;
+        </button>
+
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+            <template x-for="i in total" :key="i">
+                <div @click="active = i - 1"
+                    :class="active === (i - 1) ? 'bg-white' : 'bg-gray-400'"
+                    class="w-3 h-3 rounded-full cursor-pointer"></div>
+            </template>
         </div>
+    </div>
     @endif
 
     <div class="max-w-7xl mx-auto px-4 py-8">
