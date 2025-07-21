@@ -10,131 +10,126 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap"
         rel="stylesheet">
-
     <title>MAHASIGMA</title>
 </head>
 
-<body>
+<body class="bg-gray-50">
     <x-navbar />
+
+    @if($unggulan->isNotEmpty())
     <div x-data="{
         active: 0,
         total: {{ $unggulan->count() }},
-        init() {
-            setInterval(() => {
-                this.active = (this.active + 1) % this.total;
-            }, 3000);
-        },
-        next() {
-            this.active = (this.active + 1) % this.total
-        },
-        prev() {
-            this.active = (this.active - 1 + this.total) % this.total
-        }
-    }"
-    class="relative w-full overflow-hidden h-64 md:h-96"
->
-    <!-- Inner wrapper -->
-    <div class="flex transition-transform duration-700 ease-in-out"
-         :style="'transform: translateX(-' + (active * 100) + '%)'">
-        @foreach ($unggulan as $artikel)
-            <a href="{{ route('artikel.show', $artikel->id) }}"
-               class="w-full flex-shrink-0 h-64 md:h-96 relative block">
-                <img src="{{ asset('storage/' . $artikel->cover) }}"
-                     alt="{{ $artikel->judul }}"
-                     class="w-full h-full object-cover object-center rounded-lg">
-
-                <div class="absolute inset-0 bg-black/40 flex items-center justify-center text-white text-center">
-                    <div>
+        init() { setInterval(() => { this.active = (this.active + 1) % this.total; }, 5000); },
+        next() { this.active = (this.active + 1) % this.total },
+        prev() { this.active = (this.active - 1 + this.total) % this.total }
+    }" class="relative w-full overflow-hidden h-64 md:h-96 mb-12">
+        <div class="flex transition-transform duration-700 ease-in-out" :style="'transform: translateX(-' + (active * 100) + '%)'">
+            @foreach ($unggulan as $artikel)
+                <a href="{{ route('artikel.show', $artikel->id) }}" class="w-full flex-shrink-0 h-full relative block">
+                    <img src="{{ asset('storage/' . $artikel->cover) }}" alt="{{ $artikel->judul }}" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/50 flex items-end p-8 text-white">
                         <h2 class="text-xl md:text-3xl font-bold">{{ $artikel->judul }}</h2>
-                        <p class="text-sm">Klik untuk membaca selengkapnya</p>
                     </div>
-                </div>
-            </a>
-        @endforeach
-    </div>
-
-    <!-- Controls -->
-    <button @click="prev"
-            class="absolute top-1/2 left-3 transform -translate-y-1/2 bg-white/50 hover:bg-white p-2 rounded-full">
-        &#10094;
-    </button>
-    <button @click="next"
-            class="absolute top-1/2 right-3 transform -translate-y-1/2 bg-white/50 hover:bg-white p-2 rounded-full">
-        &#10095;
-    </button>
-
-    <!-- Indicators -->
-    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
-        <template x-for="i in total" :key="i">
-            <div @click="active = i - 1"
-                 :class="active === (i - 1) ? 'bg-white' : 'bg-gray-400'"
-                 class="w-3 h-3 rounded-full cursor-pointer"></div>
-        </template>
-    </div>
-</div>
-
-
-    <div class="max-w-6xl mx-auto px-4 py-8">
-    <div class="flex items-center justify-between mb-6">
-        <h1 class="text-3xl font-bold text-gray-800">Berita</h1>
-        <a href="{{ route('artikel.create') }}"
-           class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
-            + Tambah Artikel
-        </a>
-    </div>
-
-    @if($artikels->isEmpty())
-        <div class="bg-yellow-100 text-yellow-700 p-4 rounded">
-            Belum ada artikel yang ditambahkan.
+                </a>
+            @endforeach
         </div>
-    @else
-        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            @foreach ($artikels as $artikel)
-    <div onclick="window.location.href = 'artikel/{{$artikel->id}}'"
-        class="cards w-[300px] rounded-[10px] shadow-2xl hover:cursor-pointer hover:scale-[1.03] transition-transform duration-200">
-        
-        @if ($artikel->cover)
-            <img src="{{ asset('storage/' . $artikel->cover) }}" alt="Cover"
-                 class="w-full h-48 object-cover rounded-t-lg">
-        @endif
-
-        <div class="p-4">
-            <h2 class="text-xl font-semibold text-gray-800 mb-2">
-                <a href="{{ route('artikel.show', $artikel->id) }}" class="hover:underline">
-                    {{ Str::limit($artikel->judul, 60) }}
-                </a>
-            </h2>
-            <p class="text-sm text-gray-500 mb-4">
-                {{ $artikel->created_at->format('d M Y') }}
-            </p>
-            <p class="text-gray-700 text-sm">
-                {{ Str::limit(strip_tags($artikel->isi), 100) }}
-            </p>
-            <div class="mt-3 flex items-center justify-between">
-                <a href="{{ route('artikel.show', $artikel->id) }}"
-                   class="text-blue-600 hover:underline text-sm font-medium">
-                    Baca Selengkapnya →
-                </a>
-                <a href="{{ route('artikel.edit', $artikel->id) }}"
-                   class="text-yellow-600 hover:underline text-sm font-medium">
-                    ✎ Edit
-                </a>
-            </div>
-        </div>
-    </div>
-@endforeach
-
         </div>
     @endif
-</div>
-<x-footer />
-<script src="https://unpkg.com/flowbite@2.3.0/dist/flowbite.min.js"></script>
-<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        
+        @if($heroArtikel)
+        <div class="mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 border-b-4 border-red-600 pb-2 mb-6 inline-block">Berita Terbaru</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <div class="lg:col-span-2">
+                    <a href="{{ route('artikel.show', $heroArtikel->id) }}" class="block group">
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-shadow duration-300 group-hover:shadow-2xl">
+                            @if ($heroArtikel->cover)
+                                <img src="{{ asset('storage/' . $heroArtikel->cover) }}" alt="{{ $heroArtikel->judul }}" class="w-full h-96 object-cover">
+                            @endif
+                            <div class="p-6">
+                                <h3 class="text-3xl font-bold text-gray-900 mb-2 group-hover:text-red-700 transition-colors duration-300">{{ $heroArtikel->judul }}</h3>
+                                <p class="text-sm text-gray-500 mb-4">{{ $heroArtikel->created_at->format('d M Y') }}</p>
+                                <p class="text-gray-700 text-base line-clamp-3">{{ Str::limit(strip_tags($heroArtikel->isi), 200) }}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
 
+                <div class="space-y-6">
+                    @foreach($secondaryArtikels as $artikel)
+                    <a href="{{ route('artikel.show', $artikel->id) }}" class="block group">
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-shadow duration-300 group-hover:shadow-xl flex items-center">
+                             @if ($artikel->cover)
+                                <img src="{{ asset('storage/' . $artikel->cover) }}" alt="{{ $artikel->judul }}" class="w-32 h-full object-cover flex-shrink-0">
+                            @endif
+                            <div class="p-4">
+                                <h4 class="font-semibold text-lg text-gray-800 group-hover:text-red-700 transition-colors duration-300">{{ $artikel->judul }}</h4>
+                                <p class="text-xs text-gray-500 mt-1">{{ $artikel->created_at->format('d M Y') }}</p>
+                            </div>
+                        </div>
+                    </a>
+                    @endforeach
+                </div>
 
-    </body>
-    </html>
+            </div>
+        </div>
+        @endif
+
+        <div>
+            <div class="flex items-center justify-between mb-6 border-b-4 border-red-600 pb-2">
+                <h2 class="text-3xl font-bold text-gray-800">Semua Berita</h2>
+                <a href="{{ route('artikel.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition text-sm font-medium">
+                    + Tambah Artikel
+                </a>
+            </div>
+
+            @if($artikels->isEmpty())
+                <div class="bg-yellow-100 text-yellow-700 p-4 rounded text-center">
+                    Tidak ada artikel lain untuk ditampilkan.
+                </div>
+            @else
+                <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                    @foreach ($artikels as $artikel)
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col transition-transform duration-300 hover:-translate-y-2">
+                        @if ($artikel->cover)
+                            <a href="{{ route('artikel.show', $artikel->id) }}">
+                                <img src="{{ asset('storage/' . $artikel->cover) }}" alt="Cover" class="w-full h-48 object-cover">
+                            </a>
+                        @endif
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                                <a href="{{ route('artikel.show', $artikel->id) }}" class="hover:text-red-700 transition-colors duration-300">
+                                    {{ Str::limit($artikel->judul, 60) }}
+                                </a>
+                            </h3>
+                            <p class="text-sm text-gray-500 mb-4">{{ $artikel->created_at->format('d M Y') }}</p>
+                            <p class="text-gray-600 text-sm line-clamp-3 flex-grow">{{ Str::limit(strip_tags($artikel->isi), 100) }}</p>
+                            <div class="mt-4 pt-4 border-t flex items-center justify-between">
+                                <a href="{{ route('artikel.show', $artikel->id) }}" class="text-blue-600 hover:underline text-sm font-medium">
+                                    Baca Selengkapnya →
+                                </a>
+                                <a href="{{ route('artikel.edit', $artikel->id) }}" class="text-gray-500 hover:text-yellow-600 text-sm font-medium transition-colors duration-300">
+                                    ✎ Edit
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            @endif
+
+            <div class="mt-12">
+                {{ $artikels->links() }}
+            </div>
+        </div>
+
+    </div>
+
+    <x-footer />
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>
-
 </html>
