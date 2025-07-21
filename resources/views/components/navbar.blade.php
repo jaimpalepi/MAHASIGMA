@@ -53,13 +53,13 @@
           </a>
         </li>
          <li>
-          <a href="#" class="flex items-center py-2 px-3 text-white rounded-md md:border-0 md:p-0 hover:bg-white/10 transition-colors duration-200">
+          <a href="https://tracer.unsoed.ac.id/" class="flex items-center py-2 px-3 text-white rounded-md md:border-0 md:p-0 hover:bg-white/10 transition-colors duration-200">
             <svg class="w-4 h-4 me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
             Tracer Study
           </a>
         </li>
          <li>
-          <a href="#" class="flex items-center py-2 px-3 text-white rounded-md md:border-0 md:p-0 hover:bg-white/10 transition-colors duration-200">
+          <a href="https://scc.unsoed.ac.id/" class="flex items-center py-2 px-3 text-white rounded-md md:border-0 md:p-0 hover:bg-white/10 transition-colors duration-200">
             <svg class="w-4 h-4 me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2v-8a2 2 0 012-2h2zm5-1a1 1 0 00-1-1H9a1 1 0 00-1 1v1h4V6z" clip-rule="evenodd"></path></svg>
             Career Portal
           </a>
