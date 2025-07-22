@@ -40,7 +40,7 @@ class ArtikelController extends Controller
 
     $secondaryArtikels = $heroArtikel ? artikel::latest()->where('id', '!=', $heroArtikel->id)->take(3)->get() : collect();
 
-    $artikels = artikel::latest()->skip(4)->paginate(9);
+    $artikels = artikel::latest()->skip(4)->paginate(6);
 
     return view('artikel.index', compact('unggulan', 'heroArtikel', 'secondaryArtikels', 'artikels'));
 }
