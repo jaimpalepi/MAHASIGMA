@@ -7,6 +7,7 @@
     @vite('resources/css/app.css')
     <title>Buat Artikel Baru</title>
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body>
     <x-navbar />

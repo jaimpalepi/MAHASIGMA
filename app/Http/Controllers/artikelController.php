@@ -17,7 +17,7 @@ class ArtikelController extends Controller
     {
         $request->validate([
             'judul' => 'required|string|max:255',
-            'cover' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'cover' => 'required|image|mimes:jpg,jpeg,png|max:4048',
             'isi' => 'required',
         ]);
 

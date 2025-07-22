@@ -14,6 +14,7 @@ Route::get('/artikel/{id}', [artikelController::class, 'show'])->name('artikel.s
 Route::view('/layanan', 'layanan')->name('layanan');
 Route::get('/artikel/{id}/edit', [ArtikelController::class, 'edit'])->name('artikel.edit');
 Route::put('/artikel/{id}', [ArtikelController::class, 'update'])->name('artikel.update');
+Route::get('/search', function () {return view('artikel.search-results'); })->name('artikel.search');
 
 
 // Route untuk Tentang Kami
