@@ -64,6 +64,37 @@
             Career Portal
           </a>
         </li>
+        <li x-data="{ open: false }" @click.away="open = false" class="relative">
+          <button @click="open = !open" class="flex items-center py-2 px-3 text-white rounded-md md:border-0 md:p-0 hover:bg-white/10 transition-colors duration-200">
+              <svg class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+              </svg>
+              <span>Search</span>
+          </button>
+          <div x-show="open"
+              x-transition
+              class="absolute right-0 mt-2 w-64 md:w-80 p-3 bg-white rounded-lg shadow-xl z-20"
+              style="display: none;">
+              
+              <form action="{{ route('artikel.search') }}" method="GET">
+                  <label for="navbar-search-dropdown" class="sr-only">Cari</label>
+                  <div class="relative">
+                      <input id="navbar-search-dropdown" 
+                            type="search" 
+                            name="query" 
+                            placeholder="Ketik lalu tekan Enter..." 
+                            class="block w-full p-2 ps-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-red-500 focus:border-red-500" 
+                            required>
+                      <button type="submit" class="absolute top-0 end-0 p-2 text-sm font-medium h-full text-white bg-red-600 rounded-e-lg border border-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300">
+                          <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                          </svg>
+                          <span class="sr-only">Search</span>
+                      </button>
+                  </div>
+              </form>
+          </div>
+      </li>
       </ul>
     </div>
   </div>
