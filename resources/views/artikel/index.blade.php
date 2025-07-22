@@ -124,5 +124,24 @@
     <x-footer />
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @livewireScripts
+
+    <script>
+        document.addEventListener('livewire:initialized', () => {
+            let componentElement = null;
+
+            Livewire.hook('element.init', ({ component, el }) => {
+                if(component.name === 'artikel-index') {
+                    componentElement = el;
+                }
+            });
+
+            Livewire.on('scroll-to-top-of-component', () => {
+                if(componentElement) {
+                    componentElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>

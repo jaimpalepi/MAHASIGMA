@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\artikel;
 use Livewire\Component;
 use Livewire\WithPagination; 
+use Livewire\Attributes\On;
 
 class ArtikelIndex extends Component
 {
@@ -12,6 +13,11 @@ class ArtikelIndex extends Component
 
 
     protected $paginationTheme = 'tailwind';
+
+    public function updatedPaginators(): void
+    {
+        $this->dispatch('scroll-to-top-of-component');
+    }
 
     public function render()
     {
