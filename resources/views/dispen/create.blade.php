@@ -7,7 +7,7 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="bg-gray-100 min-h-screen p-6">
+<body>
     <x-navbar />
 <div class="max-w-xl mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
     <h2 class="text-2xl font-semibold mb-6">Ajukan Surat Dispensasi</h2>
