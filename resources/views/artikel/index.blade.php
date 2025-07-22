@@ -38,11 +38,9 @@
                         alt="{{ $artikel->judul }}"
                         class="w-full h-full object-cover object-center rounded-lg">
 
-                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center text-white text-center">
-                        <div>
-                            <h2 class="text-xl md:text-3xl font-bold">{{ $artikel->judul }}</h2>
-                            <p class="text-sm">Klik untuk membaca selengkapnya</p>
-                        </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent flex flex-col justify-end p-6 md:p-8">
+                        <h2 class="text-xl md:text-3xl font-bold text-white leading-tight shadow-text">{{ $artikel->judul }}</h2>
+                        <p class="text-sm text-gray-200 mt-1 shadow-text">Klik untuk membaca selengkapnya</p>
                     </div>
                 </a>
             @endforeach
