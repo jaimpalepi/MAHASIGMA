@@ -35,18 +35,11 @@ class ArtikelController extends Controller
 
     public function index()
 {
-     // Mengambil artikel unggulan untuk carousel (ini sudah ada)
     $unggulan = artikel::where('is_featured', true)->latest()->take(5)->get();
-
-    // Mengambil 1 artikel paling baru untuk ditampilkan sebagai "hero"
     $heroArtikel = artikel::latest()->first();
 
-    // Mengambil 3 artikel berikutnya (setelah hero) untuk daftar sekunder
-    // Jika hanya ada sedikit artikel, pastikan tidak error
     $secondaryArtikels = $heroArtikel ? artikel::latest()->where('id', '!=', $heroArtikel->id)->take(3)->get() : collect();
 
-    // Paginate sisa artikel (selain 4 artikel teratas) untuk grid utama
-    // Menampilkan 9 artikel per halaman
     $artikels = artikel::latest()->skip(4)->paginate(9);
 
     return view('artikel.index', compact('unggulan', 'heroArtikel', 'secondaryArtikels', 'artikels'));
