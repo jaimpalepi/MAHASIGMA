@@ -38,11 +38,9 @@
                         alt="{{ $artikel->judul }}"
                         class="w-full h-full object-cover object-center rounded-lg">
 
-                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center text-white text-center">
-                        <div>
-                            <h2 class="text-xl md:text-3xl font-bold">{{ $artikel->judul }}</h2>
-                            <p class="text-sm">Klik untuk membaca selengkapnya</p>
-                        </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent flex flex-col justify-end p-6 md:p-8">
+                        <h2 class="text-xl md:text-3xl font-bold text-white leading-tight shadow-text">{{ $artikel->judul }}</h2>
+                        <p class="text-sm text-gray-200 mt-1 shadow-text">Klik untuk membaca selengkapnya</p>
                     </div>
                 </a>
             @endforeach
@@ -71,7 +69,7 @@
         
         @if($heroArtikel)
         <div class="mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 border-b-4 border-red-600 pb-2 mb-6 inline-block">Berita Terbaru</h2>
+            <h2 class="text-3xl font-bold text-gray-800 border-b-4 border-red-600 pb-2 mb-6 inline-block">Informasi Terbaru</h2>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 
                 <div class="lg:col-span-2">
@@ -111,55 +109,37 @@
 
         <div>
             <div class="flex items-center justify-between mb-6 border-b-4 border-red-600 pb-2">
-                <h2 class="text-3xl font-bold text-gray-800">Semua Berita</h2>
+                <h2 class="text-3xl font-bold text-gray-800">Semua Informasi</h2>
                 <a href="{{ route('artikel.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition text-sm font-medium">
                     + Tambah Artikel
                 </a>
             </div>
 
-            @if($artikels->isEmpty())
-                <div class="bg-yellow-100 text-yellow-700 p-4 rounded text-center">
-                    Tidak ada artikel lain untuk ditampilkan.
-                </div>
-            @else
-                <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                    @foreach ($artikels as $artikel)
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col transition-transform duration-300 hover:-translate-y-2">
-                        @if ($artikel->cover)
-                            <a href="{{ route('artikel.show', $artikel->id) }}">
-                                <img src="{{ asset('storage/' . $artikel->cover) }}" alt="Cover" class="w-full h-48 object-cover">
-                            </a>
-                        @endif
-                        <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-xl font-semibold text-gray-800 mb-2">
-                                <a href="{{ route('artikel.show', $artikel->id) }}" class="hover:text-red-700 transition-colors duration-300">
-                                    {{ Str::limit($artikel->judul, 60) }}
-                                </a>
-                            </h3>
-                            <p class="text-sm text-gray-500 mb-4">{{ $artikel->created_at->format('d M Y') }}</p>
-                            <p class="text-gray-600 text-sm line-clamp-3 flex-grow">{{ Str::limit(strip_tags($artikel->isi), 100) }}</p>
-                            <div class="mt-4 pt-4 border-t flex items-center justify-between">
-                                <a href="{{ route('artikel.show', $artikel->id) }}" class="text-blue-600 hover:underline text-sm font-medium">
-                                    Baca Selengkapnya →
-                                </a>
-                                <a href="{{ route('artikel.edit', $artikel->id) }}" class="text-gray-500 hover:text-yellow-600 text-sm font-medium transition-colors duration-300">
-                                    ✎ Edit
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-            @endif
-
-            <div class="mt-12">
-                {{ $artikels->links() }}
-            </div>
+            <livewire:artikel-index />
         </div>
-
     </div>
 
     <x-footer />
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    @livewireScripts
+
+    <script>
+        document.addEventListener('livewire:initialized', () => {
+            let componentElement = null;
+
+            Livewire.hook('element.init', ({ component, el }) => {
+                if(component.name === 'artikel-index') {
+                    componentElement = el;
+                }
+            });
+
+            Livewire.on('scroll-to-top-of-component', () => {
+                if(componentElement) {
+                    componentElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>
