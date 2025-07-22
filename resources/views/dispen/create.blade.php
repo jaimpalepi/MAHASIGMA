@@ -29,44 +29,46 @@
             </div>
         @endif
 
-        <form action="{{ route('dispen.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
+        <form action="{{ route('dispen.store') }}" method="POST">
+    @csrf
+    <!-- Nama Acara, Waktu, Tempat -->
+    <div class="mb-4">
+        <label for="nama_acara" class="block font-medium">Nama Acara</label>
+        <input type="text" name="nama_acara" required class="w-full border rounded p-2">
+    </div>
+    <div class="mb-4">
+        <label for="waktu" class="block font-medium">Waktu</label>
+        <input type="date" name="waktu" required class="w-full border rounded p-2">
+    </div>
+    <div class="mb-4">
+        <label for="tempat" class="block font-medium">Tempat</label>
+        <input type="text" name="tempat" required class="w-full border rounded p-2">
+    </div>
 
-            <div class="mb-4">
-                <label for="nama_acara" class="block text-sm font-medium text-gray-700">Nama Acara</label>
-                <input type="text" name="nama_acara" id="nama_acara"
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                    value="{{ old('nama_acara') }}" required>
-            </div>
+    <!-- List Mahasiswa -->
+    <div class="mb-4">
+        <label class="block font-medium mb-1">Daftar Mahasiswa</label>
+        <div id="mahasiswa-list">
+            <input type="text" name="mahasiswa[]" class="w-full border rounded p-2 mb-2" placeholder="Nama Mahasiswa">
+        </div>
+        <button type="button" onclick="tambahMahasiswa()" class="text-blue-600 hover:underline text-sm">+ Tambah Mahasiswa</button>
+    </div>
 
-            <div class="mb-4">
-                <label for="waktu" class="block text-sm font-medium text-gray-700">Waktu</label>
-                <input type="date" name="waktu" id="waktu"
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                    value="{{ old('waktu') }}" required>
-            </div>
+    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Kirim</button>
+</form>
 
-            <div class="mb-4">
-                <label for="tempat" class="block text-sm font-medium text-gray-700">Tempat</label>
-                <input type="text" name="tempat" id="tempat"
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                    value="{{ old('tempat') }}" required>
-            </div>
+<script>
+function tambahMahasiswa() {
+    const list = document.getElementById('mahasiswa-list');
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.name = 'mahasiswa[]';
+    input.className = 'w-full border rounded p-2 mb-2';
+    input.placeholder = 'Nama Mahasiswa';
+    list.appendChild(input);
+}
+</script>
 
-            <div class="mb-6">
-                <label for="lampiran" class="block text-sm font-medium text-gray-700">Lampiran (PDF/DOC)</label>
-                <input type="file" name="lampiran" id="lampiran"
-                    class="mt-1 block w-full text-sm border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                    accept=".pdf,.doc,.docx" required>
-            </div>
-
-            <div class="flex justify-end">
-                <button type="submit"
-                    class="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
-                    Ajukan
-                </button>
-            </div>
-        </form>
     </div>
     <x-footer />
 </body>

@@ -12,7 +12,7 @@ class Dispen extends Model
         'nama_acara',
         'waktu',
         'tempat',
-        'lampiran',
+        'mahasiswa',
         'status',
     ];
 }

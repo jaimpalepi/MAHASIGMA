@@ -70,7 +70,7 @@
         <div x-show="layanan === 'dispensasi'" x-transition>
             <h2 class="text-xl font-bold mb-3">Surat Dispensasi</h2>
             <p class="text-sm mb-4">Layanan ini memfasilitasi pengajuan surat dispensasi bagi mahasiswa yang mengikuti kegiatan di luar kampus yang berbenturan dengan jadwal kuliah.</p>
-            <a href="{{ route('dispen.create') }}"
+            <a href="{{ route('dispen.index') }}"
                    class="text-blue-600 hover:underline text-sm font-medium">
                     Ajukan Dispensasi →
                 </a>

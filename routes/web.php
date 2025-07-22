@@ -5,7 +5,7 @@ use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\TentangKamiController;
 use App\Http\Controllers\DispenController;
 
-
+//Route Artikel
 Route::get('/', [ArtikelController::class, 'index']);
 Route::get('/artikel/create', [artikelController::class, 'create'])->name('artikel.create');
 Route::post('/artikel', [artikelController::class, 'store'])->name('artikel.store');
@@ -20,5 +20,8 @@ Route::put('/artikel/{id}', [ArtikelController::class, 'update'])->name('artikel
 Route::get('/visi-misi', [TentangKamiController::class, 'visimisi'])->name('tentang.visimisi');
 Route::get('/struktur-organisasi', [TentangKamiController::class, 'struktur'])->name('tentang.struktur');
 
-Route::get('/dispen', [DispenController::class, 'create'])->name('dispen.create');
+// Route dispen
+Route::get('/dispen', [DispenController::class, 'index'])->name('dispen.index');
+Route::get('/dispen/create', [DispenController::class, 'create'])->name('dispen.create');
 Route::post('/dispen', [DispenController::class, 'store'])->name('dispen.store');
+Route::get('/dispen/{id}', [DispenController::class, 'show'])->name('dispen.show'); // untuk detail
