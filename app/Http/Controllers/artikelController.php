@@ -32,29 +32,27 @@ class ArtikelController extends Controller
         return redirect()->route('artikel.index')->with('success', 'Artikel berhasil ditambahkan!');
 }
 
+public function index()
+    {
+        $unggulan = artikel::where('is_featured', true)->latest()->take(5)->get();
 
-    public function index()
-{
-    $unggulan = artikel::where('is_featured', true)->latest()->take(5)->get();
-    $heroArtikel = artikel::latest()->first();
+        $heroArtikel = artikel::latest()->first();
 
-    $secondaryArtikels = $heroArtikel ? artikel::latest()->where('id', '!=', $heroArtikel->id)->take(3)->get() : collect();
+        $secondaryArtikels = $heroArtikel ? artikel::latest()->where('id', '!=', $heroArtikel->id)->take(3)->get() : collect();
+        return view('artikel.index', compact('unggulan', 'heroArtikel', 'secondaryArtikels'));
+    }
 
-    $artikels = artikel::latest()->skip(4)->paginate(6);
-
-    return view('artikel.index', compact('unggulan', 'heroArtikel', 'secondaryArtikels', 'artikels'));
-}
 
 public function show($id)
-{
-    $artikel = Artikel::findOrFail($id);
-    $randomArtikel = Artikel::inRandomOrder()
-                           ->where('id', '!=', $id)
-                           ->limit(3)
-                           ->get();
+    {
+        $artikel = Artikel::findOrFail($id);
+        $randomArtikel = Artikel::inRandomOrder()
+                            ->where('id', '!=', $id)
+                            ->limit(3)
+                            ->get();
 
-    return view('artikel.show', compact('artikel', 'randomArtikel'));
-}
+        return view('artikel.show', compact('artikel', 'randomArtikel'));
+    }
 
 public function edit($id)
 {
@@ -63,27 +61,27 @@ public function edit($id)
 }
 
 public function update(Request $request, $id)
-{
-    $artikel = Artikel::findOrFail($id);
+    {
+        $artikel = Artikel::findOrFail($id);
 
-    $request->validate([
-        'judul' => 'required|string|max:255',
-        'isi' => 'required|string',
-        'cover' => 'nullable|image|max:2048',
-    ]);
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'isi' => 'required|string',
+            'cover' => 'nullable|image|max:2048',
+        ]);
 
-    $artikel->judul = $request->judul;
-    $artikel->isi = $request->isi;
+        $artikel->judul = $request->judul;
+        $artikel->isi = $request->isi;
 
-    if ($request->hasFile('cover')) {
-        $path = $request->file('cover')->store('covers', 'public');
-        $artikel->cover = $path;
+        if ($request->hasFile('cover')) {
+            $path = $request->file('cover')->store('covers', 'public');
+            $artikel->cover = $path;
+        }
+
+        $artikel->save();
+
+        return redirect()->route('artikel.show', $artikel->id)->with('success', 'Artikel berhasil diperbarui.');
     }
-
-    $artikel->save();
-
-    return redirect()->route('artikel.show', $artikel->id)->with('success', 'Artikel berhasil diperbarui.');
-}
 
 }
 
