@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
 
         // Panggil ArtikelSeeder di sini
         $this->call([
+            KategoriSeeder::class,
             ArtikelSeeder::class,
         ]);
     }

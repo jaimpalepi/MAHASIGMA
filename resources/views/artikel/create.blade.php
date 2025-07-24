@@ -48,6 +48,16 @@
                 <input type="hidden" name="isi" id="isi">
             </div>
 
+            <div class="mb-4">
+                <label for="kategori_id" class="block text-sm font-medium text-gray-700">Kategori</label>
+                <select name="kategori_id" id="kategori_id" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+                    <option value="">Pilih Kategori</option>
+                    @foreach ($kategoris as $kategori)
+                        <option value="{{ $kategori->id }}">{{ $kategori->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <button type="submit" class="w-full text-white font-bold py-3 px-4 rounded-lg shadow-lg bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 transition-all duration-300 ease-in-out">
                 Simpan Artikel
             </button>
