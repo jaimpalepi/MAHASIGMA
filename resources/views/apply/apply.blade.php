@@ -14,14 +14,14 @@
 
     <x-back-btn />
 
-    <div class=" flex flex-col justify-center items-center py-[30px] ">
+    <div class=" flex flex-col justify-center items-center py-[30px]">
         <form action="{{ route('apply.store') }}" method="POST" enctype="multipart/form-data"
-            class="flex flex-col justify-center items-center">
+            class="flex flex-col justify-center items-center  w-[900px]">
             @csrf
             <div
-                class="flex flex-col gap-[25px] justify-center items-center bg-white shadow-2xl rounded-[10px] w-full p-[25px] box-border">
+                class="flex flex-col gap-[25px] justify-center items-center bg-white shadow-2xl rounded-[10px] w-full p-[25px] box-border border-[1px] border-[#e6e4e1]">
                 <div class="flex flex-col justify-center items-center gap-[7px]">
-                    <h1 class="leading-none text-[30px] font-semibold">{{$beasiswa1->title}}</h1>
+                    <h1 class="leading-none text-[30px] font-semibold text-center">{{$beasiswa1->title}}</h1>
                     <h1 class="leading-none text-[20px] font-medium">Application Form</h1>
                 </div>
                 <input type="hidden" name="beasiswa_id" id="beasiswa_id" value="{{ $beasiswa }}">

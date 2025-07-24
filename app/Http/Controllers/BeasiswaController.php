@@ -9,6 +9,8 @@ use App\Models\RequirementsBeasiswa;
 use App\Models\Requirements;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+
 
 class BeasiswaController extends Controller
 {
@@ -32,6 +34,11 @@ class BeasiswaController extends Controller
 
         $beasiswaSoonEnd = Beasiswa::whereBetween('deadline', [$today, $nextWeek])->get();
         return view('beasiswa.beasiswaAll', ['beasiswas' => $beasiswas, 'beasiswaSoonEnd' => $beasiswaSoonEnd, 'jenjangList' => $jenjangList]);
+    }
+
+    public function beasiswa_table(){
+        $beasiswas = Beasiswa::all();
+        return view('beasiswa.beasiswa_table', ['beasiswas' => $beasiswas]);
     }
 
     public function beasiswa_detail($id){
@@ -199,5 +206,12 @@ class BeasiswaController extends Controller
         
         
         return redirect()->route('beasiswa.detail', $beasiswa->id)->with('success', 'Beasiswa updated successfully!');
+    }
+
+    public function beasiswa_delete($id){
+        $beasiswa = Beasiswa::find($id);
+        Storage::disk('public')->delete($beasiswa->cover);
+        Beasiswa::destroy($id);
+        return redirect()->route('beasiswa.table');
     }
 }

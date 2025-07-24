@@ -30,7 +30,8 @@ class AuthController extends Controller
         $request->session()->regenerate();
 
         // fallback to home if 'redirect' not present
-        return redirect($request->input('redirect'));
+        return redirect()->to($request->input('redirect') ?? '/');
+
     }
 
     public function showRegister(){
