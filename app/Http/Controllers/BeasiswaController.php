@@ -166,11 +166,11 @@ class BeasiswaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $beasiswa = Beasiswa::findOrFail($id);
+        $beasiswa = Beasiswa::findOrFail($request->id);
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'cover' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Cover is now optional
+            'cover' => 'nullable|image|max:2048',
             'desc' => 'required|string',
             'provider' => 'required|string|max:255',
             'amount' => 'required|string',
@@ -188,7 +188,8 @@ class BeasiswaController extends Controller
             }
             // Store new cover
             $file = $request->file('cover');
-            $fileName = uniqid('cover_') . '.' . $file->getClientOriginalExtension();
+            $extension = $file->guessExtension() ?? $file->getClientOriginalExtension();
+            $fileName = uniqid('cover_') . '.' . $extension;
             $path = $file->storeAs('documents/cover', $fileName, 'public');
         }
 
