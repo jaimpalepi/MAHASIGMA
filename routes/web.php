@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\TentangKamiController;
 use App\Http\Controllers\DispenController;
+use App\Http\Controllers\PrestasiController;
 
 //Route Artikel
 Route::get('/', [ArtikelController::class, 'index']);
@@ -15,7 +16,7 @@ Route::view('/layanan', 'layanan')->name('layanan');
 Route::get('/artikel/{id}/edit', [ArtikelController::class, 'edit'])->name('artikel.edit');
 Route::put('/artikel/{id}', [ArtikelController::class, 'update'])->name('artikel.update');
 Route::get('/search', function () {return view('artikel.search-results'); })->name('artikel.search');
-
+Route::get('/prestasi', [PrestasiController::class, 'index'])->name('prestasi.index');
 
 // Route untuk Tentang Kami
 Route::get('/visi-misi', [TentangKamiController::class, 'visimisi'])->name('tentang.visimisi');
