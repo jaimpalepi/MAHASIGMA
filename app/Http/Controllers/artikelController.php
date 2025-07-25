@@ -39,7 +39,9 @@ public function index()
         $heroArtikel = artikel::latest()->first();
 
         $secondaryArtikels = $heroArtikel ? artikel::latest()->where('id', '!=', $heroArtikel->id)->take(3)->get() : collect();
-        return view('artikel.index', compact('unggulan', 'heroArtikel', 'secondaryArtikels'));
+
+        $allArtikels = Artikel::latest()->get();
+        return view('artikel.index', compact('unggulan', 'heroArtikel', 'secondaryArtikels', 'allArtikels'));
     }
 
 

@@ -16,7 +16,7 @@
 <body>
     <x-navbar />
 <div class="max-w-5xl mx-auto mt-10">
-    <h2 class="text-2xl font-semibold mb-6">Daftar Pengajuan Dispensasi</h2>
+
 
     @if(session('success'))
         <div class="mb-4 text-green-700 bg-green-100 p-3 rounded">
