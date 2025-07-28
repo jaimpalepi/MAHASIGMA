@@ -1,56 +1,58 @@
-<div class="bg-white p-6 rounded-lg shadow-lg">
-    {{-- Bagian Header dengan Judul dan Tombol Navigasi --}}
-    <div class="flex justify-between items-center mb-4">
-        <button wire:click="previousYear" title="Tahun Sebelumnya" class="p-2 rounded-full hover:bg-gray-200 transition">
-            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+<div class="p-4 border-2 border-dashed rounded-lg dark:border-gray-700">
+    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4 text-center">Statistik Prestasi Fakultas</h3>
+
+    {{-- Kontrol Navigasi Tahun --}}
+    <div class="flex items-center justify-between mb-4">
+        <button wire:click="previousYear" class="p-2 bg-gray-200 dark:bg-gray-600 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
         </button>
-        <h2 class="text-2xl font-bold text-gray-800">Prestasi <span x-text="$wire.tahun">{{ $tahun }}</span></h2>
-        <button wire:click="nextYear" title="Tahun Berikutnya" class="p-2 rounded-full hover:bg-gray-200 transition">
-            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        <span class="text-lg font-bold text-gray-700 dark:text-gray-300">{{ $tahun }}</span>
+        <button wire:click="nextYear" @if($tahun >= now()->year) disabled @endif class="p-2 bg-gray-200 dark:bg-gray-600 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500 transition disabled:opacity-50 disabled:cursor-not-allowed">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
         </button>
     </div>
 
-    {{-- Tempat untuk Grafik Chart.js --}}
-    <div class="w-full h-80">
-        <canvas id="prestasiChart"></canvas>
+    {{-- Elemen Canvas untuk Grafik --}}
+    <div
+        wire:ignore
+        x-data="{
+            chart: null,
+            init() {
+                let initialData = {{ Illuminate\Support\Js::from($chartData) }};
+                let ctx = this.$refs.canvas.getContext('2d');
+
+                this.chart = new Chart(ctx, {
+                    type: 'pie',
+                    data: initialData,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 1,
+                                    precision: 0
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false,
+                            }
+                        }
+                    }
+                });
+            },
+            updateChart(newChartData) {
+                this.chart.data = newChartData;
+                this.chart.update();
+            }
+        }"
+        @chart-data-updated.window="updateChart($event.detail[0])"
+    >
+        <div class="w-full h-80">
+            <canvas x-ref="canvas"></canvas>
+        </div>
     </div>
 </div>
-
-{{-- Script untuk menginisiasi dan mengupdate grafik --}}
-@script
-<script>
-    // Memuat library Chart.js dari CDN (jika belum ada di app.js)
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/chart.js';
-    script.onload = () => {
-        const ctx = document.getElementById('prestasiChart').getContext('2d');
-        
-        // Inisiasi grafik pertama kali
-        let chart = new Chart(ctx, {
-            type: 'bar', // Jenis grafik
-            data: @json($chartData),
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false // Menyembunyikan legenda/label dataset
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-
-        // Mendengarkan event 'chartDataUpdated' dari backend Livewire
-        Livewire.on('chartDataUpdated', (data) => {
-            chart.data = data; // Ganti data grafik dengan yang baru
-            chart.update();   // Perbarui tampilan grafik
-        });
-    };
-    document.head.appendChild(script);
-</script>
-@endscript

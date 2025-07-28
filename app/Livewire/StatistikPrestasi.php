@@ -4,55 +4,89 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Carbon\Carbon;
+use App\Models\Fakultas;
+use App\Models\artikel;
+use App\Models\kategori;
+use Illuminate\Support\Facades\DB;
 
 class StatistikPrestasi extends Component
 {
     public $tahun;
     public $chartData;
 
-    // Method ini dijalankan saat komponen pertama kali dimuat
     public function mount()
     {
         $this->tahun = Carbon::now()->year;
         $this->loadChartData();
     }
 
-    // Fungsi untuk pindah ke tahun sebelumnya
     public function previousYear()
     {
         $this->tahun--;
         $this->loadChartData();
     }
 
-    // Fungsi untuk pindah ke tahun berikutnya
     public function nextYear()
     {
-        $this->tahun++;
-        $this->loadChartData();
+        // Batasi agar tidak bisa ke tahun depan jika belum ada datanya
+        if ($this->tahun < Carbon::now()->year) {
+            $this->tahun++;
+            $this->loadChartData();
+        }
     }
 
-    // Fungsi untuk memuat data grafik (saat ini masih contoh/dummy)
     public function loadChartData()
     {
-        // --- NANTINYA, LOGIKA PENGAMBILAN DATA ASLI ANDA AKAN DI SINI ---
-        // Contoh: $data = artikel::where('kategori_id', id_prestasi)->whereYear('created_at', $this->tahun)->...->get();
-        
-        // Data dummy untuk contoh agar grafik terlihat dinamis
+        // 1. Ambil ID kategori 'Prestasi'
+        $prestasiId = kategori::where('name', 'Prestasi')->value('id');
+
+        // 2. Ambil semua fakultas untuk dijadikan label grafik
+        $fakultas = Fakultas::pluck('nama', 'id');
+
+        // 3. Query untuk menghitung prestasi per fakultas pada tahun yang dipilih
+        $dataPrestasi = Artikel::query()
+            ->select('fakultas_id', DB::raw('count(*) as total'))
+            ->where('kategori_id', $prestasiId)
+            ->whereYear('created_at', $this->tahun)
+            ->whereNotNull('fakultas_id')
+            ->groupBy('fakultas_id')
+            ->pluck('total', 'fakultas_id');
+
+        // 4. Siapkan data agar sesuai format Chart.js
+        $labels = $fakultas->values()->all(); // ['Fakultas Pertanian', 'Fakultas Biologi', ...]
+        $data = $fakultas->map(function ($nama, $id) use ($dataPrestasi) {
+            return $dataPrestasi->get($id, 0); // Ambil total prestasi, jika tidak ada maka 0
+        })->values()->all();
+
+        // 5. Susun data final untuk chart
         $this->chartData = [
-            'labels' => ['Akademik', 'Olahraga', 'Seni', 'Riset', 'Pengabdian'],
+            'labels' => $labels,
             'datasets' => [
                 [
                     'label' => 'Jumlah Prestasi',
-                    // Angka acak agar grafik berubah setiap kali tahun diganti
-                    'data' => [rand(10, 50), rand(20, 60), rand(5, 30), rand(15, 45), rand(10, 25)],
-                    'backgroundColor' => 'rgba(220, 38, 38, 0.7)', // Warna merah dominan
-                    'borderColor' => 'rgba(220, 38, 38, 1)',
+                    'data' => $data,
+                    'backgroundColor' => [
+                        'rgba(220, 38, 38, 0.6)',
+                        'rgba(251, 146, 60, 0.6)',
+                        'rgba(250, 204, 21, 0.6)',
+                        'rgba(74, 222, 128, 0.6)',
+                        'rgba(96, 165, 250, 0.6)',
+                        'rgba(167, 139, 250, 0.6)',
+                    ],
+                    'borderColor' => [
+                        'rgba(220, 38, 38, 1)',
+                        'rgba(251, 146, 60, 1)',
+                        'rgba(250, 204, 21, 1)',
+                        'rgba(74, 222, 128, 1)',
+                        'rgba(96, 165, 250, 1)',
+                        'rgba(167, 139, 250, 1)',
+                    ],
                     'borderWidth' => 1,
                 ]
             ]
         ];
 
-        // Mengirim event ke browser untuk memberitahu bahwa data chart telah diperbarui
+        // Kirim event ke frontend untuk update grafik
         $this->dispatch('chartDataUpdated', $this->chartData);
     }
 
