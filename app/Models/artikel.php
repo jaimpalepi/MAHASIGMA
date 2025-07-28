@@ -15,11 +15,16 @@ class artikel extends Model
         'cover',
         'isi',
         'kategori_id',
+        'fakultas_id',
     ];
 
-    // Mendefinisikan bahwa sebuah artikel 'milik' satu kategori
     public function kategori(): BelongsTo
     {
         return $this->belongsTo(kategori::class);
+    }
+
+    public function fakultas(): BelongsTo
+    {
+        return $this->belongsTo(Fakultas::class);
     }
 }

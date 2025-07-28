@@ -13,16 +13,13 @@ class KategoriSeeder extends Seeder
      */
     public function run(): void
     {
-        // 2. Nonaktifkan pengecekan foreign key untuk sementara
+       
         Schema::disableForeignKeyConstraints();
 
-        // 3. Kosongkan tabel dengan aman
         kategori::truncate();
 
-        // 4. Aktifkan kembali pengecekan foreign key
         Schema::enableForeignKeyConstraints();
 
-        // 5. Gunakan firstOrCreate untuk menghindari duplikasi jika seeder dijalankan lagi
         kategori::firstOrCreate(['name' => 'Informasi']);
         kategori::firstOrCreate(['name' => 'Prestasi']);
     }
