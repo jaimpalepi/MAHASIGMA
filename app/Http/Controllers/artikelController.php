@@ -6,13 +6,15 @@ use Illuminate\Http\Request;
 use App\Models\artikel;
 use Illuminate\Support\Facades\Storage;
 use App\Models\kategori;
+use App\Models\Fakultas;
 
 class ArtikelController extends Controller
 {
     public function create()
     {
-        $kategoris = kategori::all(); // Ambil semua data kategori
-        return view('artikel.create', compact('kategoris')); // Kirim ke view
+        $kategoris = kategori::all(); 
+        $fakultas = Fakultas::all(); 
+        return view('artikel.create', compact('kategoris', 'fakultas'));
     }
 
     public function store(Request $request)
@@ -21,7 +23,8 @@ class ArtikelController extends Controller
             'judul' => 'required|string|max:255',
             'cover' => 'required|image|mimes:jpg,jpeg,png|max:4048',
             'isi' => 'required',
-            'kategori_id' => 'required|exists:kategoris,id', // Validasi ID kategori
+            'kategori_id' => 'required|exists:kategoris,id',
+            'fakultas_id' => 'nullable|exists:fakultas,id',
         ]);
 
         $coverPath = $request->file('cover')->store('covers', 'public');
@@ -31,6 +34,7 @@ class ArtikelController extends Controller
             'cover' => $coverPath,
             'isi' => $request->isi,
             'kategori_id' => $request->kategori_id,
+            'fakultas_id' => $request->kategori_id == 2 ? $request->fakultas_id : null,
         ]);
 
         return redirect()->route('artikel.index')->with('success', 'Artikel berhasil ditambahkan!');

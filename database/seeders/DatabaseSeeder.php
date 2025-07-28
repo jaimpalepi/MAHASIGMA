@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         // Panggil ArtikelSeeder di sini
         $this->call([
             KategoriSeeder::class,
+            FakultasSeeder::class,
             ArtikelSeeder::class,
         ]);
     }
