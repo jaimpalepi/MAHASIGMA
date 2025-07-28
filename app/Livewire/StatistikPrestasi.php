@@ -35,60 +35,45 @@ class StatistikPrestasi extends Component
         }
     }
 
-    public function loadChartData()
-    {
-        // 1. Ambil ID kategori 'Prestasi'
-        $prestasiId = kategori::where('name', 'Prestasi')->value('id');
+   public function loadChartData()
+{
+    $prestasiId = kategori::where('name', 'Prestasi')->value('id');
+    $fakultas = Fakultas::pluck('nama', 'id');
 
-        // 2. Ambil semua fakultas untuk dijadikan label grafik
-        $fakultas = Fakultas::pluck('nama', 'id');
+    $dataPrestasi = Artikel::query()
+        ->select('fakultas_id', DB::raw('count(*) as total'))
+        ->where('kategori_id', $prestasiId)
+        ->whereYear('created_at', $this->tahun)
+        ->whereNotNull('fakultas_id')
+        ->groupBy('fakultas_id')
+        ->pluck('total', 'fakultas_id');
 
-        // 3. Query untuk menghitung prestasi per fakultas pada tahun yang dipilih
-        $dataPrestasi = Artikel::query()
-            ->select('fakultas_id', DB::raw('count(*) as total'))
-            ->where('kategori_id', $prestasiId)
-            ->whereYear('created_at', $this->tahun)
-            ->whereNotNull('fakultas_id')
-            ->groupBy('fakultas_id')
-            ->pluck('total', 'fakultas_id');
+    $labels = $fakultas->values()->all();
+    $data = $fakultas->map(function ($nama, $id) use ($dataPrestasi) {
+        return $dataPrestasi->get($id, 0);
+    })->values()->all();
 
-        // 4. Siapkan data agar sesuai format Chart.js
-        $labels = $fakultas->values()->all(); // ['Fakultas Pertanian', 'Fakultas Biologi', ...]
-        $data = $fakultas->map(function ($nama, $id) use ($dataPrestasi) {
-            return $dataPrestasi->get($id, 0); // Ambil total prestasi, jika tidak ada maka 0
-        })->values()->all();
+    // Palet warna yang lebih beragam untuk diagram lingkaran
+    $backgroundColors = [
+        '#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#8b5cf6',
+        '#ec4899', '#14b8a6', '#64748b', '#f43f5e', '#d946ef', '#0ea5e9'
+    ];
 
-        // 5. Susun data final untuk chart
-        $this->chartData = [
-            'labels' => $labels,
-            'datasets' => [
-                [
-                    'label' => 'Jumlah Prestasi',
-                    'data' => $data,
-                    'backgroundColor' => [
-                        'rgba(220, 38, 38, 0.6)',
-                        'rgba(251, 146, 60, 0.6)',
-                        'rgba(250, 204, 21, 0.6)',
-                        'rgba(74, 222, 128, 0.6)',
-                        'rgba(96, 165, 250, 0.6)',
-                        'rgba(167, 139, 250, 0.6)',
-                    ],
-                    'borderColor' => [
-                        'rgba(220, 38, 38, 1)',
-                        'rgba(251, 146, 60, 1)',
-                        'rgba(250, 204, 21, 1)',
-                        'rgba(74, 222, 128, 1)',
-                        'rgba(96, 165, 250, 1)',
-                        'rgba(167, 139, 250, 1)',
-                    ],
-                    'borderWidth' => 1,
-                ]
+    $this->chartData = [
+        'labels' => $labels,
+        'datasets' => [
+            [
+                'label' => 'Jumlah Prestasi',
+                'data' => $data,
+                // Gunakan palet warna yang sudah disiapkan
+                'backgroundColor' => array_slice($backgroundColors, 0, count($labels)),
+                'hoverOffset' => 4
             ]
-        ];
+        ]
+    ];
 
-        // Kirim event ke frontend untuk update grafik
-        $this->dispatch('chartDataUpdated', $this->chartData);
-    }
+    $this->dispatch('chartDataUpdated', $this->chartData);
+}
 
     public function render()
     {

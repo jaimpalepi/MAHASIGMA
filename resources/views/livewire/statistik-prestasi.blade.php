@@ -22,26 +22,17 @@
                 let ctx = this.$refs.canvas.getContext('2d');
 
                 this.chart = new Chart(ctx, {
+                    // 1. Ubah tipe grafik menjadi 'pie'
                     type: 'pie',
                     data: initialData,
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    stepSize: 1,
-                                    precision: 0
-                                }
-                            }
-                        },
                         plugins: {
-                            legend: {
-                                display: false,
-                            }
+                            legend: false,  // Sembunyikan legenda default
                         }
                     }
+                    
                 });
             },
             updateChart(newChartData) {
@@ -51,8 +42,7 @@
         }"
         @chart-data-updated.window="updateChart($event.detail[0])"
     >
-        <div class="w-full h-80">
+        <div class="w-full h-96">  {{-- Sedikit lebih tinggi untuk memberi ruang legenda --}}
             <canvas x-ref="canvas"></canvas>
         </div>
-    </div>
 </div>
