@@ -2,7 +2,7 @@
     @forelse ($chartsData as $tahun => $data)
         <div class="p-4">
             <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4 text-center">
-                Statistik Tahun {{ $tahun }}
+                Statistik Prestasi Tahun {{ $tahun }}
             </h3>
             
             {{-- Komponen Alpine.js untuk setiap grafik --}}
