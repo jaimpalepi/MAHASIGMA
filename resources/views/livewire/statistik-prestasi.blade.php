@@ -8,17 +8,16 @@
             {{-- Komponen Alpine.js untuk setiap grafik --}}
             <div
                 x-data="{
-                    init() {
+                init() {
                         let chartData = {{ Illuminate\Support\Js::from($data) }};
-                        
-                        // Cek jika total data adalah 0, jangan buat grafik
+
                         const totalData = chartData.datasets[0].data.reduce((a, b) => a + b, 0);
                         if (totalData === 0) {
                             this.$refs.canvas.parentElement.innerHTML = '<div class=\'text-center text-gray-500 py-16\'>Tidak ada data prestasi di tahun ini.</div>';
                             return;
                         }
 
-                        new Chart(this.$refs.canvas, {
+                        const chart = new Chart(this.$refs.canvas, {
                             type: 'pie',
                             data: chartData,
                             options: {
@@ -31,10 +30,25 @@
                                 }
                             }
                         });
-                    }
+
+                        const observer = new IntersectionObserver(
+                            ([entry]) => {
+                                if (entry.intersectionRatio < 1) {
+                                    this.$refs.chartWrapper.style.opacity = 0.4;
+                                } else {
+                                    this.$refs.chartWrapper.style.opacity = 1;
+                                }
+                            },
+                            {
+                                threshold: [0.5, 1.0] // Mulai bereaksi saat sebagian kecil tidak terlihat
+                            }
+                        );
+
+                            observer.observe(this.$refs.chartWrapper);
+                        }
                 }"
             >
-                <div class="relative w-full h-80">
+                <div class="relative w-full h-80 transition-opacity duration-500" x-ref="chartWrapper">
                     <canvas x-ref="canvas"></canvas>
                 </div>
             </div>
