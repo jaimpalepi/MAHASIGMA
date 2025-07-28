@@ -1,50 +1,49 @@
-<div class="p-4 border-2 border-dashed rounded-lg dark:border-gray-700">
-    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4 text-center">Statistik Prestasi Fakultas</h3>
-    <div class="mb-4">
-        <label for="tahun-statistik" class="sr-only">Pilih Tahun</label>
-        <select id="tahun-statistik" wire:model.live="tahun" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500">
-            @forelse ($daftarTahun as $year)
-                <option value="{{ $year }}">{{ $year }}</option>
-            @empty
-                <option value="{{ now()->year }}">{{ now()->year }}</option>
-            @endforelse
-        </select>
-    </div>
-
-    <div
-        wire:ignore
-        x-data="{
-            chart: null,
-            createChart(chartData) {
-                let ctx = this.$refs.canvas.getContext('2d');
-                this.chart = new Chart(ctx, {
-                    type: 'pie',
-                    data: chartData,
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                display: false
-                            }
+<div class="space-y-10">
+    @forelse ($chartsData as $tahun => $data)
+        <div class="p-4">
+            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4 text-center">
+                Statistik Tahun {{ $tahun }}
+            </h3>
+            
+            {{-- Komponen Alpine.js untuk setiap grafik --}}
+            <div
+                x-data="{
+                    init() {
+                        let chartData = {{ Illuminate\Support\Js::from($data) }};
+                        
+                        // Cek jika total data adalah 0, jangan buat grafik
+                        const totalData = chartData.datasets[0].data.reduce((a, b) => a + b, 0);
+                        if (totalData === 0) {
+                            this.$refs.canvas.parentElement.innerHTML = '<div class=\'text-center text-gray-500 py-16\'>Tidak ada data prestasi di tahun ini.</div>';
+                            return;
                         }
+
+                        new Chart(this.$refs.canvas, {
+                            type: 'pie',
+                            data: chartData,
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        display: false
+                                    }
+                                }
+                            }
+                        });
                     }
-                });
-            },
-            init() {
-                this.createChart({{ Illuminate\Support\Js::from($chartData) }});
-            },
-            updateChart(newChartData) {
-                if (this.chart) {
-                    this.chart.destroy();
-                }
-                this.createChart(newChartData);
-            }
-        }"
-        @chart-data-updated.window="updateChart($event.detail[0])"
-    >
-        <div class="w-full h-96">
-            <canvas x-ref="canvas"></canvas>
+                }"
+            >
+                <div class="relative w-full h-80">
+                    <canvas x-ref="canvas"></canvas>
+                </div>
+            </div>
         </div>
-    </div>
+    @empty
+        <div class="p-4 border-2 border-dashed rounded-lg dark:border-gray-700">
+            <p class="text-center text-gray-500">
+                Belum ada data statistik prestasi untuk ditampilkan.
+            </p>
+        </div>
+    @endforelse
 </div>
