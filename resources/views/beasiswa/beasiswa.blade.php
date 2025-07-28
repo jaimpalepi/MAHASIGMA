@@ -20,27 +20,50 @@
     <x-navbar />
 
     <div class="flex flex-col justify-center items-center">
-        <div class="hero relative w-full h-[300px] lg:h-[calc(100vh-58px)] overflow-hidden">
-            <img src="/image/bakushin.webp" alt="pingas" class="w-full h-full object-cover">
+        @if (Auth::check() && Auth::user()->role == 'admin')
+            {{-- <a href="{{route('hero.edit')}}">aaa</a> --}}
 
-            <!-- Gradient Overlay -->
-            <div class="absolute inset-0 bg-gradient-to-t from-[#323945] to-transparent"></div>
+            <div onclick="window.location.href='{{ route('hero.edit') }}'"
+                class="hero relative w-full h-[300px] lg:h-[calc(100vh-58px)] overflow-hidden hover:cursor-pointer">
+                <img src="{{ asset('storage/' . $hero->heroImage) }}" alt="pingas" class="w-full h-full object-cover">
 
-            <!-- Text Overlay -->
-            <h1 class="absolute bottom-7 lg:bottom-11 left-3.5 text-white text-[40px] lg:text-[80px] font-bold z-10">
-                BEASISWA</h1>
-            <p
-                class="absolute bottom-4 lg:bottom-6 left-4 lg:left-6 text-white text-[15px] lg:text-[30px] font-medium z-10">
-                Chase your dreams, apply NOW!
-            </p>
-        </div>
+                <!-- Gradient Overlay -->
+                <div class="absolute inset-0 bg-gradient-to-t from-[#323945] to-transparent"></div>
+
+                <!-- Text Overlay -->
+                <h1
+                    class="absolute bottom-7 lg:bottom-11 left-3.5 text-white text-[40px] lg:text-[80px] font-bold z-10">
+                    {{ $hero->bigText }}</h1>
+                <p
+                    class="absolute bottom-4 lg:bottom-6 left-4 lg:left-6 text-white text-[15px] lg:text-[30px] font-medium z-10">
+                    {{ $hero->smallText }}
+                </p>
+            </div>
+        @else
+            <div class="hero relative w-full h-[300px] lg:h-[calc(100vh-58px)] overflow-hidden">
+                <img src="{{ asset('storage/' . $hero->heroImage) }}" alt="pingas" class="w-full h-full object-cover">
+
+                <!-- Gradient Overlay -->
+                <div class="absolute inset-0 bg-gradient-to-t from-[#323945] to-transparent"></div>
+
+                <!-- Text Overlay -->
+                <h1
+                    class="absolute bottom-7 lg:bottom-11 left-3.5 text-white text-[40px] lg:text-[80px] font-bold z-10">
+                    {{ $hero->bigText }}</h1>
+                <p
+                    class="absolute bottom-4 lg:bottom-6 left-4 lg:left-6 text-white text-[15px] lg:text-[30px] font-medium z-10">
+                    {{ $hero->smallText }}
+                </p>
+            </div>
+        @endif
 
         <div class="spacer h-[50px] lg:h-[100px] w-[1px]"></div>
 
         <div class="w-[95%] box-border lg:w-[1220px] flex flex-col justify-center items-center mb-[100px]">
 
 
-            <h1 class="text-[35px] lg:text-[100px] font-black p-0 m-0 text-center leading-none lg:leading-[100px] text-[#fcd008]">
+            <h1
+                class="text-[35px] lg:text-[100px] font-black p-0 m-0 text-center leading-none lg:leading-[100px] text-[#fcd008]">
                 dolorem ipsum quia dolor sit amet
             </h1>
 
@@ -49,7 +72,8 @@
                 Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...
             </p>
 
-            <div class="w-[90%] lg:w-[1000px] bg-white border-[2px] border-[#fcd008] rounded-[10px] px-[20px] lg:px-[10px] py-[10px] lg:py-[20px]">
+            <div
+                class="w-[90%] lg:w-[1000px] bg-white border-[2px] border-[#fcd008] rounded-[10px] px-[20px] lg:px-[10px] py-[10px] lg:py-[20px]">
                 <div class="grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x divide-[#fcd008]">
                     <div class="counter py-[10px] lg:px-[20px] text-center">
                         <h2 class="text-[40px] font-semibold leading-none mb-[5px] text-[#fcd008]">1 MORBILLION</h2>
@@ -74,7 +98,8 @@
                 @if (!$beasiswaSoonEnd->isEmpty())
 
                     <div>
-                        <h1 class="text-[20px] lg:text-[40px] font-semibold mr-auto mb-[20px]">Beasiswa-Beasiswa Ini Akan Segera Tutup
+                        <h1 class="text-[20px] lg:text-[40px] font-semibold mr-auto mb-[20px]">Beasiswa-Beasiswa Ini
+                            Akan Segera Tutup
                             Pendaftaran!</h1>
                         <div
                             class="w-full cardHolder grid grid-cols-1 lg:grid-cols-3 gap-[30px] mb-[20px] place-items-center">
@@ -213,10 +238,11 @@
                     </div>
                 </div>
 
-                <button onclick="window.location.href='{{route('beasiswa.all')}}'" class="bg-[#544db0] text-white text-[25px] font-semibold block p-[30px] mt-[40px] rounded-[50px] hover:bg-[#533991] transition-all ease-in-out hover:cursor-pointer">
+                <button onclick="window.location.href='{{ route('beasiswa.all') }}'"
+                    class="bg-[#544db0] text-white text-[25px] font-semibold block p-[30px] mt-[40px] rounded-[50px] hover:bg-[#533991] transition-all ease-in-out hover:cursor-pointer">
                     <p class="leading-0 p-0 m-0 mb-[5px]">
                         Lihat Selengkapnya
-                    </p>                  
+                    </p>
                 </button>
             @else
                 <h1 class="text-[40px] font-semibold">No Open Scholarship</h1>

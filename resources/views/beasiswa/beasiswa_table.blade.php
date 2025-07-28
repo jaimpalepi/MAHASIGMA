@@ -39,6 +39,9 @@
                                     <a href="{{ route('beasiswa.detail', ['id' => $b->id]) }}"
                                         class="text-blue-600 hover:underline">Detail</a>
                                     <br>
+                                    <a href="{{ route('beasiswa.edit', ['id' => $b->id]) }}"
+                                        class="text-blue-600 hover:underline">Edit</a>
+                                    <br>
                                     <button data-modal-target="deleteModal" data-modal-toggle="deleteModal"
                                         data-delete-url="{{ route('beasiswa.delete', ['id' => $b->id]) }}"
                                         class="text-red-600 hover:underline" type="button">

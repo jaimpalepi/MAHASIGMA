@@ -46,7 +46,7 @@ class AuthController extends Controller
             'role' => 'required',
             'nim' => 'required',
             'jurusan' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required',
             'password_confirm' => 'required|same:password',
         ]);

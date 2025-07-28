@@ -20,8 +20,10 @@ route::post('/tes_up', [BeasiswaController::class, 'tes_store'])->name('apply.st
 route::get('/beasiswa', [BeasiswaController::class, 'beasiswa'])->name('beasiswa');
 route::get('/beasiswa/{id}', [BeasiswaController::class, 'beasiswa_detail'])->name('beasiswa.detail');
 
-route::get('/beasiswa-all', [BeasiswaController::class, 'beasiswaAll'])->name('beasiswa.all');
+route::get('/edit-hero', [BeasiswaController::class, 'edit_hero'])->name('hero.edit');
+route::post('/edit-hero', [BeasiswaController::class, 'update_hero'])->name('hero.update');
 
+route::get('/beasiswa-all', [BeasiswaController::class, 'beasiswaAll'])->name('beasiswa.all');
 
 route::get('/beasiswa-create', [BeasiswaController::class, 'beasiswa_create'])->name('beasiswa.create');
 route::post('/beasiswa-store', [BeasiswaController::class, 'beasiswa_store'])->name('beasiswa.store');

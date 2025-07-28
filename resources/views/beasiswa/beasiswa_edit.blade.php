@@ -10,7 +10,7 @@
 
 <body class="bg-gray-100 p-8">
 
-    {{-- @if ($errors->any())
+    @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
                 @foreach ($errors->all() as $error)
@@ -18,7 +18,7 @@
                 @endforeach
             </ul>
         </div>
-    @endif --}}
+    @endif
 
     <div class="max-w-xl mx-auto bg-white p-6 rounded-lg shadow">
         <h1 class="text-2xl font-bold mb-6">Edit Beasiswa</h1>

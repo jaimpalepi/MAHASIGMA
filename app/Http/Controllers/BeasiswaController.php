@@ -7,6 +7,7 @@ use App\Models\BeasiswaApply;
 use App\Models\Beasiswa;
 use App\Models\RequirementsBeasiswa;
 use App\Models\Requirements;
+use App\Models\Hero;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -16,12 +17,13 @@ class BeasiswaController extends Controller
 {
     public function beasiswa(){
         $beasiswas = Beasiswa::all();
+        $hero = Hero::find(1);
 
         $today = Carbon::today();
         $nextWeek = Carbon::today()->addWeek();
 
         $beasiswaSoonEnd = Beasiswa::whereBetween('deadline', [$today, $nextWeek])->get();
-        return view('beasiswa.beasiswa', ['beasiswas' => $beasiswas, 'beasiswaSoonEnd' => $beasiswaSoonEnd]);
+        return view('beasiswa.beasiswa', ['beasiswas' => $beasiswas, 'beasiswaSoonEnd' => $beasiswaSoonEnd, 'hero' => $hero]);
     }
 
     public function beasiswaAll(){
@@ -214,5 +216,39 @@ class BeasiswaController extends Controller
         Storage::disk('public')->delete($beasiswa->cover);
         Beasiswa::destroy($id);
         return redirect()->route('beasiswa.table');
+    }
+
+    public function edit_hero(){
+        $hero = Hero::find(1);
+        return view('beasiswa.hero', ['hero' => $hero]);
+    }
+
+    public function update_hero(Request $request){  
+        $hero = Hero::find(1);
+
+        $request->validate([
+            'heroImage' => 'nullable|image|max:2048',
+        ]);
+
+        $path = $hero->heroImage;
+        if ($request->hasFile('heroImage')) {
+            // Delete old cover if it exists
+            if ($hero->heroImage) {
+                Storage::disk('public')->delete($hero->heroImage);
+            }
+            // Store new cover
+            $file = $request->file('heroImage');
+            $extension = $file->guessExtension() ?? $file->getClientOriginalExtension();
+            $fileName = uniqid('heroImage_') . '.' . $extension;
+            $path = $file->storeAs('documents/heroImage', $fileName, 'public');
+        }
+        
+        $hero->update([
+            'heroImage' => $path,
+            'bigText' => $request->bigText,
+            'smallText' => $request->smallText,
+        ]);
+
+        return redirect()->route('beasiswa');
     }
 }
