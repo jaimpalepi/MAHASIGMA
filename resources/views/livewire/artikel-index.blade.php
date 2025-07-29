@@ -14,6 +14,11 @@
                     </a>
                 @endif
                 <div class="p-6 flex flex-col flex-grow">
+                    @if ($artikel->kategori)
+                        <span class="inline-block bg-red-100 text-red-700 text-xs font-semibold mb-2 px-2.5 py-0.5 rounded-full self-start">
+                            {{ $artikel->kategori->name }}
+                        </span>
+                    @endif
                     <h3 class="text-xl font-semibold text-gray-800 mb-2">
                         <a href="{{ route('artikel.show', $artikel->id) }}" class="hover:text-red-700 transition-colors duration-300">
                             {{ Str::limit($artikel->judul, 60) }}
