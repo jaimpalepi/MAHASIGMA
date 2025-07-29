@@ -1,4 +1,4 @@
-<nav class="bg-red-700 border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+<nav class="bg-red-700 border-gray-200">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
         <img src="\image\logo_unsoed.png" class="h-8" alt="Logo" />
@@ -21,7 +21,7 @@
         </svg>
     </button>
     <div class="hidden w-full md:block md:w-auto" id="navbar-dropdown">
-      <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border rounded-lg md:space-x-4 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 bg-red-700 md:bg-red-700 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+      <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border rounded-lg md:space-x-4 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 bg-red-700 md:bg-red-700">
         <li>
           <a href="/" class="flex items-center py-2 px-3 text-white rounded-md md:border-0 md:p-0 hover:bg-white/10 transition-colors duration-200" aria-current="page">
             <svg class="w-4 h-4 me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
@@ -34,10 +34,10 @@
               Tentang Kami 
               <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/></svg>
             </button>
-            <div id="dropdownTentangKami" class="z-[100] hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600">
-                <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
-                  <li><a href="{{ route('tentang.visimisi') }}" class="block px-4 py-2 hover:bg-red-100 hover:text-red-700 dark:hover:bg-gray-600 dark:hover:text-white">Visi Misi</a></li>
-                  <li><a href="{{ route('tentang.struktur') }}" class="block px-4 py-2 hover:bg-red-100 hover:text-red-700 dark:hover:bg-gray-600 dark:hover:text-white">Struktur</a></li>
+            <div id="dropdownTentangKami" class="z-[100] hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44">
+                <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownLargeButton">
+                  <li><a href="{{ route('tentang.visimisi') }}" class="block px-4 py-2 hover:bg-red-100 hover:text-red-700 ">Visi Misi</a></li>
+                  <li><a href="{{ route('tentang.struktur') }}" class="block px-4 py-2 hover:bg-red-100 hover:text-red-700 ">Struktur</a></li>
                 </ul>
             </div>
         </li>
