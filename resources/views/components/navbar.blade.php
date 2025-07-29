@@ -3,9 +3,16 @@
     <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
         <img src="\image\logo_unsoed.png" class="h-8" alt="Logo" />
         <div class="text-white">
-            <p class="font-bold text-lg leading-tight">KEMAHASISWAAN</p>
-            <p class="text-sm uppercase">Universitas Jenderal Soedirman</p>
-        </div>
+    @auth
+        <p class="font-bold text-lg leading-tight">ADMIN</p>
+        <p class="text-sm uppercase">KEMAHASISWAAN</p>
+    @else
+        <p class="font-bold text-lg leading-tight">KEMAHASISWAAN</p>
+        <p class="text-sm uppercase">Universitas Jenderal Soedirman</p>
+    @endauth
+</div>
+ 
+
     </a>
     <button data-collapse-toggle="navbar-dropdown" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-400 rounded-lg md:hidden hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600" aria-controls="navbar-dropdown" aria-expanded="false">
         <span class="sr-only">Open main menu</span>
@@ -93,9 +100,26 @@
                       </button>
                   </div>
               </form>
+              
+
           </div>
       </li>
+      @auth
+<li>
+    <form method="POST" action="{{ route('logout') }}" class="inline">
+        @csrf
+        <button type="submit" class="flex items-center py-2 px-3 text-white rounded-md md:border-0 md:p-0 hover:bg-white/10 transition-colors duration-200">
+            <svg class="w-4 h-4 me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h6a1 1 0 110 2H5v10h5a1 1 0 110 2H4a1 1 0 01-1-1V4zm9.707 5.707a1 1 0 00-1.414-1.414L10 9.586V8a1 1 0 10-2 0v4a1 1 0 002 0v-1.586l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293z" clip-rule="evenodd" />
+            </svg>
+            Logout
+        </button>
+    </form>
+</li>
+@endauth
+
       </ul>
+      
     </div>
   </div>
 </nav>
