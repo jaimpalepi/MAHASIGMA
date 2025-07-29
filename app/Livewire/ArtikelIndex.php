@@ -21,7 +21,10 @@ class ArtikelIndex extends Component
 
     public function render()
     {
-        $artikels = artikel::latest()->skip(4)->paginate(6);
+        $artikels = artikel::with('kategori')
+                        ->latest()
+                        ->skip(4)
+                        ->paginate(6);
 
         return view('livewire.artikel-index', [
             'artikels' => $artikels,

@@ -121,10 +121,7 @@
     </a>
     @endauth
 </div>
-
             <livewire:artikel-index />
-
-
         </div>
     </div>
 
