@@ -118,23 +118,6 @@
             </div>
 
             <livewire:artikel-index />
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 items-stretch">
-            @foreach ($allArtikels as $artikel)
-                <a href="{{ route('artikel.show', $artikel->id) }}" class="block group">
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                        @if ($artikel->cover)
-                            <img src="{{ asset('storage/' . $artikel->cover) }}" alt="{{ $artikel->judul }}" class="w-full h-48 object-cover">
-                        @endif
-                        <div class="p-4">
-                            <h3 class="text-lg font-semibold text-gray-800 group-hover:text-red-600 transition-colors duration-300">{{ $artikel->judul }}</h3>
-                            <p class="text-sm text-gray-500 mb-2">{{ $artikel->created_at->format('d M Y') }}</p>
-                            <p class="text-gray-700 text-sm line-clamp-2">{{ Str::limit(strip_tags($artikel->isi), 50) }}</p>
-                        </div>
-                    </div>
-                </a>
-            @endforeach
-            </div>
-
         </div>
     </div>
 
