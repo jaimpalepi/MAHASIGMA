@@ -111,11 +111,15 @@
 
         <div>
             <div class="flex items-center justify-between mb-6 border-b-4 border-red-600 pb-2">
-                <h2 class="text-3xl font-bold text-gray-800">Semua Informasi</h2>
-                <a href="{{ route('artikel.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition text-sm font-medium">
-                    + Tambah Artikel
-                </a>
-            </div>
+    <h2 class="text-3xl font-bold text-gray-800">Semua Informasi</h2>
+
+    @auth
+    <a href="{{ route('artikel.create') }}"
+       class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition text-sm font-medium">
+        + Tambah Artikel
+    </a>
+    @endauth
+</div>
 
             <livewire:artikel-index />
         </div>

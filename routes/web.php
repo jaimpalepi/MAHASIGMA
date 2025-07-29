@@ -5,6 +5,7 @@ use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\TentangKamiController;
 use App\Http\Controllers\DispenController;
 use App\Http\Controllers\PrestasiController;
+use App\Http\Controllers\AuthController;
 
 //Route Artikel
 Route::get('/', [ArtikelController::class, 'index']);
@@ -27,3 +28,18 @@ Route::get('/dispen', [DispenController::class, 'index'])->name('dispen.index');
 Route::get('/dispen/create', [DispenController::class, 'create'])->name('dispen.create');
 Route::post('/dispen', [DispenController::class, 'store'])->name('dispen.store');
 Route::get('/dispen/{id}', [DispenController::class, 'show'])->name('dispen.show'); // untuk detail
+
+//Route Login
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function () {
+        return 'Halo, ' . auth()->user()->name;
+    });
+});
