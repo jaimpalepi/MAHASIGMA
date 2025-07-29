@@ -15,6 +15,7 @@
 </head>
 
 <body class="bg-gray-50">
+    @livewireStyles
     <x-navbar />
 
     @if($unggulan->isNotEmpty())
@@ -144,6 +145,6 @@
             });
         });
     </script>
-
+@livewireScripts
 </body>
 </html>

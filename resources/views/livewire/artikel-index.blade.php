@@ -30,9 +30,12 @@
                         <a href="{{ route('artikel.show', $artikel->id) }}" class="text-blue-600 hover:underline text-sm font-medium">
                             Baca Selengkapnya →
                         </a>
-                        <a href="{{ route('artikel.edit', $artikel->id) }}" class="text-gray-500 hover:text-yellow-600 text-sm font-medium transition-colors duration-300">
-                            ✎ Edit
-                        </a>
+                        @auth
+    <a href="{{ route('artikel.edit', $artikel->id) }}" class="text-gray-500 hover:text-yellow-600 text-sm font-medium transition-colors duration-300">
+        ✎ Edit
+    </a>
+@endauth
+
                     </div>
                 </div>
             </div>
