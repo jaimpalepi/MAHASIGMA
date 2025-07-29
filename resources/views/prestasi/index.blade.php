@@ -48,8 +48,12 @@
 
             {{-- KOLOM KANAN: STATISTIK INTERAKTIF --}}
             <div class="lg:col-span-1 sticky top-8">
-                @livewire('statistik-prestasi')
+            <div class="bg-white rounded-xl border border-gray-200 shadow-sm">
+                <div class="h-[80vh] overflow-y-auto p-1">
+                    @livewire('statistik-prestasi')
+                </div>
             </div>
+        </div>
         </div>
     </main>
 

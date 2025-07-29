@@ -7,8 +7,8 @@ use Illuminate\Database\Seeder;
 use App\Models\artikel;
 use App\Models\kategori;
 use App\Models\Fakultas;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class ArtikelSeeder extends Seeder
 {
@@ -20,22 +20,38 @@ class ArtikelSeeder extends Seeder
 
         $infoId = kategori::where('name', 'Informasi')->value('id');
         $prestasiId = kategori::where('name', 'Prestasi')->value('id');
-
         $fakultasIds = Fakultas::pluck('id')->all();
 
-        if (!$infoId || !$prestasiId) {
-            $this->command->warn('Pastikan kategori "Informasi" dan "Prestasi" ada. Jalankan KategoriSeeder.');
-            return;
-        }
-        if (empty($fakultasIds)) {
-            $this->command->warn('Tidak ada data fakultas. Jalankan FakultasSeeder terlebih dahulu.');
+        if (!$infoId || !$prestasiId || empty($fakultasIds)) {
+            $this->command->error('Pastikan KategoriSeeder dan FakultasSeeder sudah dijalankan.');
             return;
         }
 
-        for ($i = 0; $i < 10; $i++) {
+        $totalArtikel = 30;
+        $jumlahPrestasi = floor($totalArtikel * 0.7);
+        $jumlahInformasi = $totalArtikel - $jumlahPrestasi;
+
+        $daftarKategori = array_merge(
+            array_fill(0, $jumlahPrestasi, $prestasiId),
+            array_fill(0, $jumlahInformasi, $infoId)
+        );
+
+        shuffle($daftarKategori);
+
+        foreach ($daftarKategori as $index => $kategoriId) {
+            $fakultasUntukArtikelIni = null;
+            $tanggalArtikel = now()->subDays($index);
+
+            if ($kategoriId == $prestasiId) {
+                $fakultasUntukArtikelIni = $fakultasIds[array_rand($fakultasIds)];
+                $startDate = Carbon::create(2023, 1, 1);
+                $endDate = Carbon::create(2025, 12, 31);
+                $randomTimestamp = mt_rand($startDate->timestamp, $endDate->timestamp);
+                $tanggalArtikel = Carbon::createFromTimestamp($randomTimestamp);
+            }
+            
             $imageName = 'cover_' . uniqid() . '.png';
             $imagePath = storage_path('app/public/covers/' . $imageName);
-
             $image = imagecreatetruecolor(1200, 800);
             $backgroundColor = imagecolorallocate($image, 230, 230, 230);
             $textColor = imagecolorallocate($image, 100, 100, 100);
@@ -44,23 +60,15 @@ class ArtikelSeeder extends Seeder
             imagepng($image, $imagePath);
             imagedestroy($image);
 
-            $kategoriUntukArtikelIni = ($i < 5) ? $infoId : $prestasiId;
-            $fakultasUntukArtikelIni = null;
-
-            if ($kategoriUntukArtikelIni == $prestasiId) {
-                $fakultasUntukArtikelIni = $fakultasIds[array_rand($fakultasIds)];
-            }
-
             artikel::create([
-                'judul' => 'Contoh Judul Artikel ke-' . ($i + 1),
+                'judul' => 'Contoh Judul Artikel ke-' . ($index + 1),
                 'cover' => 'covers/' . $imageName,
-                'isi'   => '<p>Ini adalah isi konten untuk contoh artikel ke-' . ($i + 1) . '. Konten ini dibuat secara otomatis.</p>' .
-                           '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>',
-                'kategori_id' => $kategoriUntukArtikelIni,
+                'isi'   => '<p>Ini adalah isi konten untuk contoh artikel ke-' . ($index + 1) . '. Konten ini dibuat secara otomatis.</p>',
+                'kategori_id' => $kategoriId,
                 'fakultas_id' => $fakultasUntukArtikelIni,
-                'is_featured' => (3 < $i && $i <= 6),
-                'created_at' => now()->subDays($i),
-                'updated_at' => now()->subDays($i),
+                'is_featured' => (rand(1, 10) > 7),
+                'created_at' => $tanggalArtikel,
+                'updated_at' => $tanggalArtikel,
             ]);
         }
     }

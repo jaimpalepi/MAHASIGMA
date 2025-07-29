@@ -57,8 +57,7 @@
                     <h2 class="text-3xl font-semibold text-gray-800 dark:text-white">Visi</h2>
                 </div>
                 <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
-                    "Menjadi pusat pengembangan kemahasiswaan yang unggul, berkarakter, dan berdaya saing global
-                    berlandaskan nilai-nilai Pancasila dan kearifan lokal."
+                    Tahun 2034 Unsoed “Diakui dunia sebagai pusat pengembangan sumber daya perdesaan dan kearifan lokal”.
                 </p>
             </div>
 
@@ -78,10 +77,11 @@
                     <h2 class="text-3xl font-semibold text-gray-800 dark:text-white">Misi</h2>
                 </div>
                 <ul class="space-y-4 text-gray-700 dark:text-gray-300">
-                    <li class="flex items-start"><span class="text-red-500 mr-2 mt-1">&#10003;</span>Menyelenggarakan layanan kemahasiswaan yang prima dan terintegrasi.</li>
-                    <li class="flex items-start"><span class="text-red-500 mr-2 mt-1">&#10003;</span>Mengembangkan minat, bakat, dan penalaran mahasiswa untuk meraih prestasi di tingkat nasional dan internasional.</li>
-                    <li class="flex items-start"><span class="text-red-500 mr-2 mt-1">&#10003;</span>Membina karakter mahasiswa yang berintegritas, kreatif, dan inovatif.</li>
-                    <li class="flex items-start"><span class="text-red-500 mr-2 mt-1">&#10003;</span>Memperkuat jiwa kewirausahaan dan kepedulian sosial mahasiswa.</li>
+                    <li class="flex items-start"><span class="text-red-500 mr-2 mt-1">&#10003;</span>Menyelenggarakan pembelajaran berkualitas tinggi untuk menghasilkan lulusan yang berkarakter, berkualitas, dan berdaya saing tinggi.</li>
+                    <li class="flex items-start"><span class="text-red-500 mr-2 mt-1">&#10003;</span>Mengembangkan penelitian dan inovasi unggul untuk pengembangan ilmu dan peningkatan daya saing bangsa.</li>
+                    <li class="flex items-start"><span class="text-red-500 mr-2 mt-1">&#10003;</span>Mengembangkan program pemberdayaan masyarakat dan transfer teknologi berkualitas tinggi untuk meningkatkan kesejahteraan masyarakat.</li>
+                    <li class="flex items-start"><span class="text-red-500 mr-2 mt-1">&#10003;</span>Meningkatkan kualitas kerjasama dengan mitra untuk meningkatkan kemandirian dan partisipasi institusi pada pengembangan masyarakat.</li>
+                    <li class="flex items-start"><span class="text-red-500 mr-2 mt-1">&#10003;</span>Mengembangkan tata pamong universitas yang baik.</li>
                 </ul>
             </div>
         </div>
