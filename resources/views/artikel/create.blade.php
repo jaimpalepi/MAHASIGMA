@@ -9,13 +9,7 @@
     {{-- Memuat Alpine.js dari CDN --}}
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-{{-- 
-  PENJELASAN:
-  x-data="{ kategoriId: '{{ old('kategori_id') }}' }"
-  - 'x-data' adalah perintah Alpine.js untuk mendeklarasikan sebuah komponen.
-  - Kita membuat sebuah variabel state bernama 'kategoriId'.
-  - Nilai awalnya diisi dengan 'old('kategori_id')' dari Laravel. Ini penting agar jika terjadi error validasi dan halaman dimuat ulang, dropdown fakultas tetap muncul jika sebelumnya "Prestasi" sudah dipilih.
---}}
+
 <body x-data="{ kategoriId: '{{ old('kategori_id') }}' }">
     <x-navbar />
     <div class="max-w-xl mx-auto p-4 my-8 bg-white shadow-md rounded-lg">
@@ -55,12 +49,7 @@
                 <div id="editor" style="height: 300px;">{!! old('isi') !!}</div>
             </div>
 
-            {{-- 
-              PENJELASAN:
-              x-model="kategoriId"
-              - 'x-model' akan menyinkronkan nilai dari variabel 'kategoriId' dengan nilai dari dropdown kategori ini.
-              - Setiap kali pengguna memilih kategori, nilai 'kategoriId' akan otomatis ter-update.
-            --}}
+
             <div class="mb-4">
                 <label for="kategori_id" class="block text-sm font-medium text-gray-700">Kategori</label>
                 <select name="kategori_id" id="kategori_id" x-model="kategoriId" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
@@ -83,21 +72,31 @@
                 </select>
             </div>
 
-            <button type="submit" class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300">
+            <button type="submit" id="submit-button" class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 disabled:bg-blue-300">
                 Simpan Artikel
             </button>
         </form>
     </div>
     <x-footer />
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-    <script>
+     <script>
         var quill = new Quill('#editor', {
             theme: 'snow'
         });
+
         var form = document.getElementById('artikel-form');
         var isiInput = document.getElementById('isi-input');
+        
+        // **Tambahan baru:** Ambil tombol submit berdasarkan ID
+        var submitButton = document.getElementById('submit-button');
+
         form.onsubmit = function() {
+            // Salin konten dari Quill ke input tersembunyi
             isiInput.value = quill.root.innerHTML;
+
+            // **Tambahan baru:** Nonaktifkan tombol dan ubah teksnya
+            submitButton.disabled = true;
+            submitButton.innerHTML = 'Menyimpan...';
         };
     </script>
 </body>
