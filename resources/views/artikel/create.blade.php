@@ -72,13 +72,7 @@
                 </select>
             </div>
 
-            {{-- 
-              PENJELASAN:
-              x-show="kategoriId == '2'"
-              - 'x-show' adalah perintah Alpine.js untuk menampilkan atau menyembunyikan elemen.
-              - Elemen div ini hanya akan ditampilkan jika nilai dari variabel 'kategoriId' adalah '2' (ID untuk "Prestasi").
-              - x-transition menambahkan efek transisi yang halus saat elemen muncul/hilang.
-            --}}
+            
             <div class="mb-4" x-show="kategoriId == '2'" x-transition>
                 <label for="fakultas_id" class="block text-sm font-medium text-gray-700">Fakultas</label>
                 <select name="fakultas_id" id="fakultas_id" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
