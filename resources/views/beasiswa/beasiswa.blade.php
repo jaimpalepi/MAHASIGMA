@@ -24,7 +24,7 @@
             {{-- <a href="{{route('hero.edit')}}">aaa</a> --}}
 
             <div onclick="window.location.href='{{ route('hero.edit') }}'"
-                class="hero relative w-full h-[300px] lg:h-[calc(100vh-58px)] overflow-hidden hover:cursor-pointer">
+                class="hero relative w-full h-[300px] lg:h-[calc(100vh-58px)] overflow-hidden hover:cursor-pointer hover:brightness-[0.6]">
                 <img src="{{ asset('storage/' . $hero->heroImage) }}" alt="pingas" class="w-full h-full object-cover">
 
                 <!-- Gradient Overlay -->
@@ -67,7 +67,7 @@
                 dolorem ipsum quia dolor sit amet
             </h1>
 
-            <h3 class="text-[20px] font-semibold mt-[10px] lg:mt-[20px]">Our Achievement</h3>
+            {{-- <h3 class="text-[20px] font-semibold mt-[10px] lg:mt-[20px]">Our Achievement</h3>
             <p class="text-[15px] font-medium mb-[10px] text-center text-[#9d9d9d]">
                 Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...
             </p>
@@ -88,11 +88,11 @@
                         <p class="text-[#fcd008]">Explanation bla bla bla (boring stuff)</p>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
 
 
-            <div class="spacer h-[50px] w-[1px]"></div>
+            <div class="spacer h-[50px] lg:h-[100px] w-[1px]"></div>
 
             @if (!$beasiswas->isEmpty())
                 @if (!$beasiswaSoonEnd->isEmpty())
@@ -186,6 +186,13 @@
 
                         {{-- cards goes here --}}
                         @foreach ($beasiswas as $b)
+                            @php
+                                $start = \Carbon\Carbon::parse($b->open);
+                                $end = \Carbon\Carbon::parse($b->deadline);
+
+                                $sameMonth = $start->month === $end->month;
+                                $sameYear = $start->year === $end->year;
+                            @endphp
                             <div onclick="window.location.href = 'beasiswa/{{ $b->id }}'"
                                 class="cards border-[1px] border-[#e6e4e1] w-[95%] min-w-[372px] rounded-[10px] shadow-2xl hover:cursor-pointer hover:scale-[1.03] transition-transform duration-200">
                                 <img class="w-full h-[200px] rounded-t-[10px] obeject-cover"

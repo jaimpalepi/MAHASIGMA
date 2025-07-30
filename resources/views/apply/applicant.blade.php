@@ -7,32 +7,48 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
     <title>Applicant</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
-
 </head>
 
 <body>
     <x-navbar />
-    <div class="flex flex-col items-center justify-center m-[20px]">
-        <div class="flex flex-col items-center justify-center w-full max-w-6xl">
-            <div class="overflow-x-auto w-full">
+    <div class="flex flex-col items-center justify-center h-[100vh] m-[40px]">
+        <div class="flex flex-col items-center justify-center w-[97%] lg:w-full lg:max-w-6xl">
+            <div class="overflow-visible w-full">
                 <table class="w-full border border-gray-300 table-auto">
                     <thead class="bg-gray-100">
                         <tr>
-                            <th class="border border-gray-300 px-4 py-2">APPLICANT NAME</th>
-                            <th class="border border-gray-300 px-4 py-2">APPLICANT EMAIL</th>
-                            <th class="border border-gray-300 px-4 py-2">SCHOLARSHIP</th>
-                            <th class="border border-gray-300 px-4 py-2">STATUS</th>
-                            <th class="border border-gray-300 px-4 py-2">ACTION</th>
+                            <th
+                                class="border border-gray-300 text-[10px] lg:text-[17px] text-left p-[10px] lg:px-4 lg:py-2">
+                                APPLICANT NAME</th>
+                            <th
+                                class="border border-gray-300 text-[10px] lg:text-[17px] text-left p-[10px] lg:px-4 lg:py-2">
+                                APPLICANT EMAIL</th>
+                            <th
+                                class="border border-gray-300 text-[10px] lg:text-[17px] text-left p-[10px] lg:px-4 lg:py-2">
+                                SCHOLARSHIP</th>
+                            <th
+                                class="border border-gray-300 text-[10px] lg:text-[17px] text-left p-[10px] lg:px-4 lg:py-2">
+                                STATUS</th>
+                            <th
+                                class="border border-gray-300 text-[10px] lg:text-[17px] text-left p-[10px] lg:px-4 lg:py-2">
+                                ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($applicants as $a)
                             <tr class="hover:bg-gray-50">
-                                <td class="border border-gray-300 px-4 py-2">{{ $a->applicant_name }}</td>
-                                <td class="border border-gray-300 px-4 py-2">{{ $a->email }}</td>
-                                <td class="border border-gray-300 px-4 py-2">{{ $a->beasiswa?->title }}</td>
-                                <td class="border border-gray-300 px-4 py-2">{{ $a->status }}</td>
+                                <td
+                                    class="border border-gray-300 text-[10px] lg:text-[15px] p-[10px] lg:p-[0px] lg:px-4 lg:py-2">
+                                    {{ $a->applicant_name }}</td>
+                                <td
+                                    class="border border-gray-300 text-[10px] lg:text-[15px] p-[10px] lg:p-[0px] lg:px-4 lg:py-2">
+                                    {{ $a->email }}</td>
+                                <td
+                                    class="border border-gray-300 text-[10px] lg:text-[15px] p-[10px] lg:p-[0px] lg:px-4 lg:py-2">
+                                    {{ $a->beasiswa?->title }}</td>
+                                <td
+                                    class="border border-gray-300 text-[10px] lg:text-[15px] p-[10px] lg:p-[0px] lg:px-4 lg:py-2">
+                                    {{ $a->status }}</td>
                                 <td class="border border-gray-300 px-4 py-2 text-center">
                                     <a href="{{ route('applicant.detail', ['id' => $a->id]) }}"
                                         class="text-blue-600 hover:underline">Detail</a>
@@ -81,7 +97,7 @@
                         No, cancel
                     </button>
                     <a id="confirmDeleteButton" href="#"
-                       class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
+                        class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
                         Yes, I'm sure
                     </a>
                 </div>
@@ -91,19 +107,20 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const deleteModal = document.getElementById('deleteModal');
             const confirmDeleteButton = document.getElementById('confirmDeleteButton');
 
             // Listener untuk semua tombol delete
             document.querySelectorAll('button[data-modal-target="deleteModal"]').forEach(button => {
-                button.addEventListener('click', function () {
+                button.addEventListener('click', function() {
                     const deleteUrl = this.getAttribute('data-delete-url');
                     confirmDeleteButton.setAttribute('href', deleteUrl);
                 });
             });
         });
     </script>
+    <x-footer />
 </body>
 
 </html>

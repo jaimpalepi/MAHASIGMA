@@ -16,13 +16,13 @@
 
     <div class=" flex flex-col justify-center items-center py-[30px]">
         <form action="{{ route('apply.store') }}" method="POST" enctype="multipart/form-data"
-            class="flex flex-col justify-center items-center  w-[900px]">
+            class="flex flex-col justify-center items-center w-[87%] lg:w-[900px]">
             @csrf
             <div
                 class="flex flex-col gap-[25px] justify-center items-center bg-white shadow-2xl rounded-[10px] w-full p-[25px] box-border border-[1px] border-[#e6e4e1]">
                 <div class="flex flex-col justify-center items-center gap-[7px]">
-                    <h1 class="leading-none text-[30px] font-semibold text-center">{{$beasiswa1->title}}</h1>
-                    <h1 class="leading-none text-[20px] font-medium">Application Form</h1>
+                    <h1 class="leading-none text-[17px] lg:text-[30px] font-semibold text-center">{{$beasiswa1->title}}</h1>
+                    <h1 class="leading-none text-[15px] lg:text-[20px] text-[#9d9d9d] font-medium">Application Form</h1>
                 </div>
                 <input type="hidden" name="beasiswa_id" id="beasiswa_id" value="{{ $beasiswa }}">
                 <div class="w-full flex flex-col justify-center items-start">
@@ -41,12 +41,12 @@
                     <label for="essay" class="font-medium">Essay:</label>
                     <textarea name="essay" id="essay" cols="30" rows="10"
                         class="border-[#9d9d9d] border-[2px] w-full text-justify p-[10px] box-border font-medium resize-none"
-                        placeholder="Paste Applicant Already Made Essay Here*"></textarea>
+                        placeholder="Applicant Essay*"></textarea>
                 </div>
 
                 @foreach ($requirements as $r)
                 <div class="w-full">
-                    <label class="w-full">{{ $r->requirement?->name }}</label>
+                    <label class="w-full font-medium">{{ $r->requirement?->name }}:</label>
                     <input class="w-full hover:cursor-pointer border-[#9d9d9d] border-[2px] p-[10px] box-border" type="file" name="requirements[{{ $r->id }}]" required>
                 </div>
                 @endforeach

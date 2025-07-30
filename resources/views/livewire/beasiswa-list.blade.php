@@ -1,8 +1,9 @@
-<div class="flex p-[50px] box-border justify-center">
+<div class="flex flex-col lg:flex-row p-[50px] box-border justify-center">
+
     <div class="flex flex-col box-border justify-center items-center">
         <div class="flex box-border gap-[30px]">
             <div
-                class="sidebar sticky top-[123px] bg-white border-[1px] border-[#e6e4e1] w-[300px] h-[400px] flex flex-col justify-start items-center gap-[10px] box-border p-[20px] rounded-[10px] shadow-lg">
+                class="hidden sidebar sticky top-[123px] bg-white border-[1px] border-[#e6e4e1] w-[300px] h-[400px] lg:flex flex-col justify-start items-center gap-[10px] box-border p-[20px] rounded-[10px] shadow-lg">
                 <h3 class="font-semibold text-[30px] leading-none text-[#544db0]">Jenjang</h3>
                 <div class="w-full h-[1px] bg-[#544db0] m-[3px]"></div>
                 <div class="jenjang flex flex-col w-full items-center justify-center gap-[15px]">
@@ -31,17 +32,21 @@
                         $sameYear = $start->year === $end->year;
                     @endphp
                     <div onclick="window.location.href = 'beasiswa/{{ $b->id }}'"
-                        class="cards flex justify-start border-[1px] border-[#e6e4e1] w-[930px] min-w-[500px] rounded-[10px] shadow-lg hover:cursor-pointer hover:scale-[1.01] transition-transform duration-200 box-border">
-                        <img class="w-[350px] h-[250px] rounded-l-[10px] object-cover shrink-0 grow-0"
+                        class="cards flex flex-col lg:flex-row justify-start border-[1px] border-[#e6e4e1] w-[400px] lg:w-[930px]  rounded-[10px] shadow-lg hover:cursor-pointer hover:scale-[1.01] transition-transform duration-200 box-border">
+                        <img class="w-auto lg:w-[350px] h-[150px] lg:h-[250px] rounded-l-[10px] object-cover shrink-0 grow-0"
                             src="{{ asset('storage/' . $b->cover) }}" alt="">
                         <div
-                            class="texts p-[15px] flex flex-col gap-[5px] h-[250px] w-full box-border min-w-0 overflow-hidden">
-                            <h3 class="text-[20px] font-semibold truncate leading-none">{{ $b->title }}
+                            class="texts p-[15px] flex flex-col gap-[5px] h-[200px] lg:h-[250px] w-full box-border min-w-0 overflow-hidden">
+                            <h3 class="text-[15px] lg:text-[20px] font-semibold truncate leading-none">
+                                {{ $b->title }}
                             </h3>
-                            <p class="text-[17px] leading-none line-clamp-1 pb-[5px]">{{ $b->provider }}</p>
+                            <p class="txt-[13px] lg:text-[17px] leading-none line-clamp-1">{{ $b->provider }}
+                            </p>
+
                             <div class="spacer-line bg-[#9d9d9d] h-[1px] w-full m-[3px]"></div>
-                            <div class="grid grid-cols-5">
-                                <div class="col-span-3 grid grid-cols-2 place-items-start">
+
+                            <div class="grid grid-cols-1 lg:grid-cols-5">
+                                <div class=" lg:col-span-3 grid grid-cols-2 lg:place-items-start">
                                     <div class="flex flex-col justify-center items-start w-full mt-[10px]">
                                         <p class="text-[15px] text-[#9d9d9d] text-regular leading-4">
                                             Periode Pendaftaran
@@ -76,7 +81,7 @@
                                     </div>
                                 </div>
 
-                                <p class="line-clamp-5 col-span-2">
+                                <p class="hidden lg:block line-clamp-5 col-span-2">
                                     {{ $b->description }}
                                 </p>
                             </div>

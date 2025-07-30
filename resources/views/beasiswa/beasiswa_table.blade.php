@@ -7,47 +7,105 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
     <title>Beasiswa</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    
 
 </head>
 
 <body>
     <x-navbar />
-    <div class="flex flex-col items-center justify-center m-[20px]">
-        <div class="flex flex-col items-center justify-center w-full max-w-6xl">
-            <div class="overflow-x-auto w-full">
+    <div class="flex flex-col items-center h-[100vh] m-[40px]">
+        <div class="flex flex-col items-center justify-center w-[97%] lg:w-full lg:max-w-6xl">
+            <div class="overflow-visible w-full">
                 <table class="w-full border border-gray-300 table-auto">
                     <thead class="bg-gray-100">
                         <tr>
-                            <th class="border border-gray-300 px-4 py-2">TITLE</th>
-                            <th class="border border-gray-300 px-4 py-2">PROVIDER</th>
-                            <th class="border border-gray-300 px-4 py-2">JENJANG</th>
-                            <th class="border border-gray-300 px-4 py-2">QUOTA</th>
-                            <th class="border border-gray-300 px-4 py-2">STATUS</th>
-                            <th class="border border-gray-300 px-4 py-2">ACTION</th>
+                            <th
+                                class="border border-gray-300 text-[10px] lg:text-[17px] text-left p-[10px] lg:px-4 lg:py-2">
+                                TITLE</th>
+                            <th
+                                class="border border-gray-300 text-[10px] lg:text-[17px] text-left p-[10px] lg:px-4 lg:py-2">
+                                PROVIDER</th>
+                            <th
+                                class="border border-gray-300 text-[10px] lg:text-[17px] text-left p-[10px] lg:px-4 lg:py-2">
+                                JENJANG</th>
+                            <th
+                                class="border border-gray-300 text-[10px] lg:text-[17px] text-left p-[10px] lg:px-4 lg:py-2">
+                                QUOTA</th>
+                            <th
+                                class="border border-gray-300 text-[10px] lg:text-[17px] text-left p-[10px] lg:px-4 lg:py-2">
+                                STATUS</th>
+                            <th
+                                class="border border-gray-300 text-[10px] lg:text-[17px] text-left p-[10px] lg:px-4 lg:py-2">
+                                ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($beasiswas as $b)
                             <tr class="hover:bg-gray-50">
-                                <td class="border border-gray-300 px-4 py-2">{{ $b->title }}</td>
-                                <td class="border border-gray-300 px-4 py-2">{{ $b->provider }}</td>
-                                <td class="border border-gray-300 px-4 py-2">{{ $b->jenjang }}</td>
-                                <td class="border border-gray-300 px-4 py-2">{{ $b->quota }}</td>
-                                <td class="border border-gray-300 px-4 py-2">{{ $b->status }}</td>
-                                <td class="border border-gray-300 px-4 py-2 text-center">
-                                    <a href="{{ route('beasiswa.detail', ['id' => $b->id]) }}"
-                                        class="text-blue-600 hover:underline">Detail</a>
-                                    <br>
-                                    <a href="{{ route('beasiswa.edit', ['id' => $b->id]) }}"
-                                        class="text-blue-600 hover:underline">Edit</a>
-                                    <br>
-                                    <button data-modal-target="deleteModal" data-modal-toggle="deleteModal"
-                                        data-delete-url="{{ route('beasiswa.delete', ['id' => $b->id]) }}"
-                                        class="text-red-600 hover:underline" type="button">
-                                        Delete
-                                    </button>
+                                <td
+                                    class="border border-gray-300 text-[10px] lg:text-[15px] p-[10px] lg:p-[0px] lg:px-4 lg:py-2">
+                                    {{ $b->title }}</td>
+                                <td
+                                    class="border border-gray-300 text-[10px] lg:text-[15px] p-[10px] lg:p-[0px] lg:px-4 lg:py-2">
+                                    {{ $b->provider }}</td>
+                                <td
+                                    class="border border-gray-300 text-[10px] lg:text-[15px] p-[10px] lg:p-[0px] lg:px-4 lg:py-2">
+                                    {{ $b->jenjang }}</td>
+                                <td
+                                    class="border border-gray-300 text-[10px] lg:text-[15px] p-[10px] lg:p-[0px] lg:px-4 lg:py-2">
+                                    {{ $b->quota }}</td>
+                                <td
+                                    class="border border-gray-300 text-[10px] lg:text-[15px] p-[10px] lg:p-[0px] lg:px-4 lg:py-2">
+                                    {{ $b->status }}</td>
+
+                                {{-- actions --}}
+                                <td class="border border-gray-300 text-[10px] lg:text-[15px] p-2 text-center">
+                                    <!-- Mobile dropdown using native <details> -->
+                                    <details class="relative lg:hidden">
+                                        <summary
+                                            class="cursor-pointer list-none inline-flex items-center justify-center gap-1 bg-gray-100 border border-gray-300 rounded px-3 py-1 text-[12px] hover:bg-gray-200">
+                                            <span>Actions</span>
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M19 9l-7 7-7-7" />
+                                            </svg>
+                                        </summary>
+
+                                        <div
+                                            class="absolute right-0 mt-2 w-28 bg-white border border-gray-300 rounded shadow z-10">
+                                            <a href="{{ route('beasiswa.detail', ['id' => $b->id]) }}"
+                                                class="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100">Detail</a>
+                                            <a href="{{ route('beasiswa.edit', ['id' => $b->id]) }}"
+                                                class="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100">Edit</a>
+                                            <a data-modal-target="deleteModal" data-modal-toggle="deleteModal"
+                                                data-delete-url="{{ route('beasiswa.delete', ['id' => $b->id]) }}"
+                                                class="cursor-pointer block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Delete</a>
+                                            {{-- <button type="button" data-modal-target="deleteModal"
+                                                data-modal-toggle="deleteModal"
+                                                data-delete-url="{{ route('beasiswa.delete', ['id' => $b->id]) }}"
+                                                class="w-full block text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+                                                Delete
+                                            </button> --}}
+                                        </div>
+                                    </details>
+
+                                    <!-- Desktop inline action buttons -->
+                                    <div class="hidden lg:flex lg:flex-row lg:justify-center lg:space-x-4">
+                                        <a href="{{ route('beasiswa.detail', ['id' => $b->id]) }}"
+                                            class="text-blue-600 hover:underline">Detail</a>
+                                        <a href="{{ route('beasiswa.edit', ['id' => $b->id]) }}"
+                                            class="text-blue-600 hover:underline">Edit</a>
+                                        <button type="button" data-modal-target="deleteModal"
+                                            data-modal-toggle="deleteModal"
+                                            data-delete-url="{{ route('beasiswa.delete', ['id' => $b->id]) }}"
+                                            class="text-red-600 hover:underline">
+                                            Delete
+                                        </button>
+                                    </div>
                                 </td>
+
+                                {{-- actions --}}
                             </tr>
                         @endforeach
                     </tbody>
@@ -58,7 +116,7 @@
 
     <!-- Main modal -->
     <div id="deleteModal" tabindex="-1" aria-hidden="true"
-        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-[100px] lg:top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
         <div class="relative p-4 w-full max-w-md h-full md:h-auto">
             <!-- Modal content -->
             <div class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
@@ -86,7 +144,7 @@
                         No, cancel
                     </button>
                     <a id="confirmDeleteButton" href="#"
-                       class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
+                        class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
                         Yes, I'm sure
                     </a>
                 </div>
@@ -96,19 +154,31 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const deleteModal = document.getElementById('deleteModal');
             const confirmDeleteButton = document.getElementById('confirmDeleteButton');
 
             // Listener untuk semua tombol delete
             document.querySelectorAll('button[data-modal-target="deleteModal"]').forEach(button => {
-                button.addEventListener('click', function () {
+                button.addEventListener('click', function() {
                     const deleteUrl = this.getAttribute('data-delete-url');
                     confirmDeleteButton.setAttribute('href', deleteUrl);
                 });
             });
         });
+
+
+        document.addEventListener("click", function(e) {
+            if (e.target.closest("summary")) {
+                const currentDetails = e.target.closest("details");
+                document.querySelectorAll("details[open]").forEach((el) => {
+                    if (el !== currentDetails) el.removeAttribute("open");
+                });
+            }
+        });
     </script>
+
+    <x-footer />
 </body>
 
 </html>

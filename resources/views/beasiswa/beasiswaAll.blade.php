@@ -14,7 +14,8 @@
 
 <body>
     <x-navbar />
-    @livewire('beasiswa-list')
+    <livewire:beasiswa-list />
+
     <x-footer />
 </body>
 

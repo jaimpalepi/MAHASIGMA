@@ -43,7 +43,7 @@
                 <a href="{{ route('applicant') }}"
                     class="leading-none p-[15px] w-full box-border text-right hover:bg-gray-200 transition-all ease-in-out">Daftar
                     Pendaftar</a>
-                <a href="{{ route('beasiswa.all') }}"
+                <a href="{{ route('beasiswa.table') }}"
                     class="leading-none p-[15px] w-full box-border text-right hover:bg-gray-200 transition-all ease-in-out">Daftar
                     Beasiswa</a>
                 <a href="{{ route('beasiswa.create') }}"
