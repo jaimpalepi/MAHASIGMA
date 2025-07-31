@@ -11,7 +11,7 @@
 
 <body>
     <x-navbar />
-    <div class="flex flex-col items-center justify-center h-[100vh] m-[40px]">
+    <div class="flex flex-col items-center h-[100vh] m-[40px]">
         <div class="flex flex-col items-center justify-center w-[97%] lg:w-full lg:max-w-6xl">
             <div class="overflow-visible w-full">
                 <table class="w-full border border-gray-300 table-auto">

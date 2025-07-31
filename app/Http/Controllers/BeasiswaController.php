@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Storage;
 class BeasiswaController extends Controller
 {
     public function beasiswa(){
-        $beasiswas = Beasiswa::all();
+        $beasiswas = Beasiswa::orderBy('deadline', 'desc')->get();
         $hero = Hero::find(1);
 
         $today = Carbon::today();
@@ -44,8 +44,21 @@ class BeasiswaController extends Controller
     }
 
     public function beasiswa_detail($id){
+        $checkApply = false;
+        $applicationData = null;
         $beasiswa = Beasiswa::with('requirements')->find($id);
-        return view('beasiswa.beasiswa_detail', ['beasiswa' => $beasiswa]);
+        if(BeasiswaApply::query()
+        ->where('applicant_id', Auth::id())
+        ->where('beasiswa_id', $id)
+        ->where('status', 'pending')
+        ->exists()){
+            $checkApply = true;
+            $applicationData = BeasiswaApply::with('user')
+            ->where('applicant_id', Auth::id())
+            ->where('beasiswa_id', $id)
+            ->first();
+        }
+        return view('beasiswa.beasiswa_detail', ['beasiswa' => $beasiswa, 'checkApply' => $checkApply, 'applicationData' => $applicationData]);
     }
 
     public function applicant(){
@@ -62,6 +75,11 @@ class BeasiswaController extends Controller
     public function apply(){
         $beasiswas = Beasiswa::all();
         return view('apply.apply', ['beasiswas' => $beasiswas]);
+    }
+
+    public function my_application(){
+        $applications = BeasiswaApply::query()->where('applicant_id', Auth::id())->with('beasiswa')->get();
+        return view('apply.my_application', ['applications' => $applications]);
     }
 
     public function apply_create($beasiswa){
@@ -89,6 +107,7 @@ class BeasiswaController extends Controller
         }
 
         BeasiswaApply::create([
+            'applicant_id' => Auth::id(),
             'applicant_name' => $request->name,
             'email' => $request->email,
             'beasiswa_id' => $request->beasiswa_id,

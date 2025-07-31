@@ -78,8 +78,16 @@
                 </ul>
             @endif
             <div class="mt-[20px] w-full flex items-center justify-center lg:justify-start gap-4">
-                <a class="bg-blue-500 px-6 py-2 rounded-[5px] text-white text-[20px] text-bold hover:bg-blue-700 transition-all ease-in-out"
-                    href="{{ route('apply.create', ['id' => $beasiswa->id]) }}">APPLY NOW</a>
+                @if ($checkApply)
+                    <div class="flex flex-col items-start justify-center gap-[5px]">
+                        <p class="text-[#9d9d9d] text-[17px]">Already Applied</p>
+                        <a class="bg-blue-500 px-6 py-2 rounded-[5px] text-white text-[20px] text-bold hover:bg-blue-700 transition-all ease-in-out"
+                            href="{{ route('applicant.detail', ['id' => $applicationData->id]) }}">SEE MY ENTRY</a>
+                    </div>
+                @else
+                    <a class="bg-blue-500 px-6 py-2 rounded-[5px] text-white text-[20px] text-bold hover:bg-blue-700 transition-all ease-in-out"
+                        href="{{ route('apply.create', ['id' => $beasiswa->id]) }}">APPLY NOW</a>
+                @endif
 
                 @if (Auth::check() && Auth::user()->role == 'admin')
                     <a href="{{ route('beasiswa.edit', $beasiswa->id) }}"

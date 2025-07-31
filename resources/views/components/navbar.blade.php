@@ -30,6 +30,11 @@
                 Logout
             </a>
 
+            <a href="{{ route('my.application') }}"
+                class="hidden md:block p-[10px] text-[15px] leading-none text-white font-medium rounded-[5px] transition-all bg-gradient-to-r from-cyan-400 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 text-center shadow-none">
+                Beasiswaku
+            </a>
+
             <button id="hamburger" class="block lg:hidden hover:cursor-pointer rounded-[500px] p-[2px]">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-6">

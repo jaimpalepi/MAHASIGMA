@@ -10,6 +10,7 @@ class BeasiswaApply extends Model
     protected $table = 'beasiswa_applies';
 
     protected $fillable = [
+        'applicant_id',
         'applicant_name',
         'email',
         'beasiswa_id',
@@ -26,6 +27,11 @@ class BeasiswaApply extends Model
     public function beasiswa()
     {
         return $this->belongsTo(Beasiswa::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
 }

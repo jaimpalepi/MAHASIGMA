@@ -24,7 +24,7 @@
             {{-- <a href="{{route('hero.edit')}}">aaa</a> --}}
 
             <div onclick="window.location.href='{{ route('hero.edit') }}'"
-                class="hero relative w-full h-[300px] lg:h-[calc(100vh-58px)] overflow-hidden hover:cursor-pointer hover:brightness-[0.6]">
+                class="hero relative w-full h-[300px] lg:h-[calc(100vh-58px)] overflow-hidden hover:cursor-pointer hover:brightness-[0.6]k">
                 <img src="{{ asset('storage/' . $hero->heroImage) }}" alt="pingas" class="w-full h-full object-cover">
 
                 <!-- Gradient Overlay -->
@@ -66,31 +66,6 @@
                 class="text-[35px] lg:text-[100px] font-black p-0 m-0 text-center leading-none lg:leading-[100px] text-[#fcd008]">
                 dolorem ipsum quia dolor sit amet
             </h1>
-
-            {{-- <h3 class="text-[20px] font-semibold mt-[10px] lg:mt-[20px]">Our Achievement</h3>
-            <p class="text-[15px] font-medium mb-[10px] text-center text-[#9d9d9d]">
-                Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...
-            </p>
-
-            <div
-                class="w-[90%] lg:w-[1000px] bg-white border-[2px] border-[#fcd008] rounded-[10px] px-[20px] lg:px-[10px] py-[10px] lg:py-[20px]">
-                <div class="grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x divide-[#fcd008]">
-                    <div class="counter py-[10px] lg:px-[20px] text-center">
-                        <h2 class="text-[40px] font-semibold leading-none mb-[5px] text-[#fcd008]">1 MORBILLION</h2>
-                        <p class="text-[#fcd008]">Explanation bla bla bla (boring stuff)</p>
-                    </div>
-                    <div class="counter py-[10px] lg:px-[20px] text-center">
-                        <h2 class="text-[40px] font-semibold leading-none mb-[5px] text-[#fcd008]">1 MORBILLION</h2>
-                        <p class="text-[#fcd008]">Explanation bla bla bla (boring stuff)</p>
-                    </div>
-                    <div class="counter py-[10px] lg:px-[20px] text-center">
-                        <h2 class="text-[40px] font-semibold leading-none mb-[5px] text-[#fcd008]">1 MORBILLION</h2>
-                        <p class="text-[#fcd008]">Explanation bla bla bla (boring stuff)</p>
-                    </div>
-                </div>
-            </div> --}}
-
-
 
             <div class="spacer h-[50px] lg:h-[100px] w-[1px]"></div>
 
@@ -190,18 +165,50 @@
                                 $start = \Carbon\Carbon::parse($b->open);
                                 $end = \Carbon\Carbon::parse($b->deadline);
 
+                                $rn = \Carbon\Carbon::now();
+
                                 $sameMonth = $start->month === $end->month;
                                 $sameYear = $start->year === $end->year;
                             @endphp
+
                             <div onclick="window.location.href = 'beasiswa/{{ $b->id }}'"
-                                class="cards border-[1px] border-[#e6e4e1] w-[95%] min-w-[372px] rounded-[10px] shadow-2xl hover:cursor-pointer hover:scale-[1.03] transition-transform duration-200">
-                                <img class="w-full h-[200px] rounded-t-[10px] obeject-cover"
+                                class="cards  border-[1px] border-[#e6e4e1] relative w-[95%] min-w-[372px] rounded-[10px] shadow-2xl hover:cursor-pointer hover:scale-[1.03] transition-transform duration-200">
+                                <img class="w-full h-[200px] rounded-t-[10px] object-cover"
                                     src="{{ asset('storage/' . $b->cover) }}" alt="">
-                                <div class="texts p-[15px] flex flex-col gap-[3px] h-[210px]">
+
+                                @if (\Carbon\Carbon::parse($b->deadline)->isPast())
+                                    <div
+                                        class="bannerThingieShadow bg-gray-600 absolute top-[83px] left-[13px] rotate-[45deg] z-[-10] w-[50px] h-[100px]">
+                                    </div>
+                                    <div
+                                        class="bannerThingie absolute bg-gray-500 flex flex-col justify-center items-start p-[10px] left-[-15px] top-[150px] rounded-br-[20px]">
+                                        <h2 class="text-[13px] font-medium text-white">
+                                            DEADLINE PENDAFTARAN:
+                                        </h2>
+                                        <h2 class="text-[13px] font-medium text-white">
+                                            {{ $b->deadline }}
+                                        </h2>
+                                    </div>
+                                @else
+                                    <div
+                                        class="bannerThingieShadow bg-green-600 absolute top-[83px] left-[13px] rotate-[45deg] z-[-10] w-[50px] h-[100px]">
+                                    </div>
+                                    <div
+                                        class="bannerThingie absolute bg-green-500 flex flex-col justify-center items-start p-[10px] left-[-15px] top-[150px] rounded-br-[20px]">
+                                        <h2 class="text-[13px] font-medium text-white">
+                                            DEADLINE PENDAFTARAN:
+                                        </h2>
+                                        <h2 class="text-[13px] font-medium text-white">
+                                            {{ $b->deadline }}
+                                        </h2>
+                                    </div>
+                                @endif
+
+
+                                <div class="texts p-[15px] flex flex-col w-full gap-[3px] h-[210px]">
                                     <h3 class="text-[20px] font-semibold truncate leading-none">{{ $b->title }}
                                     </h3>
                                     <p class="text-[17px] leading-none line-clamp-1">{{ $b->provider }}</p>
-
                                     <div class="grid grid-cols-2">
                                         <div class="flex flex-col justify-center items-start w-full mt-[10px]">
                                             <p class="text-[15px] text-[#9d9d9d] text-regular leading-4">
@@ -237,8 +244,8 @@
                                         </div>
 
                                     </div>
-
-                                    <p class="mt-auto ml-auto text-[13px]">{{ $b->created_at?->format('d M Y') }}</p>
+                                    <p class="mt-auto ml-auto text-[13px] text-[#9d9d9d]">Posted: {{ $b->created_at?->format('d M Y') }}
+                                    </p>
                                 </div>
                             </div>
                         @endforeach

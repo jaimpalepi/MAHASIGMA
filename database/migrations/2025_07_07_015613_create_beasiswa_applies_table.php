@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('beasiswa_applies', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('applicant_id');
+            $table->foreign('applicant_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->string("applicant_name");
             $table->string("email");
 

@@ -33,6 +33,8 @@ Route::put('/beasiswa/{id}', [BeasiswaController::class, 'update'])->name('beasi
 route::get('/applicant', [BeasiswaController::class, 'applicant'])->name('applicant');
 route::get('/applicant-detail/{id}', [BeasiswaController::class, 'applicant_detail'])->name('applicant.detail');
 
+route::get('my-application', [BeasiswaController::class, 'my_application'])->name('my.application');
+
 route::get('/beasiswa-table', [BeasiswaController::class, 'beasiswa_table'])->name('beasiswa.table');
 route::get('beasiswa-delete/{id}', [BeasiswaController::class, 'beasiswa_delete'])->name('beasiswa.delete');
 
