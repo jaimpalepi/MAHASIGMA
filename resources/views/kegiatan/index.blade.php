@@ -6,6 +6,9 @@
     <title>Kegiatan Mahasiswa | Kemahasiswaan Unsoed</title>
     @vite('resources/css/app.css')
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    {{-- FullCalendar Assets --}}
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
 </head>
 <body class="bg-gray-50">
 
@@ -14,9 +17,15 @@
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="mb-12">
             <h1 class="text-4xl font-extrabold text-gray-800 tracking-tight">Kegiatan Mahasiswa</h1>
-            <p class="mt-4 max-w-4xl text-lg text-gray-500">Jelajahi berbagai kegiatan dan acara yang diselenggarakan oleh dan untuk mahasiswa Universitas Jenderal Soedirman.</p>
+            <p class="mt-4 max-w-4xl text-lg text-gray-500">Jelajahi berbagai kegiatan dalam tampilan kalender atau daftar di bawah.</p>
         </div>
 
+        {{-- Kalender Container --}}
+        <div class="bg-white p-6 rounded-lg shadow-md mb-12">
+            <div id='calendar'></div>
+        </div>
+
+        {{-- Daftar Kegiatan (tidak berubah) --}}
         <div>
             <h2 class="text-2xl font-bold text-gray-800 border-b-2 border-red-200 pb-2 mb-6">Daftar Kegiatan</h2>
             @if($kegiatan->count())
@@ -57,5 +66,27 @@
     </main>
 
     <x-footer />
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth', // Tampilan awal kalender
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,listWeek'
+                },
+                events: '{{ route("kegiatan.events") }}', // URL untuk mengambil data event
+                eventClick: function(info) {
+                    info.jsEvent.preventDefault(); // Mencegah browser mengikuti href
+                    if (info.event.url) {
+                        window.open(info.event.url, "_self"); // Buka link di tab yang sama
+                    }
+                }
+            });
+            calendar.render();
+        });
+    </script>
 </body>
 </html>

@@ -20,6 +20,7 @@ Route::put('/artikel/{id}', [ArtikelController::class, 'update'])->name('artikel
 Route::get('/search', function () {return view('artikel.search-results'); })->name('artikel.search');
 Route::get('/prestasi', [PrestasiController::class, 'index'])->name('prestasi.index');
 Route::get('/kegiatan', [KegiatanController::class, 'index'])->name('kegiatan.index');
+Route::get('/kegiatan/events', [KegiatanController::class, 'events'])->name('kegiatan.events');
 
 
 // Route untuk Tentang Kami
