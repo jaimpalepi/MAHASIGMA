@@ -16,6 +16,8 @@ class artikel extends Model
         'isi',
         'kategori_id',
         'fakultas_id',
+        'tanggal_mulai',   
+        'tanggal_selesai',
     ];
 
     public function kategori(): BelongsTo

@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             FakultasSeeder::class,
             ArtikelSeeder::class,
             UserSeeder::class,
+            KegiatanSeeder::class,
         ]);
     }
 }

@@ -72,6 +72,20 @@
                 </select>
             </div>
 
+            <div class="mb-4" x-show="kategoriId == '3'" x-transition>
+                <label class="block text-sm font-medium text-gray-700">Tanggal Kegiatan</label>
+                <div class="grid grid-cols-2 gap-4 mt-1">
+                    <div>
+                        <label for="tanggal_mulai" class="block text-xs font-medium text-gray-500">Tanggal Mulai</label>
+                        <input type="date" name="tanggal_mulai" id="tanggal_mulai" value="{{ old('tanggal_mulai') }}" class="w-full border border-gray-300 rounded-md p-2">
+                    </div>
+                    <div>
+                        <label for="tanggal_selesai" class="block text-xs font-medium text-gray-500">Tanggal Selesai</label>
+                        <input type="date" name="tanggal_selesai" id="tanggal_selesai" value="{{ old('tanggal_selesai') }}" class="w-full border border-gray-300 rounded-md p-2">
+                    </div>
+                </div>
+            </div>
+
             <button type="submit" id="submit-button" class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 disabled:bg-blue-300">
                 Simpan Artikel
             </button>

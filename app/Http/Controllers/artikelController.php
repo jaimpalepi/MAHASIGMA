@@ -25,6 +25,8 @@ class ArtikelController extends Controller
             'isi' => 'required',
             'kategori_id' => 'required|exists:kategoris,id',
             'fakultas_id' => 'nullable|exists:fakultas,id',
+            'tanggal_mulai' => 'nullable|required_if:kategori_id,3|date',
+            'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_mulai',
         ]);
 
         $coverPath = $request->file('cover')->store('covers', 'public');
@@ -35,6 +37,8 @@ class ArtikelController extends Controller
             'isi' => $request->isi,
             'kategori_id' => $request->kategori_id,
             'fakultas_id' => $request->kategori_id == 2 ? $request->fakultas_id : null,
+            'tanggal_mulai' => $request->kategori_id == 3 ? $request->tanggal_mulai : null,
+            'tanggal_selesai' => $request->kategori_id == 3 ? $request->tanggal_selesai : null,
         ]);
 
         return redirect()->route('artikel.index')->with('success', 'Artikel berhasil ditambahkan!');

@@ -22,5 +22,6 @@ class KategoriSeeder extends Seeder
 
         kategori::firstOrCreate(['name' => 'Informasi']);
         kategori::firstOrCreate(['name' => 'Prestasi']);
+        kategori::firstOrCreate(['name' => 'Kegiatan']);
     }
 }
