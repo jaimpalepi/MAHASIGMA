@@ -6,6 +6,7 @@ use App\Http\Controllers\TentangKamiController;
 use App\Http\Controllers\DispenController;
 use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\KegiatanController;
 
 //Route Artikel
 Route::get('/', [ArtikelController::class, 'index']);
@@ -18,6 +19,8 @@ Route::get('/artikel/{id}/edit', [ArtikelController::class, 'edit'])->name('arti
 Route::put('/artikel/{id}', [ArtikelController::class, 'update'])->name('artikel.update');
 Route::get('/search', function () {return view('artikel.search-results'); })->name('artikel.search');
 Route::get('/prestasi', [PrestasiController::class, 'index'])->name('prestasi.index');
+Route::get('/kegiatan', [KegiatanController::class, 'index'])->name('kegiatan.index');
+
 
 // Route untuk Tentang Kami
 Route::get('/visi-misi', [TentangKamiController::class, 'visimisi'])->name('tentang.visimisi');
