@@ -105,18 +105,18 @@
           </div>
       </li>
       @auth
-<li>
-    <form method="POST" action="{{ route('logout') }}" class="inline">
-        @csrf
-        <button type="submit" class="flex items-center py-2 px-3 text-white rounded-md md:border-0 md:p-0 hover:bg-white/10 transition-colors duration-200">
-            <svg class="w-4 h-4 me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h6a1 1 0 110 2H5v10h5a1 1 0 110 2H4a1 1 0 01-1-1V4zm9.707 5.707a1 1 0 00-1.414-1.414L10 9.586V8a1 1 0 10-2 0v4a1 1 0 002 0v-1.586l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293z" clip-rule="evenodd" />
-            </svg>
-            Logout
-        </button>
-    </form>
-</li>
-@endauth
+      <li>
+          <form method="POST" action="{{ route('logout') }}" class="inline">
+              @csrf
+              <button type="submit" class="flex items-center py-2 px-3 text-white rounded-md md:border-0 md:p-0 hover:bg-white/10 transition-colors duration-200">
+                  <svg class="w-4 h-4 me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h6a1 1 0 110 2H5v10h5a1 1 0 110 2H4a1 1 0 01-1-1V4zm9.707 5.707a1 1 0 00-1.414-1.414L10 9.586V8a1 1 0 10-2 0v4a1 1 0 002 0v-1.586l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293z" clip-rule="evenodd" />
+                  </svg>
+                  Logout
+              </button>
+          </form>
+      </li>
+      @endauth
 
       </ul>
       
