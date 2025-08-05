@@ -1,7 +1,7 @@
 <div class="space-y-10">
     @forelse ($chartsData as $tahun => $data)
         <div class="p-4">
-            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4 text-center">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4 text-center">
                 Statistik Prestasi Tahun {{ $tahun }}
             </h3>
             

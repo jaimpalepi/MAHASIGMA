@@ -15,9 +15,17 @@
     <x-navbar />
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="mb-12">
-            <h1 class="text-4xl font-extrabold text-gray-800 tracking-tight">Kegiatan Mahasiswa</h1>
-            <p class="mt-4 max-w-4xl text-lg text-gray-500">Jelajahi berbagai kegiatan dalam tampilan kalender atau daftar di bawah.</p>
+        <div class="flex items-center justify-between mb-12">
+            <div>
+                <h1 class="text-4xl font-extrabold text-gray-800 tracking-tight">Kegiatan Mahasiswa</h1>
+                <p class="mt-4 max-w-4xl text-lg text-gray-500">Jelajahi berbagai kegiatan dalam tampilan kalender atau daftar di bawah.</p>
+            </div>
+            @auth
+            <a href="{{ route('artikel.create', ['kategori' => 'Kegiatan']) }}"
+            class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition text-sm font-medium">
+                + Tambah Artikel
+            </a>
+            @endauth
         </div>
 
         {{-- Kalender Container --}}

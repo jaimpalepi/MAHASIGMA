@@ -10,11 +10,17 @@ use App\Models\Fakultas;
 
 class ArtikelController extends Controller
 {
-    public function create()
+    public function create(Request $request)
     {
-        $kategoris = kategori::all(); 
-        $fakultas = Fakultas::all(); 
-        return view('artikel.create', compact('kategoris', 'fakultas'));
+        $kategoris = kategori::all();
+        $fakultas = Fakultas::all();
+        $kategoriInputName = $request->input('kategori');
+        $selectedKategori = null;
+        if ($kategoriInputName) {
+            $selectedKategori = kategori::where('name', $kategoriInputName)->first();
+        }
+
+        return view('artikel.create', compact('kategoris', 'fakultas', 'selectedKategori'));
     }
 
     public function store(Request $request)

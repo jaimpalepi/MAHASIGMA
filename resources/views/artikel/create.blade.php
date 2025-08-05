@@ -10,7 +10,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
-<body x-data="{ kategoriId: '{{ old('kategori_id') }}' }">
+<body x-data="{ kategoriId: '{{ old('kategori_id', $selectedKategori->id ?? '') }}' }">
     <x-navbar />
     <div class="max-w-xl mx-auto p-4 my-8 bg-white shadow-md rounded-lg">
         <h2 class="text-2xl font-bold mb-6 text-center">Buat Artikel Baru</h2>
@@ -50,16 +50,21 @@
             </div>
 
 
-            <div class="mb-4">
-                <label for="kategori_id" class="block text-sm font-medium text-gray-700">Kategori</label>
-                <select name="kategori_id" id="kategori_id" x-model="kategoriId" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
-                    <option value="">Pilih Kategori</option>
-                    @foreach ($kategoris as $kategori)
-                        {{-- Asumsi kategori "Prestasi" memiliki ID = 2 --}}
-                        <option value="{{ $kategori->id }}">{{ $kategori->name }}</option>
-                    @endforeach
-                </select>
-            </div>
+          <div class="mb-4">
+            <label for="kategori_id" class="block text-sm font-medium text-gray-700">Kategori</label>
+            <select name="kategori_id" id="kategori_id" x-model="kategoriId"
+                    class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100 disabled:text-gray-500 disabled:cursor-not-allowed"
+                    required @if($selectedKategori) disabled @endif>
+                <option value="">Pilih Kategori</option>
+                @foreach ($kategoris as $kategori)
+                    <option value="{{ $kategori->id }}" @if(old('kategori_id') == $kategori->id || (isset($selectedKategori) && $selectedKategori->id == $kategori->id)) selected @endif>{{ $kategori->name }}</option>
+                @endforeach
+            </select>
+            @if($selectedKategori)
+                {{-- Input tersembunyi ini penting agar nilai kategori tetap terkirim saat form disubmit --}}
+                <input type="hidden" name="kategori_id" value="{{ $selectedKategori->id }}">
+            @endif
+        </div>
 
             
             <div class="mb-4" x-show="kategoriId == '2'" x-transition>

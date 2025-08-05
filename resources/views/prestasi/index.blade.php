@@ -22,7 +22,16 @@
             
             {{-- KOLOM KIRI: BERITA PRESTASI --}}
             <div class="lg:col-span-2">
-                <h2 class="text-2xl font-bold text-gray-800 border-b-2 border-red-200 pb-2 mb-6">Berita Prestasi</h2>
+                <div class="flex items-center justify-between mb-6 border-b-2 border-red-200 pb-2">
+                    <h2 class="text-2xl font-bold text-gray-800">Berita Prestasi</h2>
+                    @auth
+                    <a href="{{ route('artikel.create', ['kategori' => 'Prestasi']) }}"
+                    class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition text-sm font-medium">
+                        + Tambah Artikel
+                    </a>
+                    @endauth
+                </div>
+                
                 @if($prestasi->count())
                     <div class="space-y-6">
                         @foreach ($prestasi as $item)
