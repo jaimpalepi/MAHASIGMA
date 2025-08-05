@@ -21,7 +21,7 @@
                                 class="border border-gray-300 text-[10px] lg:text-[17px] text-left p-[10px] lg:px-4 lg:py-2">
                                 APPLICANT NAME</th>
                             <th
-                                class="border border-gray-300 text-[10px] lg:text-[17px] text-left p-[10px] lg:px-4 lg:py-2">
+                                class="border hidden lg:table-cell border-gray-300 text-[10px] lg:text-[17px] text-left p-[10px] lg:px-4 lg:py-2">
                                 APPLICANT EMAIL</th>
                             <th
                                 class="border border-gray-300 text-[10px] lg:text-[17px] text-left p-[10px] lg:px-4 lg:py-2">
@@ -41,7 +41,7 @@
                                     class="border border-gray-300 text-[10px] lg:text-[15px] p-[10px] lg:p-[0px] lg:px-4 lg:py-2">
                                     {{ $a->applicant_name }}</td>
                                 <td
-                                    class="border border-gray-300 text-[10px] lg:text-[15px] p-[10px] lg:p-[0px] lg:px-4 lg:py-2">
+                                    class="border hidden lg:table-cell border-gray-300 text-[10px] lg:text-[15px] p-[10px] lg:p-[0px] lg:px-4 lg:py-2">
                                     {{ $a->email }}</td>
                                 <td
                                     class="border border-gray-300 text-[10px] lg:text-[15px] p-[10px] lg:p-[0px] lg:px-4 lg:py-2">
@@ -49,15 +49,50 @@
                                 <td
                                     class="border border-gray-300 text-[10px] lg:text-[15px] p-[10px] lg:p-[0px] lg:px-4 lg:py-2">
                                     {{ $a->status }}</td>
-                                <td class="border border-gray-300 px-4 py-2 text-center">
-                                    <a href="{{ route('applicant.detail', ['id' => $a->id]) }}"
-                                        class="text-blue-600 hover:underline">Detail</a>
-                                    <br>
-                                    <button data-modal-target="deleteModal" data-modal-toggle="deleteModal"
-                                        data-delete-url="{{ route('apply.delete', ['id' => $a->id]) }}"
-                                        class="text-red-600 hover:underline" type="button">
-                                        Delete
-                                    </button>
+                                <td class="border border-gray-300 text-[10px] lg:text-[15px] p-2 text-center">
+                                    <!-- Mobile dropdown using native <details> -->
+                                    <details class="relative lg:hidden">
+                                        <summary
+                                            class="cursor-pointer list-none inline-flex items-center justify-center gap-1 bg-gray-100 border border-gray-300 rounded px-3 py-1 text-[12px] hover:bg-gray-200">
+                                            <span>Actions</span>
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M19 9l-7 7-7-7" />
+                                            </svg>
+                                        </summary>
+
+                                        <div
+                                            class="absolute right-0 mt-2 w-28 bg-white border border-gray-300 rounded shadow z-10">
+                                            <a href="{{ route('applicant.detail', ['id' => $a->id]) }}"
+                                                class="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100">Detail</a>
+                                            <a href="{{ route('beasiswa.edit', ['id' => $a->id]) }}"
+                                                class="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100">Edit</a>
+                                            <a data-modal-target="deleteModal" data-modal-toggle="deleteModal"
+                                                data-delete-url="{{ route('beasiswa.delete', ['id' => $a->id]) }}"
+                                                class="cursor-pointer block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Delete</a>
+                                            {{-- <button type="button" data-modal-target="deleteModal"
+                                                    data-modal-toggle="deleteModal"
+                                                    data-delete-url="{{ route('applicant.delete', ['id' => $a->id]) }}"
+                                                    class="w-full block text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+                                                    Delete
+                                                </button> --}}
+                                        </div>
+                                    </details>
+
+                                    <!-- Desktop inline action buttons -->
+                                    <div class="hidden lg:flex lg:flex-row lg:justify-center lg:space-x-4">
+                                        <a href="{{ route('applicant.detail', ['id' => $a->id]) }}"
+                                            class="text-blue-600 hover:underline">Detail</a>
+                                        <a href="{{ route('beasiswa.edit', ['id' => $a->id]) }}"
+                                            class="text-blue-600 hover:underline">Edit</a>
+                                        <button type="button" data-modal-target="deleteModal"
+                                            data-modal-toggle="deleteModal"
+                                            data-delete-url="{{ route('beasiswa.delete', ['id' => $a->id]) }}"
+                                            class="text-red-600 hover:underline">
+                                            Delete
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

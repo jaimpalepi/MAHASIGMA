@@ -22,6 +22,8 @@ class BeasiswaController extends Controller
         $today = Carbon::today();
         $nextWeek = Carbon::today()->addWeek();
 
+        
+
         $beasiswaSoonEnd = Beasiswa::whereBetween('deadline', [$today, $nextWeek])->get();
         return view('beasiswa.beasiswa', ['beasiswas' => $beasiswas, 'beasiswaSoonEnd' => $beasiswaSoonEnd, 'hero' => $hero]);
     }
@@ -141,6 +143,10 @@ class BeasiswaController extends Controller
             'jenjang' => 'required|string',
             'amount' => 'required|string',
             'quota' => 'required|integer|min:1',
+            'qualifications' => 'array',
+            'qualifications.*' => 'string|max:255',
+            'benefits' => 'array',
+            'benefits.*' => 'string|max:255',
             'open' => 'required|date|after_or_equal:today',
             'deadline' => 'required|date|after:open',
             'requirements' => 'required|array',
@@ -162,6 +168,8 @@ class BeasiswaController extends Controller
             'jenjang' => $request->jenjang,
             'amount' => $request->amount,
             'quota' => $request->quota,
+            'qualifications' => $request->qualifications,
+            'benefits' => $request->benefits,
             'open' => $request->open,
             'deadline' => $request->deadline,
             'status' => 'Available'

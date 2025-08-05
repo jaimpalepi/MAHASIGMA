@@ -19,6 +19,8 @@ class Beasiswa extends Model
         'jenjang',
         'amount',
         'quota',
+        'qualifications',
+        'benefits',
         'open',
         'deadline',
         'status',
@@ -35,4 +37,9 @@ class Beasiswa extends Model
         return $this->belongsToMany(Requirements::class, 'requirements_beasiswas', 'beasiswa_id', 'requirement_id');
     }
 
+    protected $casts = [
+        'qualifications' => 'array',
+        'benefits' => 'array',
+    ];
+    
 }

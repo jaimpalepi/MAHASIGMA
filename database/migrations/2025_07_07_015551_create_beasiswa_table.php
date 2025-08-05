@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('jenjang');
             $table->longText('amount');
             $table->integer('quota');
+            $table->json('qualifications')->nullable();
+            $table->json('benefits')->nullable();
             $table->date('open');
             $table->date('deadline');
             $table->string('status');

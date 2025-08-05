@@ -9,6 +9,15 @@
 </head>
 
 <body class="bg-gray-100 p-8">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <form action="{{ route('beasiswa.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="flex flex-col items-start gap-4 max-w-xl mx-auto bg-white p-6 rounded-lg shadow">
@@ -30,23 +39,57 @@
             <label for="amount" class="font-semibold">Jumlah Dana Beasiswa:</label>
             <input type="text" name="amount" id="amount" required class="border px-3 py-2 w-full">
 
-            <label for="quota" class="font-semibold">Quota:</label>
-            <input type="number" name="quota" id="quota" required class="border px-3 py-2 w-full">
+            <!-- Qualifications -->
+            <label class="font-semibold">Kualifikasi:</label>
+            <div id="qualifications-container" class="flex flex-col gap-2 w-full" data-field="qualifications">
+                <div class="field-item flex gap-2 items-center">
+                    <input type="text" name="qualifications[]" class="border px-3 py-2 w-full"
+                        placeholder="Tulis kualifikasi...">
+                    <button type="button" onclick="removeField(this)"
+                        class="text-red-500 hover:underline">Remove</button>
+                </div>
+            </div>
+            <button type="button" onclick="addInputField('qualifications')"
+                class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition w-fit mt-2">
+                + Tambah Kualifikasi
+            </button>
+
+            <!-- Benefits -->
+            <label class="font-semibold">Benefit:</label>
+            <div id="benefits-container" class="flex flex-col gap-2 w-full" data-field="benefits">
+                <div class="field-item flex gap-2 items-center">
+                    <input type="text" name="benefits[]" class="border px-3 py-2 w-full"
+                        placeholder="Tulis benefit...">
+                    <button type="button" onclick="removeField(this)"
+                        class="text-red-500 hover:underline">Remove</button>
+                </div>
+            </div>
+            <button type="button" onclick="addInputField('benefits')"
+                class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition w-fit mt-2">
+                + Tambah Benefit
+            </button>
 
             <label class="font-semibold">Persyaratan:</label>
             <div id="requirement-container" class="flex flex-col gap-2 w-full">
-                <select name="requirements[]" class="border px-3 py-2">
-                    @foreach ($requirements as $r)
-                        <option value="{{ $r->id }}">{{ $r->name }}</option>
-                    @endforeach
-                </select>
+                <div class="requirement-item flex gap-2 items-center">
+                    <select name="requirements[]" class="border px-3 py-2 w-full">
+                        @foreach ($requirements as $r)
+                            <option value="{{ $r->id }}">{{ $r->name }}</option>
+                        @endforeach
+                    </select>
+                    <button type="button" onclick="removeRequirement(this)" class="text-red-500 hover:underline">
+                        Remove
+                    </button>
+                </div>
             </div>
 
-            <button type="button"
-                onclick="addRequirement()"
-                class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition w-fit">
+            <button type="button" onclick="addRequirement()"
+                class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition w-fit mt-2">
                 + Add Requirement
             </button>
+
+            <label for="quota" class="font-semibold">Quota:</label>
+            <input type="number" name="quota" id="quota" required class="border px-3 py-2 w-full">
 
             <label for="open" class="font-semibold">Open Registration:</label>
             <input type="date" name="open" id="open" required class="border px-3 py-2 w-full">
@@ -61,11 +104,50 @@
         </div>
     </form>
 
+
     <script>
         function addRequirement() {
             const container = document.getElementById('requirement-container');
-            const select = container.querySelector('select').cloneNode(true);
-            container.appendChild(select);
+            const originalItem = container.querySelector('.requirement-item');
+
+            const newItem = originalItem.cloneNode(true);
+            newItem.querySelector('select').value = ""; // optional: reset selection
+
+            container.appendChild(newItem);
+        }
+
+        function removeRequirement(button) {
+            const container = document.getElementById('requirement-container');
+            const item = button.closest('.requirement-item');
+
+            // Don't allow removing the last one
+            if (container.children.length > 1) {
+                item.remove();
+            } else {
+                alert("Minimal satu persyaratan harus ada");
+            }
+        }
+
+        function addInputField(fieldName) {
+            const container = document.querySelector(`[data-field="${fieldName}"]`);
+            const originalItem = container.querySelector('.field-item');
+
+            const newItem = originalItem.cloneNode(true);
+            const input = newItem.querySelector('input');
+            input.value = ''; // reset input
+
+            container.appendChild(newItem);
+        }
+
+        function removeField(button) {
+            const item = button.closest('.field-item');
+            const container = item.parentElement;
+
+            if (container.querySelectorAll('.field-item').length > 1) {
+                item.remove();
+            } else {
+                alert("Minimal satu entri harus ada");
+            }
         }
     </script>
 </body>

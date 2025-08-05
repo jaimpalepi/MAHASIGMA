@@ -18,6 +18,7 @@
             <div class="relative z-10 flex flex-col justify-end h-full p-8 text-white">
                 <h1 class="text-[35px] lg:text-[50px] font-bold leading-tight drop-shadow-md">{{ $beasiswa->title }}
                 </h1>
+                <h2 class="font-bold text-[25px]">Status: {{ $beasiswa->status }}</h2>
                 <h3 class="text-[17px] font-medium mt-[10px] drop-shadow-sm">Sponsored by: {{ $beasiswa->provider }}
                 </h3>
                 <h4 class="text-sm">Posted at {{ $beasiswa->created_at->format('d M Y') }}</h4>
@@ -84,6 +85,9 @@
                         <a class="bg-blue-500 px-6 py-2 rounded-[5px] text-white text-[20px] text-bold hover:bg-blue-700 transition-all ease-in-out"
                             href="{{ route('applicant.detail', ['id' => $applicationData->id]) }}">SEE MY ENTRY</a>
                     </div>
+                @elseif($beasiswa->status == 'closed')
+                    <div class="bg-gray-500 px-6 py-2 rounded-[5px] text-white text-[20px] text-bold pointer-event-none pointer-none select-none"
+                        href="{{ route('apply.create', ['id' => $beasiswa->id]) }}">CLOSED</div>
                 @else
                     <a class="bg-blue-500 px-6 py-2 rounded-[5px] text-white text-[20px] text-bold hover:bg-blue-700 transition-all ease-in-out"
                         href="{{ route('apply.create', ['id' => $beasiswa->id]) }}">APPLY NOW</a>
