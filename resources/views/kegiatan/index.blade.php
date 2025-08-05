@@ -71,15 +71,16 @@
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth', // Tampilan awal kalender
+                initialView: 'dayGridMonth',
+                height: 'auto',
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,listWeek'
+                    right: 'dayGridMonth,listMonth'
                 },
                 events: '{{ route("kegiatan.events") }}', // URL untuk mengambil data event
                 eventClick: function(info) {
-                    info.jsEvent.preventDefault(); // Mencegah browser mengikuti href
+                    info.jsEvent.preventDefault(); 
                     if (info.event.url) {
                         window.open(info.event.url, "_self"); // Buka link di tab yang sama
                     }
