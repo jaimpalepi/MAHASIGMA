@@ -137,20 +137,21 @@ class BeasiswaController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'pdf' => 'required',
             'desc' => 'required|string',
             'provider' => 'required|string',
             'jenjang' => 'required|string',
             'amount' => 'required|string',
             'quota' => 'required|integer|min:1',
             'qualifications' => 'array',
-            'qualifications.*' => 'string|max:255',
+            'qualifications.*' => 'string',
             'benefits' => 'array',
-            'benefits.*' => 'string|max:255',
+            'benefits.*' => 'string',
             'open' => 'required|date|after_or_equal:today',
             'deadline' => 'required|date|after:open',
             'requirements' => 'required|array',
-            'requirements.*' => 'exists:requirements,id',
+            'requirements.*' => 'string',
         ]);
 
         $path = null;
@@ -160,10 +161,16 @@ class BeasiswaController extends Controller
             $path = $file->storeAs('documents/cover', $fileName, 'public');
         }
 
+        $pdfFile = $request->file('pdf');
+        $pdfPath = $pdfFile->storeAs('documents/PDFs', uniqid('PDF_') . '.' . $pdfFile->getClientOriginalExtension(), 'public');
+
         $beasiswa = Beasiswa::create([
             'title' => $request->name,
             'cover' => $path,
             'description' => $request->desc,
+            'official_website' => $request->website,
+            'contact_person' => $request->contact,
+            'pdf' => $pdfPath,
             'provider' => $request->provider,
             'jenjang' => $request->jenjang,
             'amount' => $request->amount,
@@ -174,8 +181,17 @@ class BeasiswaController extends Controller
             'deadline' => $request->deadline,
             'status' => 'Available'
         ]);
+        
+        $requirementIds = [];
 
-        $beasiswa->requirements()->sync($request->requirements);
+        $requirements = $request->requirements;
+
+        foreach ($requirements as $reqText) {
+            $requirement = Requirements::firstOrCreate(['name' => $reqText]);
+            $requirementIds[] = $requirement->id;
+        }
+
+        $beasiswa->requirements()->sync($requirementIds);
 
         return redirect()->route('beasiswa');
     }

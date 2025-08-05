@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
-    <title>{{ $beasiswa->title }}</title>
+    <title>Beasiswa - {{ $beasiswa->title }}</title>
 </head>
 
 <body>
@@ -28,10 +28,41 @@
 
             <h2 class="text-[35px] font-medium mt-[40px] border-b-[2px] border-[#7c6ca3] w-fit leading-[40px]">
                 TENTANG BEASISWA</h2>
-
-            <p class="text-justify mt-[20px] text-[18px] leading-relaxed tracking-wide text-gray-800">
+            <p class="text-justify text-[18px] leading-relaxed tracking-wide text-gray-800 mt-[10px] indent-8">
                 {!! nl2br(e($beasiswa->description)) !!}</p>
 
+            <div class="linksHere flex flex-col justify-center items-start gap-[15px] mt-[30px]">
+                <div class="website flex flex-col gap-[3px]">
+                    <p class="text-justify text-[18px] leading-none tracking-wide text-gray-800 font-medium">
+                        Official Website:</p>
+                    <a href="{{ $beasiswa->official_website }}" target="_blank"
+                        class="text-blue-600 underline hover:text-blue-800 leading-none">
+                        {{ $beasiswa->official_website }}
+                    </a>
+                </div>
+
+                <div class="contact flex flex-col gap-[3px]">
+                    <p
+                        class="text-justify text-[18px] leading-none tracking-wide text-gray-800 flex flex-col font-medium">
+                        Contact Person:
+                    </p>
+                    @if (preg_match('/(\+62|08)[0-9\s\-]{8,}/', $beasiswa->contact_person, $matches))
+                        <a onclick="copyToClipboard('{{ trim($matches[0]) }}')"
+                            class="text-blue-600 underline cursor-pointer hover:text-shadow-blue-800 leading-none">
+                            {{ trim($matches[0]) }}
+                        </a>
+                    @endif
+                </div>
+
+                <div class="pdf flex flex-col gap-[3px]">
+                    <p class="text-justify text-[18px] leading-none tracking-wide text-gray-800 font-medium">
+                        PDF:</p>
+                    <a href="{{ asset('storage/' . $beasiswa->pdf) }}" download="{{ basename($beasiswa->pdf) }}"
+                        class="text-blue-600 underline hover:text-blue-800 leading-none">
+                        Download File
+                    </a>
+                </div>
+            </div>
 
             <h2 class="text-[35px] font-medium mt-[40px] border-b-[2px] border-[#7c6ca3] w-fit leading-[40px]">DETAILS
             </h2>
@@ -64,9 +95,27 @@
                 </li>
             </ul>
 
+            <h2 class="text-[35px] font-medium mt-[40px] border-b-[2px] border-[#7c6ca3] w-fit leading-[40px]">
+                Benefits</h2>
+
+            <ul class="list-disc ml-[40px] mt-[8px]">
+                @foreach ($beasiswa->benefits as $q)
+                    <li>{{ $q }}</li>
+                @endforeach
+            </ul>
+
+            <h2 class="text-[35px] font-medium mt-[40px] border-b-[2px] border-[#7c6ca3] w-fit leading-[40px]">
+                Qualifications
+            </h2>
+
+            <ul class="list-disc ml-[40px] mt-[8px]">
+                @foreach ($beasiswa->qualifications as $q)
+                    <li>{{ $q }}</li>
+                @endforeach
+            </ul>
+
+
             @if (!$beasiswa->requirements->isEmpty())
-
-
                 <h2 class="text-[35px] font-medium mt-[40px] border-b-[2px] border-[#7c6ca3] w-fit leading-[40px]">
                     REQUIREMENTS</h2>
 
@@ -104,5 +153,14 @@
     </div>
     <x-footer />
 </body>
+
+<script>
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text)
+            .then(() => alert("📋 Contact copied to clipboard!"))
+            .catch(err => alert("❌ Failed to copy: " + err));
+    }
+</script>
+
 
 </html>

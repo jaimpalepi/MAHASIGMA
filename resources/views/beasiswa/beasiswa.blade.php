@@ -104,16 +104,16 @@
                                             {{ $b->deadline }}
                                         </h2>
                                     </div>
-                                    <div class="texts p-[15px] flex flex-col w-full gap-[3px] h-[210px]">
-                                        <h3 class="text-[20px] font-semibold truncate leading-none">{{ $b->title }}
+                                    <div class="texts p-[15px] flex flex-col w-full gap-[3px] h-[230px]">
+                                        <h3 class="text-[25px] font-bold truncate text-blue-500">{{ $b->title }}
                                         </h3>
-                                        <p class="text-[17px] leading-none line-clamp-1">{{ $b->provider }}</p>
+                                        <p class="text-[17px] leading-none line-clamp-1 pb-[10px] text-blue-700">{{ $b->provider }}</p>
                                         <div class="grid grid-cols-2">
                                             <div class="flex flex-col justify-center items-start w-full mt-[10px]">
                                                 <p class="text-[15px] text-[#9d9d9d] text-regular leading-4">
                                                     Periode Pendaftaran
                                                 </p>
-                                                <p class="text-[15px] text-gray-700 font-semibold">
+                                                <p class="text-[15px] text-gray-700 font-semibold line-clamp-1">
                                                     @if ($sameMonth && $sameYear)
                                                         {{ $start->format('j') }}–{{ $end->format('j F Y') }}
                                                     @elseif($sameYear)
@@ -143,7 +143,7 @@
                                             </div>
 
                                         </div>
-                                        <p class="mt-auto ml-auto text-[13px]">{{ $b->created_at?->format('d M Y') }}
+                                        <p class="mt-auto ml-auto text-[13px] text-[#9d9d9d]">Posted: {{ $b->created_at?->format('d M Y') }}
                                         </p>
                                     </div>
                                 </div>
@@ -205,16 +205,18 @@
                                 @endif
 
 
-                                <div class="texts p-[15px] flex flex-col w-full gap-[3px] h-[210px]">
-                                    <h3 class="text-[20px] font-semibold truncate leading-none">{{ $b->title }}
-                                    </h3>
-                                    <p class="text-[17px] leading-none line-clamp-1">{{ $b->provider }}</p>
-                                    <div class="grid grid-cols-2">
-                                        <div class="flex flex-col justify-center items-start w-full mt-[10px]">
+                                <div class="texts p-[15px] flex flex-col w-full gap-[3px] h-[230px]">
+                                    <div class="flex flex-col gap-0 mb-[10px]">
+                                        <h3 class="text-[25px] font-bold truncate  m-0 text-blue-500">{{ $b->title }}
+                                        </h3>
+                                        <p class="text-[17px] line-clamp-1 leading-none pb-[10px] text-blue-700">{{ $b->provider }}</p>
+                                    </div>
+                                    <div class="grid grid-cols-2 place-items-start">
+                                        <div class="flex flex-col justify-start items-start w-full">
                                             <p class="text-[15px] text-[#9d9d9d] text-regular leading-4">
                                                 Periode Pendaftaran
                                             </p>
-                                            <p class="text-[15px] text-gray-700 font-semibold">
+                                            <p class="text-[15px] text-gray-700 font-semibold line-clamp-1">
                                                 @if ($sameMonth && $sameYear)
                                                     {{ $start->format('j') }}–{{ $end->format('j F Y') }}
                                                 @elseif($sameYear)
@@ -225,7 +227,7 @@
                                             </p>
                                         </div>
 
-                                        <div class="flex flex-col justify-center items-start w-full mt-[10px]">
+                                        <div class="flex flex-col justify-center items-start w-full ml-[20px]">
                                             <p class="text-[15px] text-[#9d9d9d] text-regular leading-4">
                                                 Quota Diterima
                                             </p>

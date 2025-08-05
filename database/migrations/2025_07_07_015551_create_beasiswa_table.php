@@ -14,8 +14,12 @@ return new class extends Migration
         Schema::create('beasiswas', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('cover');
+            $table->longText('cover');
             $table->longText('description');
+            $table->string('official_webiste');
+            $table->string('contact_person');
+            $table->longText('pdf');
+            $table->json('links')->nullable();
             $table->string('provider');
             $table->string('jenjang');
             $table->longText('amount');

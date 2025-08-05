@@ -22,22 +22,31 @@
         @csrf
         <div class="flex flex-col items-start gap-4 max-w-xl mx-auto bg-white p-6 rounded-lg shadow">
             <label for="name" class="font-semibold">Judul Beasiswa:</label>
-            <input type="text" name="name" id="name" required class="border px-3 py-2 w-full">
+            <input type="text" name="name" id="name" required class="border px-3 py-2 w-full" value="{{old('name')}}">
 
             <label for="cover" class="font-semibold">Cover Gambar:</label>
-            <input type="file" name="cover" id="cover" required class="border px-3 py-2 w-full">
+            <input type="file" name="cover" id="cover" required class="border px-3 py-2 w-full" value="{{old('cover')}}">
 
             <label for="desc" class="font-semibold">Deskripsi:</label>
-            <textarea name="desc" id="desc" rows="4" required class="border px-3 py-2 w-full"></textarea>
+            <textarea name="desc" id="desc" rows="4" required class="border px-3 py-2 w-full" value="{{old('desc')}}"></textarea>
+
+            <label for="website" class="font-semibold">Official Website (Optional):</label>
+            <input type="text" name="website" id="website" required class="border px-3 py-2 w-full" value="{{old('website')}}">
+
+            <label for="contact" class="font-semibold">Contact Person:</label>
+            <input type="text" name="contact" id="contact" required class="border px-3 py-2 w-full" value="{{old('contact')}}">
+
+            <label for="pdf" class="font-semibold">Pdf (Optional):</label>
+            <input type="file" name="pdf" id="pdf" required class="border px-3 py-2 w-full" value="{{old('pdf')}}">
 
             <label for="provider" class="font-semibold">Penyedia Beasiswa:</label>
-            <input type="text" name="provider" id="provider" required class="border px-3 py-2 w-full">
+            <input type="text" name="provider" id="provider" required class="border px-3 py-2 w-full" value="{{old('provider')}}">
 
             <label for="jenjang" class="font-semibold">Jenjang:</label>
-            <input type="text" name="jenjang" id="jenjang" required class="border px-3 py-2 w-full">
+            <input type="text" name="jenjang" id="jenjang" required class="border px-3 py-2 w-full" value="{{old('jenjang')}}">
 
             <label for="amount" class="font-semibold">Jumlah Dana Beasiswa:</label>
-            <input type="text" name="amount" id="amount" required class="border px-3 py-2 w-full">
+            <input type="text" name="amount" id="amount" required class="border px-3 py-2 w-full" value="{{old('amount')}}">
 
             <!-- Qualifications -->
             <label class="font-semibold">Kualifikasi:</label>
@@ -72,14 +81,10 @@
             <label class="font-semibold">Persyaratan:</label>
             <div id="requirement-container" class="flex flex-col gap-2 w-full">
                 <div class="requirement-item flex gap-2 items-center">
-                    <select name="requirements[]" class="border px-3 py-2 w-full">
-                        @foreach ($requirements as $r)
-                            <option value="{{ $r->id }}">{{ $r->name }}</option>
-                        @endforeach
-                    </select>
-                    <button type="button" onclick="removeRequirement(this)" class="text-red-500 hover:underline">
-                        Remove
-                    </button>
+                    <input type="text" name="requirements[]" class="border px-3 py-2 w-full"
+                        placeholder="Tulis persyaratan...">
+                    <button type="button" onclick="removeRequirement(this)"
+                        class="text-red-500 hover:underline">Remove</button>
                 </div>
             </div>
 
@@ -89,13 +94,13 @@
             </button>
 
             <label for="quota" class="font-semibold">Quota:</label>
-            <input type="number" name="quota" id="quota" required class="border px-3 py-2 w-full">
+            <input type="number" name="quota" id="quota" required class="border px-3 py-2 w-full" value="{{old('quota')}}">
 
             <label for="open" class="font-semibold">Open Registration:</label>
-            <input type="date" name="open" id="open" required class="border px-3 py-2 w-full">
+            <input type="date" name="open" id="open" required class="border px-3 py-2 w-full" value="{{old('open')}}">
 
             <label for="deadline" class="font-semibold">Deadline:</label>
-            <input type="date" name="deadline" id="deadline" required class="border px-3 py-2 w-full">
+            <input type="date" name="deadline" id="deadline" required class="border px-3 py-2 w-full" value="{{old('deadline')}}">
 
             <button type="submit"
                 class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition w-fit">
@@ -109,19 +114,15 @@
         function addRequirement() {
             const container = document.getElementById('requirement-container');
             const originalItem = container.querySelector('.requirement-item');
-
             const newItem = originalItem.cloneNode(true);
-            newItem.querySelector('select').value = ""; // optional: reset selection
-
+            newItem.querySelector('input').value = ''; // clear input
             container.appendChild(newItem);
         }
 
         function removeRequirement(button) {
-            const container = document.getElementById('requirement-container');
             const item = button.closest('.requirement-item');
-
-            // Don't allow removing the last one
-            if (container.children.length > 1) {
+            const container = document.getElementById('requirement-container');
+            if (container.querySelectorAll('.requirement-item').length > 1) {
                 item.remove();
             } else {
                 alert("Minimal satu persyaratan harus ada");
