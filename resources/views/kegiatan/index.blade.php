@@ -78,6 +78,9 @@
                     center: 'title',
                     right: 'dayGridMonth,listMonth'
                 },
+
+                dayMaxEventRows: true,
+
                 events: '{{ route("kegiatan.events") }}', // URL untuk mengambil data event
                 eventClick: function(info) {
                     info.jsEvent.preventDefault(); 

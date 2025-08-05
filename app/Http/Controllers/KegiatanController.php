@@ -46,16 +46,22 @@ class KegiatanController extends Controller
 
         $kegiatan = artikel::where('kategori_id', $kategoriKegiatan->id)
             ->whereNotNull('tanggal_mulai')
+            ->latest()
             ->get();
 
-        $events = $kegiatan->map(function ($item) {
+        $colors = [
+            '#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#8b5cf6',
+            '#ec4899', '#14b8a6', '#64748b', '#f43f5e', '#d946ef', '#0ea5e9'
+        ];
+
+        $events = $kegiatan->values()->map(function ($item, $index) use ($colors) {
             return [
                 'title' => $item->judul,
                 'start' => $item->tanggal_mulai,
-                // Tambahkan 1 hari ke tanggal selesai agar event mencakup hari terakhir
                 'end' => $item->tanggal_selesai ? \Carbon\Carbon::parse($item->tanggal_selesai)->addDay()->toDateString() : null,
-                'url' => route('artikel.show', $item->id), // Link ke halaman detail artikel
-                'color' => '#dc2626', // Warna event (merah)
+                'url' => route('artikel.show', $item->id),
+                // Memberikan warna berdasarkan urutan kegiatan
+                'color' => $colors[$index % count($colors)],
             ];
         });
 
