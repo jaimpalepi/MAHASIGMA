@@ -127,7 +127,10 @@
                     @endforeach
                 </ul>
             @endif
-            <div class="mt-[20px] w-full flex items-center justify-center lg:justify-start gap-4">
+            <div class="mt-[40px] w-full flex flex-col items-start justify-center lg:justify-start gap-4">
+                <p class="text-[15px] text-[#9d9d9d]">
+                    *Staff kemahasiswaan UNSOED dapat membantu dalam verifikasi dokumen, klik 'APPLY' dibawah.
+                </p>
                 @if ($checkApply)
                     <div class="flex flex-col items-start justify-center gap-[5px]">
                         <p class="text-[#9d9d9d] text-[17px]">Already Applied</p>
