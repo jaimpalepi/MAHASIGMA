@@ -47,18 +47,11 @@
             height: 50px; /* Disesuaikan agar pas */
         }
 
-        .dark .tree li::before, .dark .tree li::after {
-            border-top-color: #4b5563;
-        }
         
         .tree li::after {
             right: auto; /* Direset */
             left: 50%;
             border-left: 2px solid #d1d5db;
-        }
-
-        .dark .tree li::after {
-            border-left-color: #4b5563;
         }
 
         .tree li:only-child::after, .tree li:only-child::before {
@@ -72,10 +65,6 @@
         .tree li:last-child::before {
             border-right: 2px solid #d1d5db;
             border-radius: 0 5px 0 0;
-        }
-
-        .dark .tree li:last-child::before {
-            border-right-color: #4b5563;
         }
 
         .tree li:first-child::after {
@@ -92,9 +81,6 @@
             height: 50px;
         }
 
-        .dark .tree ul ul::before {
-            border-left-color: #4b5563;
-        }
 
         .card-item {
             padding: 1rem;
@@ -104,17 +90,17 @@
     </style>
 </head>
 
-<body class="bg-gray-100 dark:bg-gray-800">
+<body class="bg-gray-100 ">
     <x-navbar />
 
     <main class="container mx-auto px-4 py-12">
         <div class="text-center mb-12" x-data="{ visible: false }" x-intersect="visible = true">
             <h1 :class="visible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'"
-                class="text-4xl font-bold text-red-700 dark:text-red-500 transition-all duration-700 ease-out">
+                class="text-4xl font-bold text-red-700  transition-all duration-700 ease-out">
                 Struktur Organisasi
             </h1>
             <p :class="visible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'"
-                class="text-lg text-gray-600 dark:text-gray-400 mt-2 transition-all duration-700 ease-out delay-200">
+                class="text-lg text-gray-600 mt-2 transition-all duration-700 ease-out delay-200">
                 Biro Akademik dan Kemahasiswaan Universitas Jenderal Soedirman
             </p>
         </div>
@@ -123,55 +109,55 @@
             <ul x-data="{ visible: false }" x-intersect="visible = true" class="transition-all duration-700">
                 <li>
                     <div :class="visible ? 'scale-100 opacity-100' : 'scale-90 opacity-0'"
-                        class="card-item bg-white dark:bg-gray-900 rounded-lg shadow-xl p-4 text-center min-w-[280px] transition-all duration-500 ease-out transform hover:scale-105 hover:shadow-2xl">
-                        <h3 class="font-bold text-lg text-gray-800 dark:text-white">BIRO AKADEMIK & KEMAHASISWAAN</h3>
+                        class="card-item bg-white  rounded-lg shadow-xl p-4 text-center min-w-[280px] transition-all duration-500 ease-out transform hover:scale-105 hover:shadow-2xl">
+                        <h3 class="font-bold text-lg text-gray-800">BIRO AKADEMIK & KEMAHASISWAAN</h3>
                     </div>
 
                     <ul :class="visible ? 'opacity-100' : 'opacity-0'" class="transition-opacity duration-1000 delay-300">
                         <li>
                             <div :class="visible ? 'scale-100 opacity-100' : 'scale-90 opacity-0'"
-                                class="card-item bg-white dark:bg-gray-900 rounded-lg shadow-xl p-4 text-center min-w-[220px] transition-all duration-500 ease-out delay-200 transform hover:scale-105 hover:shadow-2xl">
-                                <h3 class="font-bold text-lg text-gray-800 dark:text-white">BAGIAN AKADEMIK</h3>
+                                class="card-item bg-white rounded-lg shadow-xl p-4 text-center min-w-[220px] transition-all duration-500 ease-out delay-200 transform hover:scale-105 hover:shadow-2xl">
+                                <h3 class="font-bold text-lg text-gray-800">BAGIAN AKADEMIK</h3>
                             </div>
 
                             <ul :class="visible ? 'opacity-100' : 'opacity-0'" class="transition-opacity duration-1000 delay-500">
                                 <li>
                                     <div :class="visible ? 'scale-100 opacity-100' : 'scale-90 opacity-0'"
-                                        class="card-item bg-white dark:bg-gray-900 rounded-lg shadow-xl p-4 text-center min-w-[180px] transition-all duration-500 ease-out delay-300 transform hover:scale-105 hover:shadow-2xl">
-                                        <p class="font-semibold text-sm text-red-600 dark:text-red-400">Subbag Akademik & Evaluasi</p>
+                                        class="card-item bg-white rounded-lg shadow-xl p-4 text-center min-w-[180px] transition-all duration-500 ease-out delay-300 transform hover:scale-105 hover:shadow-2xl">
+                                        <p class="font-semibold text-sm text-red-600">Subbag Akademik & Evaluasi</p>
                                     </div>
                                 </li>
                                 <li>
                                     <div :class="visible ? 'scale-100 opacity-100' : 'scale-90 opacity-0'"
-                                        class="card-item bg-white dark:bg-gray-900 rounded-lg shadow-xl p-4 text-center min-w-[180px] transition-all duration-500 ease-out delay-400 transform hover:scale-105 hover:shadow-2xl">
-                                        <p class="font-semibold text-sm text-red-600 dark:text-red-400">Subbag Registrasi & Statistik</p>
+                                        class="card-item bg-white rounded-lg shadow-xl p-4 text-center min-w-[180px] transition-all duration-500 ease-out delay-400 transform hover:scale-105 hover:shadow-2xl">
+                                        <p class="font-semibold text-sm text-red-600">Subbag Registrasi & Statistik</p>
                                     </div>
                                 </li>
                                  <li>
                                     <div :class="visible ? 'scale-100 opacity-100' : 'scale-90 opacity-0'"
-                                        class="card-item bg-white dark:bg-gray-900 rounded-lg shadow-xl p-4 text-center min-w-[180px] transition-all duration-500 ease-out delay-500 transform hover:scale-105 hover:shadow-2xl">
-                                        <p class="font-semibold text-sm text-red-600 dark:text-red-400">Subbag Sarana Pendidikan</p>
+                                        class="card-item bg-white rounded-lg shadow-xl p-4 text-center min-w-[180px] transition-all duration-500 ease-out delay-500 transform hover:scale-105 hover:shadow-2xl">
+                                        <p class="font-semibold text-sm text-red-600">Subbag Sarana Pendidikan</p>
                                     </div>
                                 </li>
                             </ul>
                         </li>
                         <li>
                             <div :class="visible ? 'scale-100 opacity-100' : 'scale-90 opacity-0'"
-                                class="card-item bg-white dark:bg-gray-900 rounded-lg shadow-xl p-4 text-center min-w-[320px] transition-all duration-500 ease-out delay-200 transform hover:scale-105 hover:shadow-2xl">
-                                <h3 class="font-bold text-lg text-gray-800 dark:text-white">BAGIAN PENGEMBANGAN KEMAHASISWAAN & ALUMNI</h3>
+                                class="card-item bg-white rounded-lg shadow-xl p-4 text-center min-w-[320px] transition-all duration-500 ease-out delay-200 transform hover:scale-105 hover:shadow-2xl">
+                                <h3 class="font-bold text-lg text-gray-800">BAGIAN PENGEMBANGAN KEMAHASISWAAN & ALUMNI</h3>
                             </div>
 
                              <ul :class="visible ? 'opacity-100' : 'opacity-0'" class="transition-opacity duration-1000 delay-500">
                                 <li>
                                     <div :class="visible ? 'scale-100 opacity-100' : 'scale-90 opacity-0'"
-                                        class="card-item bg-white dark:bg-gray-900 rounded-lg shadow-xl p-4 text-center min-w-[220px] transition-all duration-500 ease-out delay-300 transform hover:scale-105 hover:shadow-2xl">
-                                        <p class="font-semibold text-sm text-red-600 dark:text-red-400">Subbag Minat, Bakat, Penalaran, & Informasi Kemahasiswaan</p>
+                                        class="card-item bg-white rounded-lg shadow-xl p-4 text-center min-w-[220px] transition-all duration-500 ease-out delay-300 transform hover:scale-105 hover:shadow-2xl">
+                                        <p class="font-semibold text-sm text-red-600">Subbag Minat, Bakat, Penalaran, & Informasi Kemahasiswaan</p>
                                     </div>
                                 </li>
                                 <li>
                                     <div :class="visible ? 'scale-100 opacity-100' : 'scale-90 opacity-0'"
-                                        class="card-item bg-white dark:bg-gray-900 rounded-lg shadow-xl p-4 text-center min-w-[220px] transition-all duration-500 ease-out delay-400 transform hover:scale-105 hover:shadow-2xl">
-                                        <p class="font-semibold text-sm text-red-600 dark:text-red-400">Subbag Kesejahteraan Mahasiswa & Alumni</p>
+                                        class="card-item bg-white rounded-lg shadow-xl p-4 text-center min-w-[220px] transition-all duration-500 ease-out delay-400 transform hover:scale-105 hover:shadow-2xl">
+                                        <p class="font-semibold text-sm text-red-600">Subbag Kesejahteraan Mahasiswa & Alumni</p>
                                     </div>
                                 </li>
                             </ul>
