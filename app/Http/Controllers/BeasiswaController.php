@@ -138,7 +138,6 @@ class BeasiswaController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-            'pdf' => 'required',
             'desc' => 'required|string',
             'provider' => 'required|string',
             'jenjang' => 'required|string',
@@ -161,8 +160,12 @@ class BeasiswaController extends Controller
             $path = $file->storeAs('documents/cover', $fileName, 'public');
         }
 
-        $pdfFile = $request->file('pdf');
-        $pdfPath = $pdfFile->storeAs('documents/PDFs', uniqid('PDF_') . '.' . $pdfFile->getClientOriginalExtension(), 'public');
+        $pdfPath = null;
+        if ($request->hasFile('pdf')) {
+            $pdfFile = $request->file('pdf');
+            $pdfPath = $pdfFile->storeAs('documents/PDFs', uniqid('PDF_') . '.' . $pdfFile->getClientOriginalExtension(), 'public');
+        }
+
 
         $beasiswa = Beasiswa::create([
             'title' => $request->name,
@@ -215,14 +218,19 @@ class BeasiswaController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'cover' => 'nullable|image|max:2048',
             'desc' => 'required|string',
-            'provider' => 'required|string|max:255',
+            'provider' => 'required|string',
+            'jenjang' => 'required|string',
             'amount' => 'required|string',
             'quota' => 'required|integer|min:1',
-            'deadline' => 'required|date',
+            'qualifications' => 'array',
+            'qualifications.*' => 'string',
+            'benefits' => 'array',
+            'benefits.*' => 'string',
+            'open' => 'required|date',
+            'deadline' => 'required|date|after:open',
             'requirements' => 'required|array',
-            'requirements.*' => 'exists:requirements,id',
+            'requirements.*' => 'string',
         ]);
 
         $path = $beasiswa->cover;
@@ -238,17 +246,44 @@ class BeasiswaController extends Controller
             $path = $file->storeAs('documents/cover', $fileName, 'public');
         }
 
+        $pdfPath = $beasiswa->pdf;
+        if ($request->hasFile('pdf')) {
+
+            if ($beasiswa->pdf) {
+                Storage::disk('public')->delete($beasiswa->pdf);
+            }
+
+            $pdfFile = $request->file('pdf');
+            $pdfPath = $pdfFile->storeAs('documents/PDFs', uniqid('PDF_') . '.' . $pdfFile->getClientOriginalExtension(), 'public');
+        }
+
         $beasiswa->update([
             'title' => $request->name,
             'cover' => $path,
             'description' => $request->desc,
+            'official_website' => $request->website,
+            'contact_person' => $request->contact,
+            'pdf' => $pdfPath,
             'provider' => $request->provider,
+            'jenjang' => $request->jenjang,
             'amount' => $request->amount,
             'quota' => $request->quota,
+            'qualifications' => $request->qualifications,
+            'benefits' => $request->benefits,
+            'open' => $request->open,
             'deadline' => $request->deadline,
         ]);
 
-        $beasiswa->requirements()->sync($request->requirements);
+        $requirementIds = [];
+
+        $requirements = $request->requirements;
+
+        foreach ($requirements as $reqText) {
+            $requirement = Requirements::firstOrCreate(['name' => $reqText]);
+            $requirementIds[] = $requirement->id;
+        }
+
+        $beasiswa->requirements()->sync($requirementIds);
         
         
         return redirect()->route('beasiswa.detail', $beasiswa->id)->with('success', 'Beasiswa updated successfully!');

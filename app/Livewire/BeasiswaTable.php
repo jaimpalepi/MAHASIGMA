@@ -6,11 +6,11 @@ use App\Models\Beasiswa;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class BeasiswaList extends Component
+class BeasiswaTable extends Component
 {
     use WithPagination;
 
-    public $jenjang = '';
+    public $title = '';
     public $search = '';
 
     public function updatingSearch()
@@ -24,21 +24,21 @@ class BeasiswaList extends Component
     }
 
 
-    public function updatingJenjang()
+    public function updatingTitle()
     {
         $this->resetPage();
     }
 
     public function render()
     {
-        $jenjangList = Beasiswa::select('jenjang')->distinct()->pluck('jenjang');
+        $titleList = Beasiswa::select('title')->distinct()->pluck('title');
 
         $beasiswas = Beasiswa::query()
-            ->when($this->jenjang, fn($q) => $q->where('jenjang', $this->jenjang))
+            ->when($this->title, fn($q) => $q->where('title', $this->title))
             ->when($this->search, fn($q) => $q->where('title', 'like', '%' . $this->search . '%'))
             ->latest()
             ->paginate(6);
 
-        return view('livewire.beasiswa-list', compact('beasiswas', 'jenjangList'));
+        return view('livewire.beasiswa-table', compact('beasiswas', 'titleList'));
     }
 }

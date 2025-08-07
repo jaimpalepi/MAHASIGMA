@@ -37,7 +37,7 @@
             <input type="text" name="contact" id="contact" required class="border px-3 py-2 w-full" value="{{old('contact')}}">
 
             <label for="pdf" class="font-semibold">Pdf (Optional):</label>
-            <input type="file" name="pdf" id="pdf" required class="border px-3 py-2 w-full" value="{{old('pdf')}}">
+            <input type="file" name="pdf" id="pdf" class="border px-3 py-2 w-full" value="{{old('pdf')}}">
 
             <label for="provider" class="font-semibold">Penyedia Beasiswa:</label>
             <input type="text" name="provider" id="provider" required class="border px-3 py-2 w-full" value="{{old('provider')}}">

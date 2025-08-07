@@ -54,14 +54,16 @@
                     @endif
                 </div>
 
-                <div class="pdf flex flex-col gap-[3px]">
-                    <p class="text-justify text-[18px] leading-none tracking-wide text-gray-800 font-medium">
-                        PDF:</p>
-                    <a href="{{ asset('storage/' . $beasiswa->pdf) }}" download="{{ basename($beasiswa->pdf) }}"
-                        class="text-blue-600 underline hover:text-blue-800 leading-none">
-                        Download File
-                    </a>
-                </div>
+                @if ($beasiswa->pdf != null)
+                    <div class="pdf flex flex-col gap-[3px]">
+                        <p class="text-justify text-[18px] leading-none tracking-wide text-gray-800 font-medium">
+                            PDF:</p>
+                        <a href="{{ asset('storage/' . $beasiswa->pdf) }}" download="{{ basename($beasiswa->pdf) }}"
+                            class="text-blue-600 underline hover:text-blue-800 leading-none">
+                            Download File
+                        </a>
+                    </div>
+                @endif
             </div>
 
             <h2 class="text-[35px] font-medium mt-[40px] border-b-[2px] border-[#7c6ca3] w-fit leading-[40px]">DETAILS
@@ -96,7 +98,7 @@
             </ul>
 
             <h2 class="text-[35px] font-medium mt-[40px] border-b-[2px] border-[#7c6ca3] w-fit leading-[40px]">
-                Benefits</h2>
+                BENEFITS</h2>
 
             <ul class="list-disc ml-[40px] mt-[8px]">
                 @foreach ($beasiswa->benefits as $q)
@@ -105,7 +107,7 @@
             </ul>
 
             <h2 class="text-[35px] font-medium mt-[40px] border-b-[2px] border-[#7c6ca3] w-fit leading-[40px]">
-                Qualifications
+                QUALIFICATIONS
             </h2>
 
             <ul class="list-disc ml-[40px] mt-[8px]">
@@ -128,9 +130,9 @@
                 </ul>
             @endif
             <div class="mt-[40px] w-full flex flex-col items-start justify-center lg:justify-start gap-4">
-                <p class="text-[15px] text-[#9d9d9d]">
+                {{-- <p class="text-[15px] text-[#9d9d9d]">
                     *Staff kemahasiswaan UNSOED dapat membantu dalam verifikasi dokumen, klik 'APPLY' dibawah.
-                </p>
+                </p> --}}
                 @if ($checkApply)
                     <div class="flex flex-col items-start justify-center gap-[5px]">
                         <p class="text-[#9d9d9d] text-[17px]">Already Applied</p>
@@ -141,8 +143,11 @@
                     <div class="bg-gray-500 px-6 py-2 rounded-[5px] text-white text-[20px] text-bold pointer-event-none pointer-none select-none"
                         href="{{ route('apply.create', ['id' => $beasiswa->id]) }}">CLOSED</div>
                 @else
+                    {{-- <a class="bg-blue-500 px-6 py-2 rounded-[5px] text-white text-[20px] text-bold hover:bg-blue-700 transition-all ease-in-out"
+                        href="{{ route('apply.create', ['id' => $beasiswa->id]) }}">APPLY NOW</a> --}}
+
                     <a class="bg-blue-500 px-6 py-2 rounded-[5px] text-white text-[20px] text-bold hover:bg-blue-700 transition-all ease-in-out"
-                        href="{{ route('apply.create', ['id' => $beasiswa->id]) }}">APPLY NOW</a>
+                        href="{{ $beasiswa->official_website }}" target="_blank">APPLY NOW</a>
                 @endif
 
                 @if (Auth::check() && Auth::user()->role == 'admin')

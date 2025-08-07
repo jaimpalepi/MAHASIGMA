@@ -8,8 +8,8 @@ Route::get('/', function () {
     return redirect()->route('beasiswa');
 });
 
-route::get('/login', [AuthController::class, 'showLogin'])->name('show.login');
-route::post('/login', [AuthController::class, 'login'])->name('login');
+route::get('/misutaiiwamadaikiteiru', [AuthController::class, 'showLogin'])->name('show.login');
+route::post('/misutaiiwamadaikiteiru', [AuthController::class, 'login'])->name('login');
 
 route::get('/register', [AuthController::class, 'showRegister'])->name('show.register');
 route::post('/register', [AuthController::class, 'register'])->name('register');
