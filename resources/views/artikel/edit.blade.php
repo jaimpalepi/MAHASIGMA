@@ -7,6 +7,53 @@
     <title>Edit Artikel</title>
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        /* Kontainer untuk tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Teks tooltip */
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 10;
+            bottom: 125%; /* Posisikan di atas tombol */
+            left: 50%;
+            margin-left: -60px; /* Geser ke kiri untuk menengahkan */
+            
+            /* Animasi fade-in dari user */
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        /* Panah kecil di bawah tooltip */
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+
+        /* Tampilkan tooltip saat di-hover */
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+
+
 </head>
 
 <body x-data="{ kategoriId: '{{ old('kategori_id', $artikel->kategori_id) }}' }">
@@ -68,7 +115,6 @@
                 </select>
             </div>
             
-            <!-- Input Fakultas (Conditional) -->
             <div class="mb-4" x-show="kategoriId == '2'" x-transition>
                 <label for="fakultas_id" class="block text-sm font-medium text-gray-700">Fakultas</label>
                 <select name="fakultas_id" id="fakultas_id" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
@@ -81,7 +127,6 @@
                 </select>
             </div>
 
-            <!-- Input Tanggal Kegiatan (Conditional) -->
             <div class="mb-4" x-show="kategoriId == '3'" x-transition>
                 <label class="block text-sm font-medium text-gray-700">Tanggal Kegiatan</label>
                 <div class="grid grid-cols-2 gap-4 mt-1">
@@ -117,6 +162,31 @@
             submitButton.disabled = true;
             submitButton.innerHTML = 'Menyimpan...';
         };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Definisikan pasangan class tombol dan teks tooltipnya SESUAI PERMINTAAN
+            const tooltips = {
+                'ql-bold': 'Tebal',
+                'ql-italic': 'Miring',
+                'ql-underline': 'Garis Bawah',
+                'ql-link': 'Sisipkan Tautan',
+                'ql-list[value=ordered]': 'Daftar Bernomor',
+                'ql-list[value=bullet]': 'Daftar Poin',
+                'ql-clean': 'Hapus Format'
+            };
+
+            // Loop melalui setiap item di objek tooltips
+            for (const Tclass in tooltips) {
+                const button = document.querySelector(`.ql-toolbar .${Tclass}`);
+                if (button) {
+                    button.classList.add('tooltip');
+                    const tooltipText = document.createElement('span');
+                    tooltipText.className = 'tooltiptext';
+                    tooltipText.innerText = tooltips[Tclass];
+                    button.appendChild(tooltipText);
+                }
+            }
+        });
     </script>
 </body>
 </html>
