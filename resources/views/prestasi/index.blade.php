@@ -43,6 +43,13 @@
                                         {{-- LINK INI AKAN MENGARAH KE HALAMAN DETAIL ARTIKEL --}}
                                         <a href="{{ route('artikel.show', $item->id) }}" class="hover:text-red-700 transition-colors">{{ $item->judul }}</a>
                                     </h3>
+                                    @auth
+                                    <div class="mt-2">
+                                        <a href="{{ route('artikel.edit', $item->id) }}" class="text-gray-500 hover:text-yellow-600 text-sm font-medium transition-colors duration-300">
+                                            ✎ Edit
+                                        </a>
+                                    </div>
+                                    @endauth
                                 </div>
                             </div>
                         @endforeach

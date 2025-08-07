@@ -31,10 +31,10 @@
                             Baca Selengkapnya →
                         </a>
                         @auth
-    <a href="{{ route('artikel.edit', $artikel->id) }}" class="text-gray-500 hover:text-yellow-600 text-sm font-medium transition-colors duration-300">
-        ✎ Edit
-    </a>
-@endauth
+                            <a href="{{ route('artikel.edit', $artikel->id) }}" class="text-gray-500 hover:text-yellow-600 text-sm font-medium transition-colors duration-300">
+                                ✎ Edit
+                            </a>
+                        @endauth
 
                     </div>
                 </div>

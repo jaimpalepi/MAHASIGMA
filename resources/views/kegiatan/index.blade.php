@@ -39,9 +39,13 @@
             @if($kegiatan->count())
                 <div class="space-y-8">
                     @foreach ($kegiatan as $item)
-                        <a href="{{ route('artikel.show', $item->id) }}" class="block group bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                        {{-- Mengubah <a> menjadi <div> untuk pembungkus utama --}}
+                        <div class="block group bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
                             <div class="flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-6">
-                                <img src="{{ asset('storage/' . $item->cover) }}" alt="{{ $item->judul }}" class="w-full sm:w-48 h-48 sm:h-32 object-cover rounded-lg flex-shrink-0">
+                                {{-- Menambahkan tautan hanya pada gambar --}}
+                                <a href="{{ route('artikel.show', $item->id) }}">
+                                    <img src="{{ asset('storage/' . $item->cover) }}" alt="{{ $item->judul }}" class="w-full sm:w-48 h-48 sm:h-32 object-cover rounded-lg flex-shrink-0">
+                                </a>
                                 <div class="flex-1">
                                     <div class="flex flex-wrap items-center gap-x-4 text-sm text-gray-500 mb-2">
                                         <p>
@@ -52,14 +56,27 @@
                                         </p>
                                     </div>
                                     <h3 class="font-semibold text-xl text-gray-900 leading-tight group-hover:text-red-700 transition-colors">
-                                        {{ $item->judul }}
+                                        {{-- Menambahkan tautan hanya pada judul --}}
+                                        <a href="{{ route('artikel.show', $item->id) }}">
+                                            {{ $item->judul }}
+                                        </a>
                                     </h3>
                                     <div class="mt-2 text-gray-600 text-sm line-clamp-2">
                                         {!! strip_tags($item->isi) !!}
                                     </div>
+
+                                    {{-- Kode untuk tombol EDIT diletakkan di sini, sekarang sudah aman --}}
+                                    @auth
+                                    <div class="mt-4">
+                                        <a href="{{ route('artikel.edit', $item->id) }}" class="text-gray-500 hover:text-yellow-600 text-sm font-medium transition-colors duration-300">
+                                            ✎ Edit
+                                        </a>
+                                    </div>
+                                    @endauth
+                                    
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     @endforeach
                 </div>
                 <div class="mt-8">
