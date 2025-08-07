@@ -26,9 +26,9 @@ class SearchArtikel extends Component
      */
     public function render()
     {
-        // Only perform search if the search string is not empty
         $artikels = trim($this->search)
-            ? artikel::where('judul', 'like', '%' . $this->search . '%')
+            ? artikel::with('kategori') // TAMBAHKAN .with('kategori') DI SINI
+                ->where('judul', 'like', '%' . $this->search . '%')
                 ->latest()
                 ->paginate(9)
             : collect(); // Return an empty collection if search is empty
