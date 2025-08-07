@@ -28,10 +28,16 @@
                         </h3>
                         <p class="text-sm text-gray-500 mb-4">{{ $artikel->created_at->format('d M Y') }}</p>
                         <div class="text-gray-600 text-sm line-clamp-3 flex-grow">{!! Str::limit(strip_tags($artikel->isi), 100) !!}</div>
-                        <div class="mt-4 pt-4 border-t">
+                        <div class="mt-4 pt-4 border-t flex items-center justify-between">
                             <a href="{{ route('artikel.show', $artikel->id) }}" class="text-blue-600 hover:underline text-sm font-medium">
                                 Baca Selengkapnya →
                             </a>
+
+                            @auth
+                            <a href="{{ route('artikel.edit', $artikel->id) }}" class="text-gray-500 hover:text-yellow-600 text-sm font-medium transition-colors duration-300">
+                                ✎ Edit
+                            </a>
+                            @endauth
                         </div>
                     </div>
                 </div>
