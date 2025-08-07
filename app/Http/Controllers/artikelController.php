@@ -48,60 +48,76 @@ class ArtikelController extends Controller
         ]);
 
         return redirect()->route('artikel.index')->with('success', 'Artikel berhasil ditambahkan!');
-}
-
-public function index()
-    {
-        $unggulan = artikel::where('is_featured', true)->latest()->take(5)->get();
-
-        $heroArtikel = artikel::latest()->first();
-
-        $secondaryArtikels = $heroArtikel ? artikel::latest()->where('id', '!=', $heroArtikel->id)->take(3)->get() : collect();
-
-        $allArtikels = Artikel::latest()->get();
-        return view('artikel.index', compact('unggulan', 'heroArtikel', 'secondaryArtikels', 'allArtikels'));
     }
 
+    public function index()
+        {
+            $unggulan = artikel::where('is_featured', true)->latest()->take(5)->get();
 
-public function show($id)
-    {
-        $artikel = Artikel::findOrFail($id);
-        $randomArtikel = Artikel::inRandomOrder()
-                            ->where('id', '!=', $id)
-                            ->limit(3)
-                            ->get();
+            $heroArtikel = artikel::latest()->first();
 
-        return view('artikel.show', compact('artikel', 'randomArtikel'));
-    }
+            $secondaryArtikels = $heroArtikel ? artikel::latest()->where('id', '!=', $heroArtikel->id)->take(3)->get() : collect();
 
-public function edit($id)
-{
-    $artikel = Artikel::findOrFail($id);
-    return view('artikel.edit', compact('artikel'));
-}
-
-public function update(Request $request, $id)
-    {
-        $artikel = Artikel::findOrFail($id);
-
-        $request->validate([
-            'judul' => 'required|string|max:255',
-            'isi' => 'required|string',
-            'cover' => 'nullable|image|max:2048',
-        ]);
-
-        $artikel->judul = $request->judul;
-        $artikel->isi = $request->isi;
-
-        if ($request->hasFile('cover')) {
-            $path = $request->file('cover')->store('covers', 'public');
-            $artikel->cover = $path;
+            $allArtikels = Artikel::latest()->get();
+            return view('artikel.index', compact('unggulan', 'heroArtikel', 'secondaryArtikels', 'allArtikels'));
         }
 
-        $artikel->save();
 
-        return redirect()->route('artikel.show', $artikel->id)->with('success', 'Artikel berhasil diperbarui.');
+    public function show($id)
+        {
+            $artikel = Artikel::findOrFail($id);
+            $randomArtikel = Artikel::inRandomOrder()
+                                ->where('id', '!=', $id)
+                                ->limit(3)
+                                ->get();
+
+            return view('artikel.show', compact('artikel', 'randomArtikel'));
+        }
+
+    public function edit($id)
+    {
+        $artikel = Artikel::findOrFail($id);
+        $kategoris = kategori::all();
+        $fakultas = Fakultas::all(); 
+        return view('artikel.edit', compact('artikel', 'kategoris', 'fakultas'));
     }
+
+    public function update(Request $request, $id)
+        {
+            $artikel = Artikel::findOrFail($id);
+
+            $request->validate([
+            'judul' => 'required|string|max:255',
+            'cover' => 'nullable|image|mimes:jpg,jpeg,png|max:4048', // Cover tidak wajib diisi saat update
+            'isi' => 'required',
+            'kategori_id' => 'required|exists:kategoris,id',
+            'fakultas_id' => 'nullable|exists:fakultas,id',
+            'tanggal_mulai' => 'nullable|required_if:kategori_id,3|date',
+            'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_mulai',
+            ]);
+
+            $dataToUpdate = $request->only(['judul', 'isi', 'kategori_id', 'fakultas_id', 'tanggal_mulai', 'tanggal_selesai']);
+
+            if ($request->kategori_id != 2) {
+                $dataToUpdate['fakultas_id'] = null;
+            }
+
+            if ($request->kategori_id != 3) {
+                $dataToUpdate['tanggal_mulai'] = null;
+                $dataToUpdate['tanggal_selesai'] = null;
+            }
+
+            if ($request->hasFile('cover')) {
+                if ($artikel->cover) {
+                    Storage::disk('public')->delete($artikel->cover);
+                }
+                $dataToUpdate['cover'] = $request->file('cover')->store('covers', 'public');
+            }
+
+            $artikel->update($dataToUpdate);
+
+            return redirect()->route('artikel.show', $artikel->id)->with('success', 'Artikel berhasil diperbarui.');
+        }
 
 }
 
