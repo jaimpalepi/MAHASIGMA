@@ -110,6 +110,62 @@
         </div>
         @endif
 
+        <div class="my-12 px-4">
+
+            <h2 class="text-3xl font-bold text-gray-800 border-b-4 border-red-600 pb-2 mb-6 inline-block">
+                Acara Mendatang
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+
+                <div class="md:col-span-1">
+                    <img src="{{ asset('image/unnamed.png') }}" alt="Ilustrasi Acara" class="w-full h-auto object-cover rounded-lg shadow-lg">
+                </div>
+
+                <div class="md:col-span-2">
+                    <ol class="relative border-s border-gray-200">
+                        
+                        {{-- Loop untuk setiap item acara --}}
+                        @forelse($acara as $item)
+                        <li class="mb-10 ms-6">
+                            <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -start-3 ring-8 ring-white">
+                                <svg class="w-2.5 h-2.5 text-blue-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                                </svg>
+                            </span>
+                            
+                            <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900">
+                                <a href="{{ route('artikel.show', $item->id) }}" class="hover:text-red-700 transition-colors duration-300">{{ $item->judul }}</a>
+                                
+                                @if($loop->first)
+                                <span class="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-sm ms-3">Terbaru</span>
+                                @endif
+                            </h3>
+                            
+                            <time class="block mb-2 text-sm font-normal leading-none text-gray-400">
+                            Diterbitkan pada {{ $item->created_at->translatedFormat('d F Y') }}
+                            </time>
+                            
+                            <p class="mb-4 text-base font-normal text-gray-500">
+                                {!! Str::limit(strip_tags($item->isi), 120) !!}
+                            </p>
+                            
+                            <a href="{{ route('artikel.show', $item->id) }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-100 focus:text-blue-700">
+                                Selengkapnya <svg class="w-3 h-3 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/></svg>
+                            </a>
+                        </li>
+                        @empty
+                        {{-- Pesan jika tidak ada acara yang ditemukan --}}
+                        <li class="ms-4">
+                            <p class="text-gray-500">Belum ada acara yang dijadwalkan.</p>
+                        </li>
+                        @endforelse
+
+                    </ol>
+                </div>
+            </div>
+        </div>
+
         <div>
             <div class="flex items-center justify-between mb-6 border-b-4 border-red-600 pb-2">
     <h2 class="text-3xl font-bold text-gray-800">Semua Informasi</h2>

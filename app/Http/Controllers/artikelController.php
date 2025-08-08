@@ -59,7 +59,10 @@ class ArtikelController extends Controller
             $secondaryArtikels = $heroArtikel ? artikel::latest()->where('id', '!=', $heroArtikel->id)->take(3)->get() : collect();
 
             $allArtikels = Artikel::latest()->get();
-            return view('artikel.index', compact('unggulan', 'heroArtikel', 'secondaryArtikels', 'allArtikels'));
+            $acara = Artikel::whereHas('kategori', function ($query) {
+            $query->where('name', 'Kegiatan');
+            })->latest()->take(3)->get();
+            return view('artikel.index', compact('unggulan', 'heroArtikel', 'secondaryArtikels', 'allArtikels', 'acara'));
         }
 
 
