@@ -14,7 +14,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/artikel/{id}/edit', [ArtikelController::class, 'edit'])->name('artikel.edit');
     Route::put('/artikel/{id}', [ArtikelController::class, 'update'])->name('artikel.update');
     Route::delete('/artikel/{artikel}', [ArtikelController::class, 'destroy'])->name('artikel.destroy');
-    Route::get('/dispen/{id}', [DispenController::class, 'show'])->name('dispen.show');
 });
 
 Route::get('/', [ArtikelController::class, 'index']);
@@ -34,6 +33,7 @@ Route::get('/struktur-organisasi', [TentangKamiController::class, 'struktur'])->
 Route::get('/dispen', [DispenController::class, 'index'])->name('dispen.index');
 Route::get('/dispen/create', [DispenController::class, 'create'])->name('dispen.create');
 Route::post('/dispen', [DispenController::class, 'store'])->name('dispen.store');
+Route::get('/dispen/{id}', [DispenController::class, 'show'])->name('dispen.show');
 
 //Route Login
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
