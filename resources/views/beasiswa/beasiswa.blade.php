@@ -64,7 +64,7 @@
 
             <h1
                 class="text-[35px] lg:text-[100px] font-black p-0 m-0 text-center leading-none lg:leading-[100px] text-[#fcd008]">
-                dolorem ipsum quia dolor sit amet
+                {{ $beasiswas->where('status', '!=', 'closed')->count() }} Beasiswa Tersedia!
             </h1>
 
             <div class="spacer h-[50px] lg:h-[100px] w-[1px]"></div>
@@ -72,7 +72,7 @@
             @if (!$beasiswas->isEmpty())
                 @if (!$beasiswaSoonEnd->isEmpty())
 
-                    <div>
+                    <div class="w-full">
                         <h1 class="text-[20px] lg:text-[40px] font-semibold mr-auto mb-[20px]">Beasiswa-Beasiswa Ini
                             Akan Segera Tutup
                             Pendaftaran!</h1>
@@ -107,7 +107,8 @@
                                     <div class="texts p-[15px] flex flex-col w-full gap-[3px] h-[230px]">
                                         <h3 class="text-[25px] font-bold truncate text-blue-500">{{ $b->title }}
                                         </h3>
-                                        <p class="text-[17px] leading-none line-clamp-1 pb-[10px] text-blue-700">{{ $b->provider }}</p>
+                                        <p class="text-[17px] leading-none line-clamp-1 pb-[10px] text-blue-700">
+                                            {{ $b->provider }}</p>
                                         <div class="grid grid-cols-2">
                                             <div class="flex flex-col justify-center items-start w-full mt-[10px]">
                                                 <p class="text-[15px] text-[#9d9d9d] text-regular leading-4">
@@ -143,7 +144,8 @@
                                             </div>
 
                                         </div>
-                                        <p class="mt-auto ml-auto text-[13px] text-[#9d9d9d]">Posted: {{ $b->created_at?->format('d M Y') }}
+                                        <p class="mt-auto ml-auto text-[13px] text-[#9d9d9d]">Posted:
+                                            {{ $b->created_at?->format('d M Y') }}
                                         </p>
                                     </div>
                                 </div>
@@ -154,18 +156,16 @@
                 @endif
 
 
-                <div>
-                    <h1 class="text-[20px] lg:text-[40px] font-semibold mr-auto mb-[20px]">Open Scholarship</h1>
+                <div class="w-full">
+                    <h1 class="text-[20px] lg:text-[40px] font-semibold mr-auto mb-[20px]">Beasiswa-Beasiswa Ini
+                        Beasiswa yang Terbuka
+                    </h1>
                     <div
                         class="w-full cardHolder grid grid-cols-1 lg:grid-cols-3 gap-[30px] mb-[20px] place-items-center">
-
-                        {{-- cards goes here --}}
                         @foreach ($beasiswas as $b)
                             @php
                                 $start = \Carbon\Carbon::parse($b->open);
                                 $end = \Carbon\Carbon::parse($b->deadline);
-
-                                $rn = \Carbon\Carbon::now();
 
                                 $sameMonth = $start->month === $end->month;
                                 $sameYear = $start->year === $end->year;
@@ -189,6 +189,19 @@
                                             {{ $b->deadline }}
                                         </h2>
                                     </div>
+
+                                    {{-- <div
+                                        class="bannerThingieShadow bg-gray-600 absolute top-[83px] left-[13px] rotate-[45deg] z-[-10] w-[50px] h-[100px]">
+                                    </div>
+                                    <div
+                                        class="bannerThingie absolute bg-gray-500 flex flex-col justify-center items-start p-[10px] left-[-15px] top-[150px] rounded-br-[20px]">
+                                        <h2 class="text-[13px] font-medium text-white">
+                                            DEADLINE PENDAFTARAN:
+                                        </h2>
+                                        <h2 class="text-[13px] font-medium text-white">
+                                            {{ $b->deadline }}
+                                        </h2>
+                                    </div> --}}
                                 @else
                                     <div
                                         class="bannerThingieShadow bg-green-600 absolute top-[83px] left-[13px] rotate-[45deg] z-[-10] w-[50px] h-[100px]">
@@ -202,17 +215,29 @@
                                             {{ $b->deadline }}
                                         </h2>
                                     </div>
+
+                                    {{-- <div
+                                        class="bannerThingieShadow bg-green-600 absolute top-[83px] left-[13px] rotate-[45deg] z-[-10] w-[50px] h-[100px]">
+                                    </div>
+                                    <div
+                                        class="bannerThingie absolute bg-green-500 flex flex-col justify-center items-start p-[10px] left-[-15px] top-[150px] rounded-br-[20px]">
+                                        <h2 class="text-[13px] font-medium text-white">
+                                            DEADLINE PENDAFTARAN:
+                                        </h2>
+                                        <h2 class="text-[13px] font-medium text-white">
+                                            {{ $b->deadline }}
+                                        </h2>
+                                    </div> --}}
                                 @endif
 
 
                                 <div class="texts p-[15px] flex flex-col w-full gap-[3px] h-[230px]">
-                                    <div class="flex flex-col gap-0 mb-[10px]">
-                                        <h3 class="text-[25px] font-bold truncate  m-0 text-blue-500">{{ $b->title }}
-                                        </h3>
-                                        <p class="text-[17px] line-clamp-1 leading-none pb-[10px] text-blue-700">{{ $b->provider }}</p>
-                                    </div>
-                                    <div class="grid grid-cols-2 place-items-start">
-                                        <div class="flex flex-col justify-start items-start w-full">
+                                    <h3 class="text-[25px] font-bold truncate text-blue-500">{{ $b->title }}
+                                    </h3>
+                                    <p class="text-[17px] leading-none line-clamp-1 pb-[10px] text-blue-700">
+                                        {{ $b->provider }}</p>
+                                    <div class="grid grid-cols-2">
+                                        <div class="flex flex-col justify-center items-start w-full mt-[10px]">
                                             <p class="text-[15px] text-[#9d9d9d] text-regular leading-4">
                                                 Periode Pendaftaran
                                             </p>
@@ -227,7 +252,7 @@
                                             </p>
                                         </div>
 
-                                        <div class="flex flex-col justify-center items-start w-full ml-[20px]">
+                                        <div class="flex flex-col justify-center items-start w-full mt-[10px]">
                                             <p class="text-[15px] text-[#9d9d9d] text-regular leading-4">
                                                 Quota Diterima
                                             </p>
@@ -246,7 +271,8 @@
                                         </div>
 
                                     </div>
-                                    <p class="mt-auto ml-auto text-[13px] text-[#9d9d9d]">Posted: {{ $b->created_at?->format('d M Y') }}
+                                    <p class="mt-auto ml-auto text-[13px] text-[#9d9d9d]">Posted:
+                                        {{ $b->created_at?->format('d M Y') }}
                                     </p>
                                 </div>
                             </div>

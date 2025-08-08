@@ -1,16 +1,18 @@
-<div class="flex flex-col lg:flex-row p-[50px] box-border justify-start">
+<div class="flex flex-col lg:flex-row p-[20px] lg:p-[50px] box-border justify-start">
 
     <div class="flex flex-col box-border justify-center items-center">
-        <div class="flex box-border gap-[30px] w-full">
+        <div
+            class="flex lg:flex-row flex-col box-border gap-[10px] lg:gap-[30px] w-full justify-center items-center lg:justify-start lg:items-start">
             <div
-                class="hidden sidebar sticky top-[120px] left-[50px] bg-white border-[1px] border-[#e6e4e1] w-[300px] h-[400px] lg:flex flex-col justify-start items-center gap-[10px] box-border p-[20px] rounded-[10px] shadow-lg ">
+                class=" sidebar lg:sticky lg:top-[120px] lg:left-[50px] lg:bg-white lg:border-[1px] lg:border-[#e6e4e1] w-full lg:w-[300px] lg:h-[400px] flex flex-col justify-start items-center gap-[10px] box-border p-[20px] rounded-[10px] lg:shadow-lg ">
                 <input type="text" wire:model.live="search" placeholder="Cari Beasiswa"
-                    class="w-full px-[20px] py-[10px] border-[1px] border-[#9d9d9d] rounded-4xl box-border focus:border-[#858282] focus:outline-0 transition-all ease-in-out">
-                <p>test: {{ $search }}</p>
-                <button wire:click="testPing">Ping</button>
-                <h3 class="font-semibold text-[30px] leading-none text-[#544db0]">Jenjang</h3>
-                <div class="w-full h-[1px] bg-[#544db0] m-[3px]"></div>
-                <div class="jenjang flex flex-col w-full items-center justify-center gap-[15px]">
+                    class="w-full px-[10px] py-[5px] lg:px-[20px] lg:py-[10px] border-[1px] border-[#9d9d9d] rounded-4xl box-border focus:border-[#858282] focus:outline-0 transition-all ease-in-out">
+
+                <h3
+                    class="font-medium lg:font-semibold text-[20px] lg:text-[30px] leading-none text-[#544db0] mr-auto lg:mr-0">
+                    Jenjang</h3>
+                <div class="hidden lg:block w-full h-[1px] bg-[#544db0] m-[3px]"></div>
+                <div class="hidden jenjang lg:flex flex-col w-full items-center justify-center gap-[15px]">
                     <p wire:click="$set('jenjang', '')"
                         class="bg-[#dfdfdf] hover:bg-[#afafaf] transition-all ease-in-out cursor-pointer w-[90%] h-[30px] rounded-[100px] text-center flex justify-center items-center {{ $jenjang === '' ? 'font-bold' : '' }}">
                         All
@@ -25,8 +27,25 @@
                     @endforeach
                 </div>
 
+                <div class="relative w-fit mr-auto">
+                    <select wire:model.live="jenjang"
+                        class="appearance-none border-[#9d9d9d] border-[1px] px-[10px] py-2 pr-[50px] rounded-md focus:outline-0 hover:border-[#ababab] cursor-pointer">
+                        <option value="">Semua Jenjang</option>
+                        @foreach ($jenjangList as $j)
+                            <option value="{{ $j }}">{{ $j }}</option>
+                        @endforeach
+                    </select>
+
+                    {{-- Custom chevron --}}
+                    <div class="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600">
+                        ▼
+                    </div>
+                </div>
+
+
+
             </div>
-            <div class="flex flex-col items-center gap-[20px] ml-auto min-h-[100vh]">
+            <div class="flex flex-col items-center gap-[20px] ml-0 lg:ml-auto min-h-[100vh]">
                 @foreach ($beasiswas as $b)
                     @php
                         $start = \Carbon\Carbon::parse($b->open);
@@ -40,16 +59,15 @@
                         {{-- <img class="w-auto lg:w-[350px] h-[150px] lg:h-[250px] rounded-l-[10px] object-cover shrink-0 grow-0"
                             src="{{ asset('storage/' . $b->cover) }}" alt=""> --}}
                         <div
-                            class="texts p-[15px] flex flex-col gap-[5px] h-[200px] lg:h-[250px] w-full box-border min-w-0 overflow-hidden">
-                            <h3
-                                class="text-[15px] lg:text-[25px] font-semibold truncate leading-none text-blue-500 pb-[5px]">
+                            class="texts p-[15px] flex flex-col gap-[0px] h-auto lg:h-[270px] w-full box-border min-w-0 overflow-hidden">
+                            <h3 class="text-[15px] lg:text-[25px] font-semibold truncate leading-relaxed text-blue-500">
                                 {{ $b->title }}
                             </h3>
-                            <p class="txt-[13px] font-medium lg:text-[17px] leading-none line-clamp-1 pb-[5px]">
+                            <p class="txt-[13px] font-medium lg:text-[17px] leading-relaxed line-clamp-1">
                                 {{ $b->provider }}
                             </p>
 
-                            <div class="flex flex-row justify-start items-center w-full ">
+                            <div class="flex flex-row justify-start items-center w-full mt-[10px]">
                                 <div
                                     class=" box-border flex flex-col justify-start items-start w-[50%] border-r-[2px] border-[#9d9d9d]">
                                     <div class="flex justify-start items-center w-full">
@@ -70,7 +88,7 @@
                                         @endphp
 
                                         <div
-                                            class="text-[15px] text-gray-800 leading-relaxed grid grid-cols-2 gap-[5px]">
+                                            class="text-[15px] text-gray-800 leading-relaxed grid grid-cols-1 lg:grid-cols-2 gap-[3px] lg:gap-[5px]">
                                             @foreach ($limited as $benefit)
                                                 <div class="flex justify-start items-center gap-[7px]">
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -166,12 +184,12 @@
                                     {{ $b->description }}
                                 </p> --}}
                             </div>
-                            <p class="mt-auto ml-auto text-[13px] text-white font-medium">Posted:
+                            <p class="mt-[30px] ml-auto text-[13px] text-white font-medium">Posted:
                                 {{ $b->created_at?->format('d M Y') }}</p>
 
                         </div>
                         <div
-                            class="bleu absolute bg-blue-500 w-[400px] h-[400px] rotate-[125deg] bottom-[-190px] right-[-200px] z-[-1]">
+                            class="bleu absolute rounded-tl-[30px] lg:rounded-0 bg-blue-500 w-[400px] h-[400px] bottom-[-350px] right-[-250px] lg:rotate-[125deg] lg:bottom-[-190px] lg:right-[-220px] z-[-1]">
                         </div>
                     </div>
                 @endforeach

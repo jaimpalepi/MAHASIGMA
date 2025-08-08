@@ -34,15 +34,15 @@
                 <button type="submit"
                     class="w-full py-2 rounded-full bg-gradient-to-r from-blue-400 to-blue-500 text-white font-semibold shadow hover:from-blue-500 hover:to-blue-400 transition">LOGIN</button>
             </form>
-            <div class="mt-6 text-center">
+            {{-- <div class="mt-6 text-center">
                 <a href="{{ route('register') }}" class="text-blue-500 hover:underline text-sm">Belum punya akun?</a>
-            </div>
-            <div class="mt-4 text-center">
+            </div> --}}
+            {{-- <div class="mt-4 text-center">
                 <a href="{{ route('beasiswa') }}"
                     class="inline-block px-4 py-2 rounded-full bg-gradient-to-r from-blue-400 to-blue-500 text-white font-semibold shadow hover:from-blue-500 hover:to-blue-400 transition">
                     &larr; Kembali
                 </a>
-            </div>
+            </div> --}}
         </div>
     </div>
 </body>

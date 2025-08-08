@@ -10,7 +10,8 @@ class BeasiswaTable extends Component
 {
     use WithPagination;
 
-    public $title = '';
+    public $jenjang = '';
+    public $status = '';
     public $search = '';
 
     public function updatingSearch()
@@ -23,22 +24,28 @@ class BeasiswaTable extends Component
         dd('Livewire works!');
     }
 
-
     public function updatingTitle()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingStatus()
     {
         $this->resetPage();
     }
 
     public function render()
     {
-        $titleList = Beasiswa::select('title')->distinct()->pluck('title');
+        $jenjangList = Beasiswa::select('jenjang')->distinct()->pluck('jenjang');
+        $statusList = Beasiswa::select('status')->distinct()->pluck('status');
 
         $beasiswas = Beasiswa::query()
-            ->when($this->title, fn($q) => $q->where('title', $this->title))
+            ->when($this->jenjang, fn($q) => $q->where('jenjang', $this->jenjang))
+            ->when($this->status, fn($q) => $q->where('status', $this->status))
             ->when($this->search, fn($q) => $q->where('title', 'like', '%' . $this->search . '%'))
             ->latest()
             ->paginate(6);
 
-        return view('livewire.beasiswa-table', compact('beasiswas', 'titleList'));
+        return view('livewire.beasiswa-table', compact('beasiswas', 'jenjangList', 'statusList'));
     }
 }
