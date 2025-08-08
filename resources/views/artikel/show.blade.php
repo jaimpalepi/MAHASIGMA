@@ -37,9 +37,9 @@
       </div>
 
       <div class="mt-8 pt-6 border-t border-gray-200 flex flex-wrap items-center gap-4">
-        <a href="{{ route('artikel.index') }}"
-           class="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition text-sm font-medium">
-          ← Kembali ke daftar artikel
+        <a href="{{ url()->previous() }}"
+           class="text-blue-600 hover:text-blue-800 hover:underline transition text-sm font-medium">
+          ← Kembali
         </a>
 
         @auth
