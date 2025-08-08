@@ -118,6 +118,29 @@ class ArtikelController extends Controller
 
             return redirect()->route('artikel.show', $artikel->id)->with('success', 'Artikel berhasil diperbarui.');
         }
+    
+    public function destroy(artikel $artikel)
+    {
+        // Ambil nama kategori SEBELUM artikel dihapus
+        $kategoriName = $artikel->kategori->name;
+
+        // Hapus file cover dari storage
+        if ($artikel->cover) {
+            Storage::disk('public')->delete($artikel->cover);
+        }
+
+        // Hapus artikel dari database
+        $artikel->delete();
+        
+        // Tentukan tujuan redirect berdasarkan nama kategori
+        $redirectRoute = match ($kategoriName) {
+            'Kegiatan' => 'kegiatan.index',
+            'Prestasi' => 'prestasi.index',
+            default => 'artikel.index',
+        };
+
+        return redirect()->route($redirectRoute)->with('success', 'Artikel berhasil dihapus.');
+    }
 
 }
 

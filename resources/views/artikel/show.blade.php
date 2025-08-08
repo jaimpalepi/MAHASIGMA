@@ -8,7 +8,7 @@
   <title>{{ $artikel->judul }} | MAHASIGMA</title>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/trix/2.0.0/trix.min.css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/trix/2.0.0/trix.umd.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 </head>
 
@@ -33,14 +33,30 @@
       @endif
 
       <div class="prose max-w-none">
-    {!! $artikel->isi !!}
-</div>
+        {!! $artikel->isi !!}
+      </div>
 
+      <div class="mt-8 pt-6 border-t border-gray-200 flex flex-wrap items-center gap-4">
+        <a href="{{ route('artikel.index') }}"
+           class="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition text-sm font-medium">
+          ← Kembali ke daftar artikel
+        </a>
 
-      <a href="{{ route('artikel.index') }}"
-         class="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
-        ← Kembali ke daftar artikel
-      </a>
+        @auth
+        <div class="flex items-center gap-4 ml-auto">
+            <a href="{{ route('artikel.edit', $artikel->id) }}" class="inline-block px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition text-sm font-medium">
+                Edit Artikel
+            </a>
+            <form action="{{ route('artikel.destroy', $artikel->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus artikel ini?');">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition text-sm font-medium">
+                    Hapus Artikel
+                </button>
+            </form>
+        </div>
+        @endauth
+      </div>
     </article>
 
     <!-- Sidebar Artikel Lainnya -->
