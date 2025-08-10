@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
             FakultasSeeder::class,
             ArtikelSeeder::class,
             KegiatanSeeder::class,
+            BeasiswaSeeder::class,
+            HeroSeeder::class,
         ]);
     }
 }
