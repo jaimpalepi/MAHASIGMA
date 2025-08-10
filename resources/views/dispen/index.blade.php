@@ -14,7 +14,7 @@
     <title>MAHASIGMA</title>
 </head>
 <body>
-    <x-navbar />
+    <x-navbar-artikel />
 <div class="max-w-5xl mx-auto mt-10">
 
 

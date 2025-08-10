@@ -23,7 +23,7 @@
 </head>
 
 <body class="bg-gray-100">
-    <x-navbar />
+    <x-navbar-artikel />
 
     <main class="container mx-auto px-4 py-12">
         <!-- Judul dan Deskripsi -->

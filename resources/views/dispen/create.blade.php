@@ -10,7 +10,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body>
-    <x-navbar />
+    <x-navbar-artikel />
     <div class="max-w-xl mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
         <h2 class="text-2xl font-semibold mb-6">Ajukan Surat Dispensasi</h2>
 
