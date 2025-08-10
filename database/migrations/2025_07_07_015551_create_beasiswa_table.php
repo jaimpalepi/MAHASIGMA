@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('title');
             $table->longText('cover');
             $table->longText('description');
-            $table->string('official_webiste');
+            $table->string('official_website');
             $table->string('contact_person');
-            $table->longText('pdf');
+            $table->longText('pdf')->nullable();
             $table->json('links')->nullable();
             $table->string('provider');
             $table->string('jenjang');

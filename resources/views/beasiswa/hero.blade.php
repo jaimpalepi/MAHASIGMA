@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    <x-navbar />
     <form action="{{ route('hero.update') }}" method="POST" enctype="multipart/form-data" class="m-[10px] lg:m-[30px]">
         @csrf
         <div class="flex flex-col items-start gap-4 max-w-xl mx-auto bg-white p-6 rounded-lg shadow">
@@ -39,6 +40,8 @@
             </button>
         </div>
     </form>
+
+    <x-footer />
 </body>
 
 </html>
