@@ -11,7 +11,7 @@
 </head>
 
 <body x-data="{ kategoriId: '{{ old('kategori_id', $selectedKategori->id ?? '') }}' }">
-    <x-navbar />
+    <x-navbar-artikel />
     <div class="max-w-xl mx-auto p-4 my-8 bg-white shadow-md rounded-lg">
         <h2 class="text-2xl font-bold mb-6 text-center">Buat Artikel Baru</h2>
 

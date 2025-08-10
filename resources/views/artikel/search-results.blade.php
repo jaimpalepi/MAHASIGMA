@@ -10,7 +10,7 @@
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col">
 
-    <x-navbar />
+    <x-navbar-artikel />
 
     <main class="flex-1 max-w-7xl mx-auto p-6 w-full">
         <h1 class="text-3xl font-bold text-gray-800 mb-6">Hasil Pencarian</h1>
