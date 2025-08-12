@@ -17,6 +17,12 @@ class DatabaseSeeder extends Seeder
             JurusanSeeder::class,
             RequirementSeeder::class,
             AdminUserSeeder::class,
+            KategoriSeeder::class,
+            FakultasSeeder::class,
+            ArtikelSeeder::class,
+            KegiatanSeeder::class,
+            BeasiswaSeeder::class,
+            HeroSeeder::class,
         ]);
     }
 }

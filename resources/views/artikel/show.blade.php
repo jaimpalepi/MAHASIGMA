@@ -14,7 +14,7 @@
 
 <body class="bg-gray-50 min-h-screen flex flex-col">
   <!-- Navbar -->
-  <x-navbar />
+  <x-navbar-artikel />
 
   <!-- Konten Utama -->
   <main class="flex-1 max-w-7xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-3 gap-8">

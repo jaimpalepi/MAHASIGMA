@@ -12,7 +12,7 @@
     <title>MAHASIGMA</title>
 </head>
 <body>
-    <x-navbar />
+    <x-navbar-artikel />
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
     <h1 class="text-2xl font-bold mb-6">Detail Pengajuan Dispensasi</h1>
 

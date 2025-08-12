@@ -17,7 +17,7 @@ class BeasiswaController extends Controller
 {
     public function beasiswa(){
         $beasiswas = Beasiswa::orderBy('deadline', 'desc')->get();
-        $hero = Hero::find(1);
+        $hero = Hero::findOrFail(1);
 
         $today = Carbon::today();
         $nextWeek = Carbon::today()->addWeek();
@@ -48,7 +48,7 @@ class BeasiswaController extends Controller
     public function beasiswa_detail($id){
         $checkApply = false;
         $applicationData = null;
-        $beasiswa = Beasiswa::with('requirements')->find($id);
+        $beasiswa = Beasiswa::with('requirements')->findOrFail($id);
         if(BeasiswaApply::query()
         ->where('applicant_id', Auth::id())
         ->where('beasiswa_id', $id)
@@ -69,7 +69,7 @@ class BeasiswaController extends Controller
     }
 
     public function applicant_detail($id){
-        $applicant = BeasiswaApply::with('beasiswa')->find($id);
+        $applicant = BeasiswaApply::with('beasiswa')->findOrFail($id);
         $requirementNames = Requirements::pluck('name', 'id');
         return view('apply.applicant_detail', ['applicant' => $applicant, 'requirementNames' => $requirementNames]);
     }
@@ -89,7 +89,7 @@ class BeasiswaController extends Controller
             return redirect()->route('login', ['redirect' => route('apply.create', $beasiswa)]);
         }
 
-        $beasiswa1 = Beasiswa::find($beasiswa);
+        $beasiswa1 = Beasiswa::findOrFail($beasiswa);
         $requirements = RequirementsBeasiswa::query()->where('beasiswa_id', $beasiswa)->with('requirement')->get();
         return view('apply.apply', ['beasiswa' => $beasiswa, 'requirements' => $requirements, 'beasiswa1' => $beasiswa1]);
     }
@@ -290,19 +290,19 @@ class BeasiswaController extends Controller
     }
 
     public function beasiswa_delete($id){
-        $beasiswa = Beasiswa::find($id);
+        $beasiswa = Beasiswa::findOrFail($id);
         Storage::disk('public')->delete($beasiswa->cover);
         Beasiswa::destroy($id);
         return redirect()->route('beasiswa.table');
     }
 
     public function edit_hero(){
-        $hero = Hero::find(1);
+        $hero = Hero::findOrFail(1);
         return view('beasiswa.hero', ['hero' => $hero]);
     }
 
     public function update_hero(Request $request){  
-        $hero = Hero::find(1);
+        $hero = Hero::findOrFail(1);
 
         $request->validate([
             'heroImage' => 'nullable|image|max:2048',

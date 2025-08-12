@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <x-navbar />
+    <x-navbar-artikel />
     <!-- Header Section -->
     <div class="bg-[url('/public/image/bg-layanan.jpg')] bg-cover bg-center bg-no-repeat py-40 px-4 md:px-20">
         <div class="max-w-7xl mx-auto text-center">
