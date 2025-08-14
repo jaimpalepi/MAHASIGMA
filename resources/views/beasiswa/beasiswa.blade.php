@@ -157,8 +157,7 @@
 
 
                 <div class="w-full">
-                    <h1 class="text-[20px] lg:text-[40px] font-semibold mr-auto mb-[20px]">Beasiswa-Beasiswa Ini
-                        Beasiswa yang Terbuka
+                    <h1 class="text-[20px] lg:text-[40px] font-semibold mr-auto mb-[20px]">Beasiswa Terbuka
                     </h1>
                     <div
                         class="w-full cardHolder grid grid-cols-1 lg:grid-cols-3 gap-[30px] mb-[20px] place-items-center">
@@ -234,7 +233,7 @@
                                 <div class="texts p-[15px] flex flex-col w-full gap-[3px] h-[230px]">
                                     <h3 class="text-[25px] font-bold truncate text-blue-500">{{ $b->title }}
                                     </h3>
-                                    <p class="text-[17px] leading-none line-clamp-1 pb-[10px] text-blue-700">
+                                    <p class="text-[17px] leading-none line-clamp-1 pb-[10px] text-blue-700 truncate">
                                         {{ $b->provider }}</p>
                                     <div class="grid grid-cols-2">
                                         <div class="flex flex-col justify-center items-start w-full mt-[10px]">

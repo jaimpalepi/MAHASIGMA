@@ -22,9 +22,11 @@
                 <select wire:model.live="jenjang"
                 class="appearance-none text-[13px] lg:text-[15px] border-[#9d9d9d] border-[1px] px-[7px] lg:px-[10px] py-[5px] pr-[35px] lg:pr-[50px] rounded-md focus:outline-0 hover:border-[#ababab] cursor-pointer">
                     <option value="">Semua Jenjang</option>
-                    @foreach ($jenjangList as $j)
-                        <option value="{{ $j }}">{{ $j }}</option>
-                    @endforeach
+                    <option value="D3">D3</option>
+                    <option value="D4">D4</option>
+                    <option value="S1">S1</option>
+                    <option value="S2">S2</option>
+                    <option value="S3">S3</option>
                 </select>
 
                 {{-- Custom chevron --}}
@@ -37,9 +39,8 @@
                 <select wire:model.live="status"
                     class="appearance-none text-[13px] lg:text-[15px] border-[#9d9d9d] border-[1px] px-[7px] lg:px-[10px] py-[5px] pr-[35px] lg:pr-[50px] rounded-md focus:outline-0 hover:border-[#ababab] cursor-pointer">
                     <option value="">Semua Status</option>
-                    @foreach ($statusList as $s)
-                        <option value="{{ $s }}">{{ $s }}</option>
-                    @endforeach
+                    <option value="Available">Available</option>
+                    <option value="Closed">Closed</option>
                 </select>
 
                 {{-- Custom chevron --}}
@@ -49,8 +50,9 @@
             </div>
         </div>
 
-        <div class="flex flex-col items-center justify-center w-full lg:w-full lg:max-w-6xl">
+        <div class="flex flex-col items-center justify-center lg:w-full">
             <div class="overflow-visible w-full">
+                @if ($beasiswas->count() > 0)
                 <table class="w-full border border-gray-300 table-auto">
                     <thead class="bg-gray-100">
                         <tr>
@@ -74,6 +76,7 @@
                                 ACTION</th>
                         </tr>
                     </thead>
+                    
                     <tbody>
                         @foreach ($beasiswas as $b)
                             <tr class="hover:bg-gray-50">
@@ -143,6 +146,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                @else
+                <h1 class="text-[30px] font-medium text-[#9d9d9d] ">Beasiswa yang dicari tidak ada...¯\_(ツ)_/¯</h1>
+                @endif
             </div>
         </div>
     </div>

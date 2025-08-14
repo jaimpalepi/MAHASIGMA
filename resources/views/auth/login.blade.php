@@ -14,10 +14,11 @@
             <h2 class="text-center text-2xl font-semibold tracking-wide mb-8 text-gray-700">LOGIN</h2>
             <form action="{{ route('login') }}" method="post" class="space-y-6">
                 @csrf
-                <input type="hidden" name="redirect" id="redirect" value="{{request('redirect')}}">
+                <input type="hidden" name="redirect" id="redirect" value="{{ request('redirect') }}">
                 <div>
                     <label for="email" class="block text-gray-700 mb-1">Email</label>
-                    <input type="text" id="email" name="email" value="{{ old('email') }}" class="w-full border-b border-blue-300 focus:border-blue-500 outline-none py-2 px-1 bg-transparent"
+                    <input type="text" id="email" name="email" value="{{ old('email') }}"
+                        class="w-full border-b border-blue-300 focus:border-blue-500 outline-none py-2 px-1 bg-transparent"
                         placeholder="Email">
                     @error('email')
                         <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
@@ -25,7 +26,8 @@
                 </div>
                 <div>
                     <label for="password" class="block text-gray-700 mb-1">Password</label>
-                    <input type="password" id="password" name="password" class="w-full border-b border-blue-300 focus:border-blue-500 outline-none py-2 px-1 bg-transparent"
+                    <input type="password" id="password" name="password"
+                        class="w-full border-b border-blue-300 focus:border-blue-500 outline-none py-2 px-1 bg-transparent"
                         placeholder="Password">
                     @error('password')
                         <div class="text-red-500 text-sm mt-1">{{ $message }}</div>

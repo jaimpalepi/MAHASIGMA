@@ -6,6 +6,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\TentangKamiController;
 use App\Http\Controllers\DispenController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LayananController;
 use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\KegiatanController;
 
@@ -61,7 +63,7 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/', [ArtikelController::class, 'index']);
 Route::get('/artikel', [artikelController::class, 'index'])->name('artikel.index');
 Route::get('/artikel/{id}', [artikelController::class, 'show'])->name('artikel.show');
-Route::view('/layanan', 'layanan')->name('layanan');
+Route::get('/layanan', [LayananController::class, 'layanan'])->name('layanan');
 Route::get('/search', function () {return view('artikel.search-results'); })->name('artikel.search');
 Route::get('/prestasi', [PrestasiController::class, 'index'])->name('prestasi.index');
 Route::get('/kegiatan', [KegiatanController::class, 'index'])->name('kegiatan.index');
@@ -77,17 +79,22 @@ Route::get('/dispen/create', [DispenController::class, 'create'])->name('dispen.
 Route::post('/dispen', [DispenController::class, 'store'])->name('dispen.store');
 Route::get('/dispen/{id}', [DispenController::class, 'show'])->name('dispen.show');
 
-//Route Login
-// Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-// Route::post('/login', [AuthController::class, 'login']);
-
-// Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-// Route::post('/register', [AuthController::class, 'register']);
-
-// Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return 'Halo, ' . auth()->user()->name;
     });
+});
+
+route::name('admin.')->prefix('admin')->group(function (){
+    route::get('/adminControlPanel', [AdminController::class, 'index'])->name('index');
+    route::get('/ACP-Layanan', [AdminController::class, 'layanan'])->name('layanan');
+});
+
+route::name('layanan.')->prefix('layanan')->group(function (){
+    route::get('/detail', [LayananController::class, 'detail'])->name('detail');
+    route::get('/add', [LayananController::class, 'add'])->name('add');
+    route::post('/store', [LayananController::class, 'store'])->name('store');
+    route::get('/edit', [LayananController::class, 'edit'])->name('edit');
+    route::get('/delete', [LayananController::class, 'delete'])->name('delete');
 });

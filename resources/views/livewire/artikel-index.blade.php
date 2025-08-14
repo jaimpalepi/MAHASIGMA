@@ -1,4 +1,4 @@
-<div>
+<div id="wakehArtikel">
     {{-- Bagian ini dipindahkan dari resources/views/artikel/index.blade.php --}}
     @if($artikels->isEmpty())
         <div class="bg-yellow-100 text-yellow-700 p-4 rounded text-center">
@@ -39,12 +39,13 @@
                     </div>
                 </div>
             </div>
+
             @endforeach
         </div>
     @endif
 
     {{-- Link paginasi akan bekerja secara otomatis tanpa reload --}}
     <div class="mt-12">
-        {{ $artikels->links() }}
+        {{ $artikels->links(data: ['scrollTo' => false]) }}
     </div>
 </div>

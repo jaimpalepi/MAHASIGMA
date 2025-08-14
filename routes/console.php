@@ -14,9 +14,9 @@ use App\Models\Beasiswa;
  
 Schedule::call(function () {
     Beasiswa::whereDate('deadline', '<=', now())
-        ->where('status', '!=', 'closed')
+        ->where('status', '!=', 'Closed')
         ->update([
-            'status' => 'closed',
+            'status' => 'Closed',
         ]);
 
         \Log::info('Beasiswa status updater ran. Rows affected: ' . $affected);

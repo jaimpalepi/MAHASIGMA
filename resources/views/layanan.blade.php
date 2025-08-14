@@ -17,15 +17,18 @@
 <body>
     <x-navbar-artikel />
     <!-- Header Section -->
-    <div class="bg-[url('/public/image/bg-layanan.jpg')] bg-cover bg-center bg-no-repeat py-40 px-4 md:px-20">
-        <div class="max-w-7xl mx-auto text-center">
-            <h1 class="text-4xl font-bold mb-4">Layanan Mahasiswa</h1>
+    <div class="relative bg-[url('/public/image/bg-layanan.jpg')] bg-cover bg-center bg-no-repeat py-40 px-4 md:px-20">
+        <div class="max-w-7xl mx-auto text-center absolute bottom-[30px] left-[30px]">
+            <h1 class="text-[70px] font-bold mb-4 text-white leading-none">LAYANAN MAHASISWA</h1>
         </div>
     </div>
 
 
     <!-- Main -->
-    <div x-data="{ layanan: 'kemahasiswaan' }" class="px-4 md:px-20 py-10 grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+
+    <livewire:layanan-display />
+
+    {{-- <div x-data="{ layanan: 'kemahasiswaan' }" class="px-4 md:px-20 py-10 grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
         <!-- Kartu Tombol -->
         <div class="flex flex-col space-y-4">
             <a @click="layanan = 'kemahasiswaan'"
@@ -93,6 +96,9 @@
             </div>
 
         </div>
-    </div>
-    <x-footer />
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    </div> --}}
+</body>
+
+</html>
+<x-footer />
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
