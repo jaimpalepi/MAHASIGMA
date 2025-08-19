@@ -91,10 +91,14 @@ route::name('admin.')->prefix('admin')->group(function (){
     route::get('/ACP-Layanan', [AdminController::class, 'layanan'])->name('layanan');
 });
 
-route::name('layanan.')->prefix('layanan')->group(function (){
-    route::get('/detail', [LayananController::class, 'detail'])->name('detail');
+route::name('layanan.')->prefix('layanan')->middleware(['auth', 'checklogin'])->group(function (){
+    route::get('/detail/{id}', [LayananController::class, 'detail'])->name('detail');
+
     route::get('/add', [LayananController::class, 'add'])->name('add');
     route::post('/store', [LayananController::class, 'store'])->name('store');
-    route::get('/edit', [LayananController::class, 'edit'])->name('edit');
-    route::get('/delete', [LayananController::class, 'delete'])->name('delete');
+
+    route::get('/edit/{id}', [LayananController::class, 'edit'])->name('edit');
+    route::post('/update', [LayananController::class, 'update'])->name('update');
+
+    route::get('/delete/{id}', [LayananController::class, 'delete'])->name('delete');
 });

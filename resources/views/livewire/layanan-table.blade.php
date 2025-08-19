@@ -70,14 +70,14 @@
 
                                         <!-- Desktop inline action buttons -->
                                         <div class="hidden lg:flex lg:flex-row lg:justify-center lg:space-x-4">
-                                            <a href="{{ route('layanan.detail', ['id' => $l->id]) }}"
-                                                class="text-blue-600 hover:underline">Detail</a>
+                                            {{-- <a href="{{ route('layanan.detail', ['id' => $l->id]) }}"
+                                                class="text-blue-600 hover:underline">Detail</a> --}}
                                             <a href="{{ route('layanan.edit', ['id' => $l->id]) }}"
                                                 class="text-blue-600 hover:underline">Edit</a>
                                             <button type="button" data-modal-target="deleteModal"
                                                 data-modal-toggle="deleteModal"
                                                 data-delete-url="{{ route('layanan.delete', ['id' => $l->id]) }}"
-                                                class="text-red-600 hover:underline">
+                                                class="text-red-600 hover:underline cursor-pointer">
                                                 Delete
                                             </button>
                                         </div>

@@ -8,7 +8,8 @@
     <title>Add Layanan</title>
 </head>
 
-<body class="bg-gray-100 p-8">
+<body>
+    <x-navbar-artikel />
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -18,25 +19,29 @@
             </ul>
         </div>
     @endif
-    <form action="{{ route('layanan.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <div class="flex flex-col items-start gap-4 max-w-xl mx-auto bg-white p-6 rounded-lg shadow">
-            <label for="layanan" class="font-semibold">Layanan:</label>
-            <input type="text" name="layanan" id="layanan" required class="border px-3 py-2 w-full" value="{{old('layanan')}}">
+    <div class="py-[30px]">
+        <form action="{{ route('layanan.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="flex flex-col items-start gap-4 max-w-xl mx-auto bg-white p-6 rounded-lg shadow-lg border-[1px] border-[#e6e4e1]">
+                <label for="layanan" class="font-semibold">Layanan:</label>
+                <input type="text" name="layanan" id="layanan" required class="px-3 py-2 w-full border-[1px] border-[#9d9d9d] focus:outline-0 rounded-[3px]"
+                    value="{{ old('layanan') }}">
 
-            <label for="text" class="font-semibold">Deskripsi:</label>
-            <textarea name="text" id="text" rows="4" required class="border px-3 py-2 w-full" value="{{old('text')}}"></textarea>
-            
-            <label for="link" class="font-semibold">Link</label>
-            <input type="text" name="link" id="link" class="border px-3 py-2 w-full" value="{{old('link')}}">
+                <label for="text" class="font-semibold">Deskripsi:</label>
+                <textarea name="text" id="text" rows="4" required class="px-3 py-2 w-full border-[1px] border-[#9d9d9d] focus:outline-0 rounded-[3px]"
+                    value="{{ old('text') }}"></textarea>
 
-            <button type="submit"
-                class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition w-fit cursor-pointer">
-                Submit
-            </button>
-        </div>
-    </form>
+                <label for="link" class="font-semibold">Link</label>
+                <input type="text" name="link" id="link" class="px-3 py-2 w-full border-[1px] border-[#9d9d9d] focus:outline-0 rounded-[3px]"
+                    value="{{ old('link') }}">
 
+                <button type="submit"
+                    class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition w-fit cursor-pointer">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
 
     <script>
         function addRequirement() {
@@ -79,6 +84,7 @@
             }
         }
     </script>
+    <x-footer />
 </body>
 
 </html>
