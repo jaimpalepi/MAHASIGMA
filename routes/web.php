@@ -87,7 +87,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 route::name('admin.')->prefix('admin')->group(function (){
-    route::get('/adminControlPanel', [AdminController::class, 'index'])->name('index');
+    route::get('/', [AdminController::class, 'index'])->name('index');
     route::get('/ACP-Layanan', [AdminController::class, 'layanan'])->name('layanan');
 });
 

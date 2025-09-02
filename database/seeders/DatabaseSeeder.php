@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             KegiatanSeeder::class,
             BeasiswaSeeder::class,
             HeroSeeder::class,
+            LayananSeeder::class,
         ]);
     }
 }

@@ -19,7 +19,7 @@
         </div>
 
         @if ($layananDetail->link != null)
-            <a href="{{ route($layananDetail->link) }}" class="text-blue-600 hover:underline text-sm font-medium">
+            <a href="{{ $layananDetail->link }}" class="text-blue-600 hover:underline text-sm font-medium">
                 {{$layananDetail->layanan}} →
             </a>
         @endif
