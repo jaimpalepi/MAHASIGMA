@@ -64,7 +64,7 @@ class BeasiswaSeeder extends Seeder
                 'Jejaring dengan Beswan Djarum dari seluruh Indonesia'
             ],
             'open' => Carbon::now()->subWeeks(2),
-            'deadline' => Carbon::now()->addWeeks(6),
+            'deadline' => Carbon::now()->addWeeks(6), 
             'status' => 'Available'
         ]);
 

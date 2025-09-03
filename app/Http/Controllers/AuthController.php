@@ -68,6 +68,6 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('beasiswa')->with('success', 'Logout Success');
+        return redirect('/')->with('success', 'Anda telah berhasil logout.');
     }
 }

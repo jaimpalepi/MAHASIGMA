@@ -7,6 +7,7 @@ use App\Models\artikel;
 use Illuminate\Support\Facades\Storage;
 use App\Models\kategori;
 use App\Models\Fakultas;
+use App\Models\Setting;
 
 class ArtikelController extends Controller
 {
@@ -59,9 +60,14 @@ class ArtikelController extends Controller
             $secondaryArtikels = $heroArtikel ? artikel::latest()->where('id', '!=', $heroArtikel->id)->take(3)->get() : collect();
 
             $allArtikels = Artikel::latest()->get();
+            $upcomingEventsCount = Setting::where('key', 'upcoming_events_count')->first()->value ?? 3;
+
             $acara = Artikel::whereHas('kategori', function ($query) {
-            $query->where('name', 'Kegiatan');
-            })->latest()->take(3)->get();
+                $query->where('name', 'Kegiatan');
+            })->latest()
+            ->take($upcomingEventsCount) // Gunakan variabel di sini
+            ->get();
+
             return view('artikel.index', compact('unggulan', 'heroArtikel', 'secondaryArtikels', 'allArtikels', 'acara'));
         }
 

@@ -50,7 +50,7 @@ route::get('beasiswa-delete/{id}', [BeasiswaController::class, 'beasiswa_delete'
 
 // route::get('/apply-delete/{id}', [BeasiswaController::class, 'apply_delete'])->name('apply.delete');
 
-route::get('/logout', [AuthController::class, 'logout'])->name('logout')->Middleware('checklogin');
+route::post('/logout', [AuthController::class, 'logout'])->name('logout')->Middleware('checklogin');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/artikel/create', [ArtikelController::class, 'create'])->name('artikel.create');
@@ -58,6 +58,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/artikel/{id}/edit', [ArtikelController::class, 'edit'])->name('artikel.edit');
     Route::put('/artikel/{id}', [ArtikelController::class, 'update'])->name('artikel.update');
     Route::delete('/artikel/{artikel}', [ArtikelController::class, 'destroy'])->name('artikel.destroy');
+    Route::get('/admin/settings', [AdminController::class, 'showSettings'])->name('admin.settings');
+    Route::post('/admin/settings', [AdminController::class, 'updateSettings'])->name('admin.settings.update');
+
 });
 
 Route::get('/', [ArtikelController::class, 'index']);
