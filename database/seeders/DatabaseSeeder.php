@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             BeasiswaSeeder::class,
             HeroSeeder::class,
             SettingsTableSeeder::class,
+            LayananSeeder::class,
         ]);
     }
 }
