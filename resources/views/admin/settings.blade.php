@@ -1,37 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Pengaturan Website</title>
-    @vite('resources/css/app.css')
-</head>
-<body class="bg-gray-100">
-    <x-navbar-artikel />
-    <div class="container mx-auto p-8">
-        <h1 class="text-2xl font-bold mb-6">Pengaturan Tampilan Website</h1>
+{{-- Memberitahu file ini untuk menggunakan layout admin utama --}}
+@extends('layouts.admin')
 
-        @if(session('success'))
-            <div class="bg-green-100 text-green-700 p-4 rounded mb-4">{{ session('success') }}</div>
-        @endif
-
-        <form action="{{ route('admin.settings.update') }}" method="POST" class="bg-white shadow-md rounded p-6">
-            @csrf
-            <div class="mb-4">
-                <label for="upcoming_events_count" class="block text-gray-700 font-semibold mb-2">
-                    Jumlah Acara Mendatang yang Ditampilkan
-                </label>
-                <input type="number" name="upcoming_events_count" id="upcoming_events_count"
-                       class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                       value="{{ $settings['upcoming_events_count'] ?? 3 }}" min="1">
+{{-- Semua konten di bawah ini akan dimasukkan ke dalam @yield('content') di layout --}}
+@section('content')
+  <div class="mx-auto max-w-2xl">
+    <div class="rounded-sm border border-stroke bg-white shadow-default">
+      <div class="border-b border-stroke px-6.5 py-4">
+        <h3 class="font-medium text-black">
+          Pengaturan Situs
+        </h3>
+      </div>
+      <form action="{{ route('admin.settings.update') }}" method="POST">
+        @csrf
+        <div class="p-6.5">
+          {{-- Menampilkan pesan sukses setelah update --}}
+          @if (session('success'))
+            <div class="mb-4 rounded-md border border-green-500 bg-green-100 px-4 py-3 text-green-700">
+              {{ session('success') }}
             </div>
+          @endif
 
-            <div class="mt-6">
-                <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
-                    Simpan Pengaturan
-                </button>
-            </div>
-        </form>
+          <div class="mb-4.5">
+            <label class="mb-2.5 block text-black">
+              Jumlah Acara di Beranda
+            </label>
+            <input
+              type="number"
+              name="home_page_events_count"
+              value="{{ $settings['home_page_events_count'] ?? 4 }}"
+              placeholder="Masukkan angka"
+              class="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+            />
+            @error('home_page_events_count')
+                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+            @enderror
+          </div>
+
+          <button class="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray">
+            Simpan Perubahan
+          </button>
+        </div>
+      </form>
     </div>
-    <x-footer />
-</body>
-</html>
+  </div>
+@endsection
