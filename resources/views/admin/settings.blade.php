@@ -4,9 +4,9 @@
 {{-- Semua konten di bawah ini akan dimasukkan ke dalam @yield('content') di layout --}}
 @section('content')
   <div class="mx-auto max-w-2xl">
-    <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-      <div class="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-        <h3 class="font-medium text-black dark:text-white">
+    <div class="rounded-sm border border-stroke bg-white shadow-default">
+      <div class="border-b border-stroke px-6.5 py-4">
+        <h3 class="font-medium text-black">
           Pengaturan Situs
         </h3>
       </div>
@@ -21,7 +21,7 @@
           @endif
 
           <div class="mb-4.5">
-            <label class="mb-2.5 block text-black dark:text-white">
+            <label class="mb-2.5 block text-black">
               Jumlah Acara di Beranda
             </label>
             <input
