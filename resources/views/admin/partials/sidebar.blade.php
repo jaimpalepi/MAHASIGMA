@@ -12,7 +12,7 @@
         <img class="dark:hidden" src="./images/logo/logo.svg" alt="Logo" />
         <img
           class="hidden dark:block"
-          src="/images/logo_krmahasiswaan-1.png"
+          src="\image\logo_kemahasiswaan-1.png"
           alt="Logo"
         />
       </span>
@@ -129,6 +129,14 @@
                     tampilan acara
                   </a>
                 </li>
+                <li>
+                  <a
+                    href="{{ route('admin.layanan') }}"
+                    class="menu-dropdown-item group"
+                    :class="page === 'ecommerce' ? 'menu-dropdown-item-active' : 'menu-dropdown-item-inactive'"
+                  >
+                    Daftar Layanan
+                  </a>
               </ul>
             </div>
             <!-- Dropdown Menu End -->
