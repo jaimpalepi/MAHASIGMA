@@ -27,7 +27,7 @@
       </p>
 
       @if ($artikel->cover)
-        <img src="{{ asset('storage/' . $artikel->cover) }}"
+        <img src="{{ Storage::url($artikel->cover) }}"
              alt="Cover {{ $artikel->judul }}"
              class="w-full h-64 object-cover rounded mb-6">
       @endif

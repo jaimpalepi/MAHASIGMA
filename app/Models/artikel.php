@@ -18,6 +18,7 @@ class artikel extends Model
         'fakultas_id',
         'tanggal_mulai',   
         'tanggal_selesai',
+        'is_featured',
     ];
 
     public function kategori(): BelongsTo

@@ -17,6 +17,11 @@
         $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
     :class="{'dark bg-boxdark-2': darkMode === true}"
 >
+    	@if(!Auth::check())
+        @php header('Location: ' . route('haha')); exit; @endphp
+    	@elseif(Auth::user()->role !== 'admin')
+	@php abort(403); @endphp
+ 	@endif
     <!-- ===== Preloader Start ===== -->
     @include('admin.partials.preloader')
     <!-- ===== Preloader End ===== -->

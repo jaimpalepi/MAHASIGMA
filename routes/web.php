@@ -82,17 +82,32 @@ Route::get('/dispen/create', [DispenController::class, 'create'])->name('dispen.
 Route::post('/dispen', [DispenController::class, 'store'])->name('dispen.store');
 Route::get('/dispen/{id}', [DispenController::class, 'show'])->name('dispen.show');
 
+// contoh: jika anda punya route admin tunggal
+Route::get('/admin', [AdminController::class, 'index'])->name('admin.index')->middleware('admin');
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-        return 'Halo, ' . auth()->user()->name;
-    });
+// atau grup route admin
+Route::middleware(['admin'])->prefix('admin')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+    // ... route admin lain ...
 });
 
 route::name('admin.')->prefix('admin')->group(function (){
     route::get('/', [AdminController::class, 'index'])->name('index');
     route::get('/ACP-Layanan', [AdminController::class, 'layanan'])->name('layanan');
 });
+
+// Admin: halaman list artikel (hanya akses admin)
+// replaced closure to pass $artikels to view
+// Route::get('/admin/artikel-list', function () {
+//     $artikels = \App\Models\Artikel::orderBy('created_at', 'desc')->get();
+//     return view('admin.artikel-list', compact('artikels'));
+// })->name('admin.artikel.list')->middleware('admin');
+
+// Route list artikel (tanpa middleware)
+Route::get('/admin/artikel-list', function () {
+    $artikels = \App\Models\Artikel::orderBy('created_at', 'desc')->get();
+    return view('admin.artikel-list', compact('artikels'));
+})->name('admin.artikel.list');
 
 route::name('layanan.')->prefix('layanan')->middleware(['auth', 'checklogin'])->group(function (){
     route::get('/detail/{id}', [LayananController::class, 'detail'])->name('detail');

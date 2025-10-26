@@ -29,10 +29,13 @@
                 </div>
             @endif
 
-            <a href="{{ route('logout') }}"
-                class="hidden md:block p-[10px] text-[15px] leading-none text-white font-medium rounded-[5px] transition-all bg-gradient-to-r from-cyan-400 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 text-center shadow-none">
-                Logout
-            </a>
+                        <form method="POST" action="{{ route('logout') }}" class="hidden md:block">
+                @csrf
+                <button type="submit"
+                    class="p-[10px] text-[15px] leading-none text-white font-medium rounded-[5px] transition-all bg-gradient-to-r from-cyan-400 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 text-center shadow-none">
+                    Logout
+                </button>
+            </form>
 
             {{-- <a href="{{ route('my.application') }}"
                 class="hidden md:block p-[10px] text-[15px] leading-none text-white font-medium rounded-[5px] transition-all bg-gradient-to-r from-cyan-400 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 text-center shadow-none">

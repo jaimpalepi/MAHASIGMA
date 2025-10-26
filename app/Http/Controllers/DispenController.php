@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dispen;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DispenController extends Controller
 {
@@ -22,6 +23,8 @@ class DispenController extends Controller
             'mahasiswa.*' => 'required|string|max:255',
         ]);
 
+        // Get current user's email
+        $userEmail = Auth::user()->email;
 
         Dispen::create([
             'nama_acara' => $request->nama_acara,
@@ -29,6 +32,7 @@ class DispenController extends Controller
             'tempat' => $request->tempat,
             'mahasiswa' => json_encode($request->mahasiswa),
             'status' => 'Menunggu',
+            'email' => $userEmail, // Add email field
         ]);
 
         return redirect()->route('dispen.create')->with('success', 'Pengajuan berhasil dikirim.');

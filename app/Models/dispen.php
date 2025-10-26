@@ -14,5 +14,6 @@ class Dispen extends Model
         'tempat',
         'mahasiswa',
         'status',
+        'email',
     ];
 }

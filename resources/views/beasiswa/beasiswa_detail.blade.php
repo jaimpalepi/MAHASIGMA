@@ -156,6 +156,10 @@
                         EDIT
                     </a>
                 @endif
+                <a href="{{ route('beasiswa') }}"
+                    class="bg-gray-500 px-6 py-2 rounded-[5px] text-white text-[20px] text-bold hover:bg-gray-700 transition-all ease-in-out">
+                    KEMBALI
+                </a>
             </div>
         </div>
     </div>

@@ -22,8 +22,10 @@
     @endif
 
 
-    <form action="{{ route('beasiswa.update', $beasiswa->id) }}" method="POST" enctype="multipart/form-data"
-        class="m-[10px] lg:m-[30px]">
+    <form action="{{ route('beasiswa.update', $beasiswa->id) }}" 
+      method="POST" 
+      enctype="multipart/form-data"
+      class="m-[10px] lg:m-[30px]">
         @csrf
         @method('PUT')
         <input type="hidden" name="id" id="id" value="{{ $beasiswa->id }}">
@@ -156,29 +158,23 @@
 
 
     <script>
-        const allRequirements = @json($all_requirements);
+
 
         function addRequirement() {
             const container = document.getElementById('requirement-container');
-            const select = document.createElement('select');
-            select.name = 'requirements[]';
-            select.className = 'border px-3 py-2 mt-2';
-
-            allRequirements.forEach(r => {
-                const option = document.createElement('option');
-                option.value = r.id;
-                option.textContent = r.name;
-                select.appendChild(option);
-            });
-
-            container.appendChild(select);
-        }
-
-        function addRequirement() {
-            const container = document.getElementById('requirement-container');
-            const originalItem = container.querySelector('.requirement-item');
-            const newItem = originalItem.cloneNode(true);
-            newItem.querySelector('input').value = ''; // clear input
+            const newItem = document.createElement('div');
+            newItem.className = 'requirement-item flex gap-2 items-center';
+            newItem.innerHTML = `
+                <input type="text" 
+                       name="requirements[]" 
+                       class="border px-3 py-2 w-full" 
+                       placeholder="Tulis persyaratan...">
+                <button type="button" 
+                        onclick="removeRequirement(this)" 
+                        class="text-red-500 hover:underline">
+                    Remove
+                </button>
+            `;
             container.appendChild(newItem);
         }
 
@@ -194,19 +190,25 @@
 
         function addInputField(fieldName) {
             const container = document.querySelector(`[data-field="${fieldName}"]`);
-            const originalItem = container.querySelector('.field-item');
-
-            const newItem = originalItem.cloneNode(true);
-            const input = newItem.querySelector('input');
-            input.value = ''; // reset input
-
+            const newItem = document.createElement('div');
+            newItem.className = 'field-item flex gap-2 items-center';
+            newItem.innerHTML = `
+                <input type="text" 
+                       name="${fieldName}[]" 
+                       class="border px-3 py-2 w-full" 
+                       placeholder="Tulis ${fieldName}...">
+                <button type="button" 
+                        onclick="removeField(this)" 
+                        class="text-red-500 hover:underline">
+                    Remove
+                </button>
+            `;
             container.appendChild(newItem);
         }
 
         function removeField(button) {
             const item = button.closest('.field-item');
             const container = item.parentElement;
-
             if (container.querySelectorAll('.field-item').length > 1) {
                 item.remove();
             } else {
@@ -214,8 +216,6 @@
             }
         }
     </script>
-
-    <x-footer />
 </body>
-
+    <x-footer />
 </html>

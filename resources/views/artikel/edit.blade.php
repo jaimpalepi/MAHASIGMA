@@ -141,6 +141,14 @@
                 </div>
             </div>
 
+            <div class="mb-4">
+                <label class="inline-flex items-center">
+                    <input type="checkbox" name="is_featured" value="1" class="form-checkbox h-5 w-5 text-blue-600"
+                        {{ old('is_featured', $artikel->is_featured) ? 'checked' : '' }}>
+                    <span class="ml-2 text-sm text-gray-700">Jadikan artikel unggulan</span>
+                </label>
+            </div>
+
             <button type="submit" id="submit-button" class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 disabled:bg-blue-300">
                 Simpan Perubahan
             </button>

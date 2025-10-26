@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
             AdminUserSeeder::class,
             KategoriSeeder::class,
             FakultasSeeder::class,
-            ArtikelSeeder::class,
             KegiatanSeeder::class,
             BeasiswaSeeder::class,
             HeroSeeder::class,

@@ -34,6 +34,7 @@ class ArtikelController extends Controller
             'fakultas_id' => 'nullable|exists:fakultas,id',
             'tanggal_mulai' => 'nullable|required_if:kategori_id,3|date',
             'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_mulai',
+            'is_featured' => 'nullable|boolean',
         ]);
 
         $coverPath = $request->file('cover')->store('covers', 'public');
@@ -46,6 +47,7 @@ class ArtikelController extends Controller
             'fakultas_id' => $request->kategori_id == 2 ? $request->fakultas_id : null,
             'tanggal_mulai' => $request->kategori_id == 3 ? $request->tanggal_mulai : null,
             'tanggal_selesai' => $request->kategori_id == 3 ? $request->tanggal_selesai : null,
+            'is_featured' => $request->has('is_featured') ? 1 : 0,
         ]);
 
         return redirect()->route('artikel.index')->with('success', 'Artikel berhasil ditambahkan!');
@@ -97,15 +99,19 @@ class ArtikelController extends Controller
 
             $request->validate([
             'judul' => 'required|string|max:255',
-            'cover' => 'nullable|image|mimes:jpg,jpeg,png|max:4048', // Cover tidak wajib diisi saat update
+            'cover' => 'nullable|image|mimes:jpg,jpeg,png|max:4048',
             'isi' => 'required',
             'kategori_id' => 'required|exists:kategoris,id',
             'fakultas_id' => 'nullable|exists:fakultas,id',
             'tanggal_mulai' => 'nullable|required_if:kategori_id,3|date',
             'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_mulai',
+            'is_featured' => 'nullable|boolean', // tambahkan validasi
             ]);
 
             $dataToUpdate = $request->only(['judul', 'isi', 'kategori_id', 'fakultas_id', 'tanggal_mulai', 'tanggal_selesai']);
+
+            // Selalu set is_featured sesuai checkbox (unchecked -> 0)
+            $dataToUpdate['is_featured'] = $request->has('is_featured') ? 1 : 0;
 
             if ($request->kategori_id != 2) {
                 $dataToUpdate['fakultas_id'] = null;

@@ -36,6 +36,14 @@
                 <input type="text" name="judul" id="judul" value="{{ old('judul') }}" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
             </div>
 
+            <div class="mb-4">
+                <label class="inline-flex items-center">
+                    <input type="checkbox" name="is_featured" value="1" class="form-checkbox h-5 w-5 text-blue-600" {{ old('is_featured') ? 'checked' : '' }}>
+                    <span class="ml-2 text-sm text-gray-700">Jadikan artikel unggulan</span>
+                </label>
+            </div>
+            
+
             {{-- Input Cover --}}
             <div class="mb-4">
                 <label for="cover" class="block text-sm font-medium text-gray-700">Cover Gambar</label>

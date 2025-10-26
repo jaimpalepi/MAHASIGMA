@@ -11,6 +11,7 @@ use App\Models\Hero;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 
 class BeasiswaController extends Controller
@@ -214,79 +215,82 @@ class BeasiswaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $beasiswa = Beasiswa::findOrFail($request->id);
-
         $request->validate([
             'name' => 'required|string|max:255',
+            'cover' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'pdf' => 'nullable|file|mimes:pdf|max:10000',
             'desc' => 'required|string',
             'provider' => 'required|string',
             'jenjang' => 'required|string',
             'amount' => 'required|string',
             'quota' => 'required|integer|min:1',
-            'qualifications' => 'array',
+            'qualifications' => 'nullable|array',
             'qualifications.*' => 'string',
-            'benefits' => 'array',
+            'benefits' => 'nullable|array',
             'benefits.*' => 'string',
             'open' => 'required|date',
             'deadline' => 'required|date|after:open',
-            'requirements' => 'required|array',
+            'requirements' => 'array',
             'requirements.*' => 'string',
         ]);
 
-        $path = $beasiswa->cover;
-        if ($request->hasFile('cover')) {
-            // Delete old cover if it exists
-            if ($beasiswa->cover) {
-                Storage::disk('public')->delete($beasiswa->cover);
+        $beasiswa = Beasiswa::findOrFail($id);
+
+        DB::transaction(function () use ($request, $beasiswa) {
+            $updateData = [
+                'title' => $request->name,
+                'description' => $request->desc,
+                'official_website' => $request->website,
+                'contact_person' => $request->contact,
+                'provider' => $request->provider,
+                'jenjang' => $request->jenjang,
+                'amount' => $request->amount,
+                'quota' => $request->quota,
+                'qualifications' => $request->qualifications ?? [],
+                'benefits' => $request->benefits ?? [],
+                'open' => $request->open,
+                'deadline' => $request->deadline,
+            ];
+
+            if ($request->hasFile('cover')) {
+                // Delete old cover if it exists
+                if ($beasiswa->cover) {
+                    Storage::disk('public')->delete($beasiswa->cover);
+                }
+                $file = $request->file('cover');
+                $fileName = uniqid('cover_') . '.' . $file->getClientOriginalExtension();
+                $path = $file->storeAs('documents/cover', $fileName, 'public');
+                $updateData['cover'] = $path;
             }
-            // Store new cover
-            $file = $request->file('cover');
-            $extension = $file->guessExtension() ?? $file->getClientOriginalExtension();
-            $fileName = uniqid('cover_') . '.' . $extension;
-            $path = $file->storeAs('documents/cover', $fileName, 'public');
-        }
 
-        $pdfPath = $beasiswa->pdf;
-        if ($request->hasFile('pdf')) {
-
-            if ($beasiswa->pdf) {
-                Storage::disk('public')->delete($beasiswa->pdf);
+            if ($request->hasFile('pdf')) {
+                // Delete old pdf if it exists
+                if ($beasiswa->pdf) {
+                    Storage::disk('public')->delete($beasiswa->pdf);
+                }
+                $pdfFile = $request->file('pdf');
+                $pdfPath = $pdfFile->storeAs('documents/PDFs', uniqid('PDF_') . '.' . $pdfFile->getClientOriginalExtension(), 'public');
+                $updateData['pdf'] = $pdfPath;
             }
 
-            $pdfFile = $request->file('pdf');
-            $pdfPath = $pdfFile->storeAs('documents/PDFs', uniqid('PDF_') . '.' . $pdfFile->getClientOriginalExtension(), 'public');
-        }
+            $beasiswa->update($updateData);
 
-        $beasiswa->update([
-            'title' => $request->name,
-            'cover' => $path,
-            'description' => $request->desc,
-            'official_website' => $request->website,
-            'contact_person' => $request->contact,
-            'pdf' => $pdfPath,
-            'provider' => $request->provider,
-            'jenjang' => $request->jenjang,
-            'amount' => $request->amount,
-            'quota' => $request->quota,
-            'qualifications' => $request->qualifications,
-            'benefits' => $request->benefits,
-            'open' => $request->open,
-            'deadline' => $request->deadline,
-        ]);
+            // Update requirements using sync
+            $requirementIds = [];
+            if ($request->has('requirements')) {
+                foreach ($request->requirements as $reqText) {
+                    if (!empty($reqText)) {
+                        $requirement = Requirements::firstOrCreate(['name' => $reqText]);
+                        $requirementIds[] = $requirement->id;
+                    }
+                }
+            }
+            $beasiswa->requirements()->sync($requirementIds);
+        });
 
-        $requirementIds = [];
-
-        $requirements = $request->requirements;
-
-        foreach ($requirements as $reqText) {
-            $requirement = Requirements::firstOrCreate(['name' => $reqText]);
-            $requirementIds[] = $requirement->id;
-        }
-
-        $beasiswa->requirements()->sync($requirementIds);
-        
-        
-        return redirect()->route('beasiswa.detail', $beasiswa->id)->with('success', 'Beasiswa updated successfully!');
+        return redirect()
+            ->route('beasiswa.detail', $beasiswa->id)
+            ->with('success', 'Beasiswa berhasil diperbarui');
     }
 
     public function beasiswa_delete($id){
@@ -306,27 +310,33 @@ class BeasiswaController extends Controller
 
         $request->validate([
             'heroImage' => 'nullable|image|max:2048',
+            'bigText' => 'required|string',
+            'smallText' => 'required|string'
         ]);
 
-        $path = $hero->heroImage;
+        $updateData = [
+            'bigText' => $request->bigText,
+            'smallText' => $request->smallText,
+        ];
+
         if ($request->hasFile('heroImage')) {
-            // Delete old cover if it exists
+            // Delete old image if exists
             if ($hero->heroImage) {
                 Storage::disk('public')->delete($hero->heroImage);
             }
-            // Store new cover
+            
+            // Store new image
             $file = $request->file('heroImage');
-            $extension = $file->guessExtension() ?? $file->getClientOriginalExtension();
-            $fileName = uniqid('heroImage_') . '.' . $extension;
+            $fileName = uniqid('heroImage_') . '.' . $file->extension();
             $path = $file->storeAs('documents/heroImage', $fileName, 'public');
+            
+            // Add image path to update data
+            $updateData['heroImage'] = $path;
         }
-        
-        $hero->update([
-            'heroImage' => $path,
-            'bigText' => $request->bigText,
-            'smallText' => $request->smallText,
-        ]);
 
-        return redirect()->route('beasiswa');
+        // Update hero with all data at once
+        $hero->update($updateData);
+
+        return redirect()->route('beasiswa')->with('success', 'Hero berhasil diperbarui');
     }
 }

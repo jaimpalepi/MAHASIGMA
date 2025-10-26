@@ -10,6 +10,13 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body>
+    <!-- VERIFIKASI: jika belum login -> ke halaman login; jika admin -> ke dispen.index -->
+    @if(!Auth::check())
+        <script>window.location.href = "{{ route('show.login') }}";</script>
+    @elseif(Auth::user()->role === 'admin')
+        <script>window.location.href = "{{ route('dispen.index') }}";</script>
+    @endif
+
     <x-navbar-artikel />
     <div class="max-w-xl mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
         <h2 class="text-2xl font-semibold mb-6">Ajukan Surat Dispensasi</h2>

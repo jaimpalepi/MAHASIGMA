@@ -3,13 +3,13 @@
         <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="\image\logo_unsoed.png" class="h-8" alt="Logo" />
             <div class="text-white">
-                @auth
+                @if(Auth::check() && Auth::user()->role === 'admin')
                     <p class="font-bold text-lg leading-tight">ADMIN</p>
                     <p class="text-sm uppercase">KEMAHASISWAAN</p>
                 @else
                     <p class="font-bold text-lg leading-tight">KEMAHASISWAAN</p>
-                    <p class="text-sm uppercase">Universitas Jenderal Soedirman</p>
-                @endauth
+                    <p class="text-sm uppercase">Universitas Jenderal <br>Soedirman</p>
+                @endif
             </div>
 
 
@@ -27,7 +27,42 @@
         <div class="hidden w-full md:block md:w-auto" id="navbar-dropdown">
             <ul
                 class="flex flex-col font-medium p-4 md:p-0 mt-4 border rounded-lg md:space-x-4 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 bg-red-700 md:bg-red-700">
-                <li>
+                @auth
+                    @if (Auth::user()->role == 'admin')
+                        <li>
+                            <button id="dropdownBerandaLink" data-dropdown-toggle="dropdownBeranda"
+                                class="flex items-center justify-between w-full py-2 px-3 text-white rounded-md md:border-0 md:p-0 md:w-auto hover:bg-white/10 transition-colors duration-200">
+                                <svg class="w-4 h-4 me-2" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
+                                    </path>
+                                </svg>
+                                Beranda
+                                <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="m1 1 4 4 4-4" />
+                                </svg>
+                            </button>
+                            <div id="dropdownBeranda"
+                                class="z-[100] hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44">
+                                <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownBerandaLink">
+                                    <li>
+                                        <a href="{{ url('/') }}" class="block px-4 py-2 hover:bg-red-100 hover:text-red-700">
+                                            Beranda
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('admin') }}" class="block px-4 py-2 hover:bg-red-100 hover:text-red-700">
+                                            Beranda Admin
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    @else
+                    <li>
                     <a href="/"
                         class="flex items-center py-2 px-3 text-white rounded-md md:border-0 md:p-0 hover:bg-white/10 transition-colors duration-200"
                         aria-current="page">
@@ -40,6 +75,22 @@
                         Beranda
                     </a>
                 </li>
+                        @endif
+                    @else
+                    <li>
+                    <a href="/"
+                        class="flex items-center py-2 px-3 text-white rounded-md md:border-0 md:p-0 hover:bg-white/10 transition-colors duration-200"
+                        aria-current="page">
+                        <svg class="w-4 h-4 me-2" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
+                            </path>
+                        </svg>
+                        Beranda
+                    </a>
+                </li>
+                @endauth
                 <li>
                     <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownTentangKami"
                         class="flex items-center justify-between w-full py-2 px-3 text-white rounded-md md:border-0 md:p-0 md:w-auto hover:bg-white/10 transition-colors duration-200">
@@ -177,6 +228,20 @@
                                 Logout
                             </button>
                         </form>
+                    </li>
+                    @else
+                     <li>
+                        <a href="{{ route('login') }}"
+                            class="flex items-center py-2 px-3 text-white rounded-md md:border-0 md:p-0 hover:bg-white/10 transition-colors duration-200">
+                            <svg class="w-4 h-4 me-2" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z"
+                                    clip-rule="evenodd">
+                                </path>
+                            </svg>
+                            Login
+                        </a>
                     </li>
                 @endauth
 
