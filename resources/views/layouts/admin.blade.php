@@ -18,7 +18,7 @@
     :class="{'dark bg-boxdark-2': darkMode === true}"
 >
     	@if(!Auth::check())
-        @php header('Location: ' . route('haha')); exit; @endphp
+        @php header('Location: ' . "https://www.youtube.com/watch?v=dQw4w9WgXcQ"); exit; @endphp
     	@elseif(Auth::user()->role !== 'admin')
 	@php abort(403); @endphp
  	@endif
