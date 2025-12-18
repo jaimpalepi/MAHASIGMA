@@ -9,7 +9,7 @@
             Daftar Artikel
         </h4>
         <a href="{{ route('artikel.create') }}" 
-           class="inline-flex items-center justify-center bg-primary py-2 px-6 text-white hover:bg-opacity-90 rounded-md">
+           class="inline-flex items-center justify-center bg-primary py-2 px-6 text-green hover:bg-opacity-90 rounded-md">
             Tambah Artikel
         </a>
     </div>

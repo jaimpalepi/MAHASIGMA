@@ -17,7 +17,7 @@
 <body>
     <x-navbar-artikel />
     <!-- Header Section -->
-    <div class="relative bg-[url('/public/image/bg-layanan.jpg')] bg-cover bg-center bg-no-repeat py-40 px-4 md:px-20">
+    <div class="relative bg-[url('/public/image/bg-layanan.png')] bg-cover bg-center bg-no-repeat py-40 px-4 md:px-20">
         <div class="max-w-7xl mx-auto text-center absolute bottom-[30px] left-[30px]">
             <h1 class="text-[70px] font-bold mb-4 text-white leading-none">LAYANAN MAHASISWA</h1>
         </div>
