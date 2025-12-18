@@ -14,10 +14,9 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'role',
-        'nim',
-        'jurusan_id',
         'email',
         'password',
+        'google_id',
     ];
 
     public function jurusan()

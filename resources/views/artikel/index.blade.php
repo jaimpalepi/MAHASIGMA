@@ -12,6 +12,10 @@
         rel="stylesheet">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <title>MAHASIGMA</title>
+    <style>
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
 </head>
 
 <body class="bg-gray-50">
@@ -110,60 +114,112 @@
         </div>
         @endif
 
-        <div class="my-12 px-4">
+        <div x-data="{
+                isDown: false,
+                startX: 0,
+                scrollLeftVal: 0,
+                kegiatanScroll(direction) {
+                    this.$nextTick(() => {
+                        const container = this.$refs.kegiatanContainer;
+                        if (!container) return;
+                        // Find a card (.snap-start) and compute its width + gap to scroll one card at a time
+                        const firstItem = container.querySelector('.snap-start');
+                        let scrollAmount;
+                        if (firstItem) {
+                            const style = getComputedStyle(container);
+                            // Try common gap properties; fallback to 24px
+                            const gap = parseFloat(style.columnGap) || parseFloat(style.gap) || 24;
+                            scrollAmount = firstItem.offsetWidth + gap;
+                        } else {
+                            scrollAmount = Math.floor(container.offsetWidth * 0.75);
+                        }
 
-            <h2 class="text-3xl font-bold text-gray-800 border-b-4 border-red-600 pb-2 mb-6 inline-block">
-                Acara Mendatang
-            </h2>
+                        const newLeft = direction === 'left' ? container.scrollLeft - scrollAmount : container.scrollLeft + scrollAmount;
+                        container.scrollTo({ left: newLeft, behavior: 'smooth' });
+                    });
+                },
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-
-                <div class="md:col-span-1">
-                    <img src="{{ asset('image/unnamed.png') }}" alt="Ilustrasi Acara" class="w-full h-auto object-cover rounded-lg shadow-lg">
-                </div>
-
-                <div class="md:col-span-2">
-                    <ol class="relative border-s border-gray-200">
-                        
-                        {{-- Loop untuk setiap item acara --}}
-                        @forelse($acara as $item)
-                        <li class="mb-10 ms-6">
-                            <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -start-3 ring-8 ring-white">
-                                <svg class="w-2.5 h-2.5 text-blue-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-                                </svg>
-                            </span>
-                            
-                            <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900">
-                                <a href="{{ route('artikel.show', $item->id) }}" class="hover:text-red-700 transition-colors duration-300">{{ $item->judul }}</a>
-                                
-                                @if($loop->first)
-                                <span class="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-sm ms-3">Terbaru</span>
-                                @endif
-                            </h3>
-                            
-                            <time class="block mb-2 text-sm font-normal leading-none text-gray-400">
-                            Diterbitkan pada {{ $item->created_at->translatedFormat('d F Y') }}
-                            </time>
-                            
-                            <p class="mb-4 text-base font-normal text-gray-500">
-                                {!! Str::limit(strip_tags($item->isi), 120) !!}
-                            </p>
-                            
-                            <a href="{{ route('artikel.show', $item->id) }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-100 focus:text-blue-700">
-                                Selengkapnya <svg class="w-3 h-3 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/></svg>
-                            </a>
-                        </li>
-                        @empty
-                        {{-- Pesan jika tidak ada acara yang ditemukan --}}
-                        <li class="ms-4">
-                            <p class="text-gray-500">Belum ada acara yang dijadwalkan.</p>
-                        </li>
-                        @endforelse
-
-                    </ol>
-                </div>
+                pointerDown(e) {
+                    this.isDown = true;
+                    this.startX = (e.type && e.type.includes && e.type.includes('touch')) ? e.touches[0].clientX : e.clientX;
+                    this.scrollLeftVal = this.$refs.kegiatanContainer.scrollLeft;
+                    this.$refs.kegiatanContainer.classList.add('cursor-grabbing');
+                    if (e.pointerId && this.$refs.kegiatanContainer.setPointerCapture) {
+                        this.$refs.kegiatanContainer.setPointerCapture(e.pointerId);
+                    }
+                },
+                pointerMove(e) {
+                    if (!this.isDown) return;
+                    const x = (e.type && e.type.includes && e.type.includes('touch')) ? e.touches[0].clientX : e.clientX;
+                    const walk = this.startX - x;
+                    this.$refs.kegiatanContainer.scrollLeft = this.scrollLeftVal + walk;
+                },
+                pointerUp(e) {
+                    this.isDown = false;
+                    this.$refs.kegiatanContainer.classList.remove('cursor-grabbing');
+                    if (e.pointerId && this.$refs.kegiatanContainer.releasePointerCapture) {
+                        this.$refs.kegiatanContainer.releasePointerCapture(e.pointerId);
+                    }
+                }
+            }" class="my-12 px-4">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-3xl font-bold text-gray-800 border-b-4 border-red-600 pb-2 inline-block">
+                    Kegiatan
+                </h2>
+                @if($acara->isNotEmpty())
+                <!-- <div class="hidden sm:flex space-x-2">
+                    <button @click="kegiatanScroll('left')" aria-label="Scroll Left" class="bg-white hover:bg-gray-100 text-gray-800 p-2 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                    <button @click="kegiatanScroll('right')" aria-label="Scroll Right" class="bg-white hover:bg-gray-100 text-gray-800 p-2 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div> -->
+                @endif
             </div>
+
+            @if($acara->isNotEmpty())
+                <div x-ref="kegiatanContainer"
+                     @pointerdown="pointerDown($event)" @pointermove="pointerMove($event)" @pointerup="pointerUp($event)" @pointercancel="pointerUp($event)" @pointerleave="pointerUp($event)"
+                     @touchstart.prevent="pointerDown($event)" @touchmove.prevent="pointerMove($event)" @touchend="pointerUp($event)"
+                     class="flex overflow-x-auto snap-x snap-mandatory space-x-6 pb-4 -mb-4 scrollbar-hide"
+                     :class="isDown ? 'cursor-grabbing' : 'cursor-grab'"
+                     style="touch-action: pan-y;">
+                    @foreach($acara as $item)
+                    <div class="snap-start flex-shrink-0 w-80 md:w-96 bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:-translate-y-2">
+                        @if ($item->cover)
+                            <a href="{{ route('artikel.show', $item->id) }}">
+                                <img src="{{ asset('storage/' . $item->cover) }}" alt="{{ $item->judul }}" class="w-full h-48 object-cover">
+                            </a>
+                        @endif
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                                <a href="{{ route('artikel.show', $item->id) }}" class="hover:text-red-700 transition-colors duration-300">
+                                    {{ Str::limit($item->judul, 60) }}
+                                </a>
+                            </h3>
+                            <time class="block mb-4 text-sm font-normal leading-none text-gray-400">
+                                Diterbitkan pada {{ $item->created_at->translatedFormat('d F Y') }}
+                            </time>
+                            <div class="text-gray-600 text-sm line-clamp-3 flex-grow">{!! Str::limit(strip_tags($item->isi), 100) !!}</div>
+                            <div class="mt-4 pt-4 border-t">
+                                <a href="{{ route('artikel.show', $item->id) }}" class="text-blue-600 hover:underline text-sm font-medium">
+                                    Baca Selengkapnya →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="bg-gray-100 rounded-lg p-8 text-center">
+                    <p class="text-gray-500">Belum ada kegiatan yang dijadwalkan.</p>
+                </div>
+            @endif
         </div>
 
         <div>

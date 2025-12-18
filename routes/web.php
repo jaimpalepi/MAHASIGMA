@@ -10,6 +10,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LayananController;
 use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\GoogleController;
 
 // Route::get('/', function () {
 //     return redirect()->route('beasiswa');
@@ -17,6 +18,9 @@ use App\Http\Controllers\KegiatanController;
 
 route::get('/login1701', [AuthController::class, 'showLogin'])->name('show.login');
 route::post('/login1701', [AuthController::class, 'login'])->name('login');
+
+Route::get("auth/google", [GoogleController::class, "redirectToGoogle"])->name("redirect.google");
+Route::get("auth/google/callback", [GoogleController::class, "handleGoogleCallback"]);
 
 route::get('/register1701', [AuthController::class, 'showRegister'])->name('show.register');
 route::post('/register1701', [AuthController::class, 'register'])->name('register');
